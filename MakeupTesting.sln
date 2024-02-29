@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34601.278
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MakeupTestingPageObjects", "MakeupTesting\MakeupTestingPageObjects.csproj", "{B084C7D5-DB55-4E88-B714-B3C09BB24E63}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MakeupTestingTests", "MakeupTestingTests\MakeupTestingTests.csproj", "{8441A468-BAB3-4640-A555-1CE5BB258C27}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B084C7D5-DB55-4E88-B714-B3C09BB24E63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B084C7D5-DB55-4E88-B714-B3C09BB24E63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B084C7D5-DB55-4E88-B714-B3C09BB24E63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B084C7D5-DB55-4E88-B714-B3C09BB24E63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8441A468-BAB3-4640-A555-1CE5BB258C27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8441A468-BAB3-4640-A555-1CE5BB258C27}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8441A468-BAB3-4640-A555-1CE5BB258C27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8441A468-BAB3-4640-A555-1CE5BB258C27}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {06F33F12-01B5-4270-8D8F-B57F1954D26C}
+	EndGlobalSection
+EndGlobal
