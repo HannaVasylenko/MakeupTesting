@@ -25,5 +25,20 @@ namespace MakeupTestingTests
             StringAssert.Contains(searchTitle, searchTitleText, "Search title text do not match");
             
         }
+
+        [Test]
+        public void VerifyInputSpaceInSearch()
+        {
+            string spaceKey = " ";
+            string searchTitle = "Знайдено 0 товарів";
+            InitPage initPage = new InitPage(driver);
+            initPage.SearchClick();
+            initPage.InputProductName(spaceKey);
+
+            SearchResultPage searchResultPage = new SearchResultPage(driver);
+            string searchTitleText = searchResultPage.GetSearchTitleText();
+            StringAssert.Contains(searchTitle, searchTitleText, "Search title text do not match");
+
+        }
     }
 }
