@@ -17,8 +17,21 @@ namespace MakeupTestingPageObjects
 
         private IWebElement btnPageLanguageru => webDriver.FindElement(By.XPath("//header//a[text()='Рус']"));
         private IWebElement btnPageLanguageUA => webDriver.FindElement(By.XPath("//header//a[text()='Укр']"));
+        private IWebElement btnSearch => webDriver.FindElement(By.XPath("//div[@data-popup-handler='search']"));
+        private IWebElement txtSearch => webDriver.FindElement(By.XPath("//input[@itemprop='query-input']"));
+
+
         public void SwitchLanguageToru() => btnPageLanguageru.Click();
 
         public void SwitchLanguageToUA() => btnPageLanguageUA.Click();
+        public void InputProductName(string text)
+        {
+            txtSearch.SendKeys(text);
+            txtSearch.SendKeys(Keys.Enter);
+        }
+
+        public void SearchClick() => btnSearch.Click();
+
+
     }
 }
