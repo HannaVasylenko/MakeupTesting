@@ -40,5 +40,20 @@ namespace MakeupTestingTests
             StringAssert.Contains(searchTitle, searchTitleText, "Search title text do not match");
 
         }
+
+        [Test]
+        public void VerifyInputSpecialCharactersInSearch()
+        {
+            string specialCharacters = "*-/,";
+            string searchTitle = $"Результати пошуку за запитом «{specialCharacters}»";
+            InitPage initPage = new InitPage(driver);
+            initPage.SearchClick();
+            initPage.InputProductName(specialCharacters);
+
+            SearchResultPage searchResultPage = new SearchResultPage(driver);
+            string searchTitleText = searchResultPage.GetSearchTitleText();
+            StringAssert.Contains(searchTitle, searchTitleText, "Search title text do not match");
+
+        }
     }
 }
