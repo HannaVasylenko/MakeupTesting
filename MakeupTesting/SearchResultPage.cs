@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace MakeupTestingPageObjects
 {
@@ -15,6 +16,22 @@ namespace MakeupTestingPageObjects
         }
 
         private IWebElement titleText => webDriver.FindElement(By.XPath("//div[@class='search-results info-text']"));
+
+        private List<IWebElement> productList => webDriver.FindElements(By.XPath("//div[@class='catalog-products']")).ToList();
+
         public string GetSearchTitleText() => titleText.Text;
+
+        public List<string> GetProductTitleText()
+        {
+            List<string> result = new List<string>();
+
+            foreach (var product in productList)
+            {
+                IWebElement productTitle = product.FindElement(By.XPath(".//a[@data-default-name]"));
+                string productTitleText = productTitle.Text;
+                result.Add(productTitleText);
+            }
+            return result;
+        }
     }
 }

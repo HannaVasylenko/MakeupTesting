@@ -31,7 +31,5 @@ namespace MakeupTestingPageObjects
         }
 
         public void SearchClick() => btnSearch.Click();
-
-
     }
 }

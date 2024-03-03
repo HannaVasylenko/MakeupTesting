@@ -1,6 +1,8 @@
 ﻿using NUnit.Framework;
+using NUnit.Framework.Internal;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using System.Net.NetworkInformation;
 
 namespace MakeupTestingTests
 {
