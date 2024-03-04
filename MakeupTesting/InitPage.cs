@@ -19,13 +19,16 @@ namespace MakeupTestingPageObjects
         private IWebElement btnPageLanguageUA => webDriver.FindElement(By.XPath("//header//a[text()='Укр']"));
         private IWebElement btnSearch => webDriver.FindElement(By.XPath("//div[@data-popup-handler='search']"));
         private IWebElement txtSearch => webDriver.FindElement(By.XPath("//input[@itemprop='query-input']"));
-        private IWebElement linkCategoryDekoratyvnaKosmetyka => webDriver.FindElement(By.XPath("//a[text()='Макіяж']"));
-
+        private IWebElement linkDecorativeCosmetics => webDriver.FindElement(By.XPath("//a[text()='Макіяж']"));
+        private IWebElement linkSubCategory => webDriver.FindElement(By.XPath("//a[text()='Очі']"));
+        private IWebElement titleSubCategory => webDriver.FindElement(By.XPath("//span[text()='Косметика для очей']"));
 
         public void SwitchLanguageToru() => btnPageLanguageru.Click();
 
         public void SwitchLanguageToUA() => btnPageLanguageUA.Click();
-        public void SelectCategory() => linkCategoryDekoratyvnaKosmetyka.Click();
+        public void SelectCategory() => linkDecorativeCosmetics.Click();
+
+        public void SelectSubCategory() => linkSubCategory.Click();
 
         public void InputProductName(string text)
         {
@@ -34,5 +37,9 @@ namespace MakeupTestingPageObjects
         }
 
         public void SearchClick() => btnSearch.Click();
+
+        public string GetSubCategoryTitleText() => titleSubCategory.Text;
+
+        public IWebElement GetDecorativeСosmeticsElement() => linkDecorativeCosmetics;
     }
 }

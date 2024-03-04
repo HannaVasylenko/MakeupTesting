@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MakeupTestingTests
 {
-    public class DekoratyvnaKosmetykaCategoryTests : BaseTest
+    public class DecorativeCosmeticsTests : BaseTest
     {
         [Test]
         public void VerifySelectCategory()
@@ -17,7 +17,7 @@ namespace MakeupTestingTests
             string title = "Декоративна косметика";
             InitPage initPage = new InitPage(driver);
             initPage.SelectCategory();
-            DekoratyvnaKosmetykaPage dekoratyvnaKosmetyka = new DekoratyvnaKosmetykaPage(driver);
+            DecorativeСosmeticsPage dekoratyvnaKosmetyka = new DecorativeСosmeticsPage(driver);
             string titleText = dekoratyvnaKosmetyka.GetCategoryTitleText();
             ClassicAssert.AreEqual(title, titleText, "The titles do not match");
         }

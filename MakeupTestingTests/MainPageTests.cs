@@ -1,6 +1,8 @@
 ﻿using MakeupTestingPageObjects;
 using NUnit.Framework;
 using NUnit.Framework.Legacy;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +26,18 @@ namespace MakeupTestingTests
             
             initPage.SwitchLanguageToUA();
             ClassicAssert.AreEqual(driver.Title, titleMainPageUA, "The page is displayed in a different language");
+        }
+
+        [Test]
+        public void SelectSubCategory()
+        {
+            string title = "Косметика для очей";
+            InitPage initPage = new InitPage(driver);
+            Actions actions = new Actions(driver);
+            actions.MoveToElement(initPage.GetDecorativeСosmeticsElement()).Perform();
+            initPage.SelectSubCategory();
+            string titleText = initPage.GetSubCategoryTitleText();
+            ClassicAssert.AreEqual(title, titleText, "The titles do not match");
         }
     }
 }

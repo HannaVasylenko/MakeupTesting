@@ -21,11 +21,9 @@ namespace MakeupTestingPageObjects
 
         private IWebElement btnlastPageInSearch => webDriver.FindElement(By.XPath("(//li[@class='page__item']/label)[last()]"));
 
-
         public string GetSearchTitleText() => titleText.Text;
 
         public void LastPageClick() => btnlastPageInSearch.Click();
-
 
         public List<string> GetProductTitleText()
         {
