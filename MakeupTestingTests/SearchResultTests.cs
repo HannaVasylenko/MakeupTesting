@@ -71,5 +71,25 @@ namespace MakeupTestingTests
                 StringAssert.Contains(lowerCaseProductName, lowerCaseProductTitle, $"The product name is missing in the title {productTitleText}");
             }
         }
+
+        [Test]
+        public void VerifySearchResultOnLastPage()
+        {
+            string productName = "крем";
+            InitPage initPage = new InitPage(driver);
+            initPage.SearchClick();
+            initPage.InputProductName(productName);
+
+            SearchResultPage searchResultPage = new SearchResultPage(driver);
+            searchResultPage.LastPageClick();
+            List<string> productTitles = searchResultPage.GetProductTitleText();
+            foreach (var productTitleText in productTitles)
+            {
+                string lowerCaseProductTitle = productTitleText.ToLower();
+                string lowerCaseProductName = productName.ToLower();
+
+                StringAssert.Contains(lowerCaseProductName, lowerCaseProductTitle, $"The product name is missing in the title {productTitleText}");
+            }
+        }
     }
 }
