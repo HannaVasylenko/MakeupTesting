@@ -21,14 +21,18 @@ namespace MakeupTestingPageObjects
         private IWebElement btnPageLanguageru => webDriver.FindElement(By.XPath("//header//a[text()='Рус']"));
         private IWebElement btnPageLanguageUA => webDriver.FindElement(By.XPath("//header//a[text()='Укр']"));
         private IWebElement btnSearch => webDriver.FindElement(By.XPath("//div[@data-popup-handler='search']"));
+        private IWebElement btnScrollUp => webDriver.FindElement(By.XPath("//div[@class='button-up']"));
+
         private IWebElement txtSearch => webDriver.FindElement(By.XPath("//input[@itemprop='query-input']"));
-        private IWebElement linkDecorativeCosmetics(string category) => webDriver.FindElement(By.XPath($"//a[text()='{category}']")); // Макіяж
+        private IWebElement linkDecorativeCosmetics(string category) => webDriver.FindElement(By.XPath($"//a[text()='{category}']"));
         private IWebElement linkSubCategory(string subCategory) => webDriver.FindElement(By.XPath($"//a[text()='{subCategory}']"));
-        private IWebElement titleSubCategory(string titlesubCategory) => webDriver.FindElement(By.XPath($"//span[text()='{titlesubCategory}']")); // Косметика для очей
+        private IWebElement titleSubCategory(string titlesubCategory) => webDriver.FindElement(By.XPath($"//span[text()='{titlesubCategory}']"));
 
         public void SwitchLanguageToru() => btnPageLanguageru.Click();
 
         public void SwitchLanguageToUA() => btnPageLanguageUA.Click();
+        public void ScrollUp() => btnScrollUp.Click();
+
         public void SelectCategory(string category) => linkDecorativeCosmetics(category).Click();
 
         public void SelectSubCategory(string subCategory) => linkSubCategory(subCategory).Click();

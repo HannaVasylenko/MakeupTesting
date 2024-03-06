@@ -44,5 +44,19 @@ namespace MakeupTestingTests
             string titleText = initPage.GetSubCategoryTitleText(config["subCategoryTitle"]);
             ClassicAssert.AreEqual(titleSubCategory, titleText, "The titles do not match");
         }
+
+        [Test]
+        public void VerifyScrollUpButton()
+        {
+            var config = new ConfigurationBuilder().AddJsonFile("appconfig.json").Build();
+
+            InitPage initPage = new InitPage(driver);
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0, document.body.scrollHeight);");
+            double scrollPositionBeforeClick = Convert.ToDouble(js.ExecuteScript("return window.pageYOffset;"));
+            initPage.ScrollUp();
+            double scrollPositionAfterClick = Convert.ToDouble(js.ExecuteScript("return window.pageYOffset;"));
+            ClassicAssert.IsTrue(scrollPositionAfterClick < scrollPositionBeforeClick, "The position on the screen did not change after pressing the scroll up button.");
+        }
     }
 }
