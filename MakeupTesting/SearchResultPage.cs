@@ -17,7 +17,7 @@ namespace MakeupTestingPageObjects
 
         private IWebElement titleText => webDriver.FindElement(By.XPath("//div[@class='search-results info-text']"));
 
-        private List<IWebElement> productList => webDriver.FindElements(By.XPath("//div[@class='catalog-products']")).ToList();
+        private List<IWebElement> productList => webDriver.FindElements(By.XPath("//div[@class='catalog-products']//ul[@class='simple-slider-list']//div[@class='info-product-wrapper']")).ToList();
 
         private IWebElement btnlastPageInSearch => webDriver.FindElement(By.XPath("(//li[@class='page__item']/label)[last()]"));
 
@@ -31,9 +31,8 @@ namespace MakeupTestingPageObjects
 
             foreach (var product in productList)
             {
-                IWebElement productTitle = product.FindElement(By.XPath(".//a[@data-default-name]"));
-                string productTitleText = productTitle.Text;
-                result.Add(productTitleText);
+                string productTitle = product.FindElement(By.XPath(".//a")).GetAttribute("data-default-name");
+                result.Add(productTitle);
             }
             return result;
         }

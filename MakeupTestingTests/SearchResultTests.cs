@@ -1,4 +1,5 @@
 ﻿using MakeupTestingPageObjects;
+using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 using NUnit.Framework.Legacy;
 using System;
@@ -14,7 +15,9 @@ namespace MakeupTestingTests
         [Test]
         public void VerifyInputProductName()
         {
-            string productName = "крем";
+            var config = new ConfigurationBuilder().AddJsonFile("appconfig.json").Build();
+
+            string productName = config["productName"];
             string searchTitle = $"Результати пошуку за запитом «{productName}»";
             InitPage initPage = new InitPage(driver);
             initPage.SearchClick();
@@ -28,7 +31,9 @@ namespace MakeupTestingTests
         [Test]
         public void VerifyInputSpaceInSearch()
         {
-            string spaceKey = " ";
+            var config = new ConfigurationBuilder().AddJsonFile("appconfig.json").Build();
+
+            string spaceKey = config["spaceKey"];
             string searchTitle = "Знайдено 0 товарів";
             InitPage initPage = new InitPage(driver);
             initPage.SearchClick();
@@ -42,7 +47,9 @@ namespace MakeupTestingTests
         [Test]
         public void VerifyInputSpecialCharactersInSearch()
         {
-            string specialCharacters = "*-/,";
+            var config = new ConfigurationBuilder().AddJsonFile("appconfig.json").Build();
+
+            string specialCharacters = config["specialCharacters"];
             string searchTitle = $"Результати пошуку за запитом «{specialCharacters}»";
             InitPage initPage = new InitPage(driver);
             initPage.SearchClick();
@@ -56,7 +63,9 @@ namespace MakeupTestingTests
         [Test]
         public void VerifySearchResultOnFirstPage()
         {
-            string productName = "крем";
+            var config = new ConfigurationBuilder().AddJsonFile("appconfig.json").Build();
+
+            string productName = config["productName"];
             InitPage initPage = new InitPage(driver);
             initPage.SearchClick();
             initPage.InputProductName(productName);
@@ -65,17 +74,16 @@ namespace MakeupTestingTests
             List<string> productTitles = searchResultPage.GetProductTitleText();
             foreach (var productTitleText in productTitles)
             {
-                string lowerCaseProductTitle = productTitleText.ToLower();
-                string lowerCaseProductName = productName.ToLower();
-
-                StringAssert.Contains(lowerCaseProductName, lowerCaseProductTitle, $"The product name is missing in the title {productTitleText}");
+                StringAssert.Contains(productName.ToLower(), productTitleText.ToLower(), $"The product name is missing in the title {productTitleText}");
             }
         }
 
         [Test]
         public void VerifySearchResultOnLastPage()
         {
-            string productName = "крем";
+            var config = new ConfigurationBuilder().AddJsonFile("appconfig.json").Build();
+
+            string productName = config["productName"];
             InitPage initPage = new InitPage(driver);
             initPage.SearchClick();
             initPage.InputProductName(productName);
@@ -85,10 +93,7 @@ namespace MakeupTestingTests
             List<string> productTitles = searchResultPage.GetProductTitleText();
             foreach (var productTitleText in productTitles)
             {
-                string lowerCaseProductTitle = productTitleText.ToLower();
-                string lowerCaseProductName = productName.ToLower();
-
-                StringAssert.Contains(lowerCaseProductName, lowerCaseProductTitle, $"The product name is missing in the title {productTitleText}");
+                StringAssert.Contains(productName.ToLower(), productTitleText.ToLower(), $"The product name is missing in the title {productTitleText}");
             }
         }
     }

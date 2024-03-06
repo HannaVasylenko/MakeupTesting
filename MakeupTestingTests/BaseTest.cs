@@ -23,5 +23,10 @@ namespace MakeupTestingTests
         {
             driver.Close();
         }
+
+        public void WriteLog(string message)
+        {
+            TestContext.Out.WriteLine("\n<br>" + message);
+        }
     }
 }

@@ -8,14 +8,39 @@ using System.Threading.Tasks;
 
 namespace MakeupTestingPageObjects
 {
+    /// <summary>
+    /// The class is a page of a separate category - Decorative cosmetics.
+    /// </summary>
     public class DecorativeСosmeticsPage : BasePage
     {
         public DecorativeСosmeticsPage(IWebDriver driver) : base(driver)
         {
         }
 
-        private IWebElement titleDecorativeCosmetics => webDriver.FindElement(By.XPath("//span[text()='Декоративна косметика']"));
+        private IWebElement titleDecorativeCosmetics(string categoryTitle) => webDriver.FindElement(By.XPath($"//span[text()='{categoryTitle}']"));
+        private IWebElement chbFilterByBrand(string nameOfBrand) => webDriver.FindElement(By.XPath($"//div[@class='catalog-filter-list-wrap']//a[text()='{nameOfBrand}']"));
+        private IWebElement chbFilterByProduct(string filterProductName) => webDriver.FindElement(By.XPath($"//div[@class='catalog-filter-list-wrap']//span[text()='{filterProductName}']"));
+        private List<IWebElement> productList => webDriver.FindElements(By.XPath("//div[@class='catalog-products']//ul[@class='simple-slider-list']//div[@class='info-product-wrapper']")).ToList();
 
-        public string GetCategoryTitleText() => titleDecorativeCosmetics.Text;
+
+        public string GetCategoryTitleText(string categoryTitle) => titleDecorativeCosmetics(categoryTitle).Text;
+
+        public void CheckFilters(string nameOfBrand, string productName)
+        {
+            chbFilterByBrand(nameOfBrand).Click();
+            chbFilterByProduct(productName).Click();
+        }
+
+        public List<string> GetProductTitleText()
+        {
+            List<string> result = new List<string>();
+
+            foreach (var product in productList)
+            {
+                string productTitle = product.FindElement(By.XPath(".//a")).GetAttribute("data-default-name");
+                result.Add(productTitle);
+            }
+            return result;
+        }
     }
 }

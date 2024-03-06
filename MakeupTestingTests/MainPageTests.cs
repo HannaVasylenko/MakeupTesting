@@ -1,4 +1,5 @@
 ﻿using MakeupTestingPageObjects;
+using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 using NUnit.Framework.Legacy;
 using OpenQA.Selenium;
@@ -16,8 +17,10 @@ namespace MakeupTestingTests
         [Test]
         public void ChangePageLanguage()
         {
-            string titleMainPageru = "MAKEUP - интернет-магазин косметики и парфюмерии №1";
-            string titleMainPageUA = "MAKEUP - інтернет-магазин косметики та парфумерії №1";
+            var config = new ConfigurationBuilder().AddJsonFile("appconfig.json").Build();
+
+            string titleMainPageru = config["titleMainPageru"];
+            string titleMainPageUA = config["titleMainPageUA"];
             
             InitPage initPage = new InitPage(driver);
             
@@ -31,13 +34,15 @@ namespace MakeupTestingTests
         [Test]
         public void SelectSubCategory()
         {
-            string title = "Косметика для очей";
+            var config = new ConfigurationBuilder().AddJsonFile("appconfig.json").Build();
+
+            string titleSubCategory = config["titleSubCategory"];
             InitPage initPage = new InitPage(driver);
             Actions actions = new Actions(driver);
-            actions.MoveToElement(initPage.GetDecorativeСosmeticsElement()).Perform();
-            initPage.SelectSubCategory();
-            string titleText = initPage.GetSubCategoryTitleText();
-            ClassicAssert.AreEqual(title, titleText, "The titles do not match");
+            actions.MoveToElement(initPage.GetDecorativeСosmeticsElement(config["category"])).Perform();
+            initPage.SelectSubCategory(config["subCategory"]);
+            string titleText = initPage.GetSubCategoryTitleText(config["subCategoryTitle"]);
+            ClassicAssert.AreEqual(titleSubCategory, titleText, "The titles do not match");
         }
     }
 }
