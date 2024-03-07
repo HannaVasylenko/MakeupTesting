@@ -48,8 +48,6 @@ namespace MakeupTestingTests
         [Test]
         public void VerifyScrollUpButton()
         {
-            var config = new ConfigurationBuilder().AddJsonFile("appconfig.json").Build();
-
             InitPage initPage = new InitPage(driver);
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             js.ExecuteScript("window.scrollTo(0, document.body.scrollHeight);");
@@ -57,6 +55,21 @@ namespace MakeupTestingTests
             initPage.ScrollUp();
             double scrollPositionAfterClick = Convert.ToDouble(js.ExecuteScript("return window.pageYOffset;"));
             ClassicAssert.IsTrue(scrollPositionAfterClick < scrollPositionBeforeClick, "The position on the screen did not change after pressing the scroll up button.");
+        }
+
+        [Test]
+        public void SelectDeliveryVariantByCity()
+        {
+            var config = new ConfigurationBuilder().AddJsonFile("appconfig.json").Build();
+
+            string deliveryCity = config["deliveryCity"];
+            Header header = new Header(driver);
+            header.OpenDeliveryPage();
+            DeliveryPage deliveryPage = new DeliveryPage(driver);
+            deliveryPage.SelectDeliveryCity();
+            deliveryPage.InputDeliveryCity(deliveryCity);
+            deliveryPage.SelectFirstDeliveryCity();
+            StringAssert.Contains(deliveryCity.ToLower(), deliveryPage.GetDeliveryCityText().ToLower(), "Delivery title text do not match");
         }
     }
 }
