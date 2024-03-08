@@ -20,7 +20,7 @@ namespace MakeupTestingPageObjects
         private IWebElement titleDecorativeCosmetics(string categoryTitle) => webDriver.FindElement(By.XPath($"//span[text()='{categoryTitle}']"));
         private IWebElement chbFilterByBrand(string nameOfBrand) => webDriver.FindElement(By.XPath($"//div[@class='catalog-filter-list-wrap']//a[text()='{nameOfBrand}']"));
         private IWebElement chbFilterByProduct(string filterProductName) => webDriver.FindElement(By.XPath($"//div[@class='catalog-filter-list-wrap']//span[text()='{filterProductName}']"));
-        private List<IWebElement> productList => webDriver.FindElements(By.XPath("//div[@class='catalog-products']//li//div[@class='simple-slider-list__link']")).ToList();
+        private List<IWebElement> productList => webDriver.FindElements(By.XPath("//div[@class='catalog-products']//li//div[@class='simple-slider-list__link']")).ToList(); // //div[@class='catalog-products']/ul/li
 
 
         public string GetCategoryTitleText(string categoryTitle) => titleDecorativeCosmetics(categoryTitle).Text;
@@ -37,7 +37,7 @@ namespace MakeupTestingPageObjects
 
             foreach (var product in productList)
             {
-                string productTitle = product.FindElement(By.XPath(".//div[@class='info-product-wrapper']/a")).GetAttribute("data-default-name");
+                string productTitle = webDriver.FindElement(By.XPath("//div[@class='catalog-products']//ul[@class='simple-slider-list']/li/div[@class='simple-slider-list__link']/div[@class='info-product-wrapper']/a")).GetAttribute("data-default-name"); // .//div[@class='info-product-wrapper']/a
                 result.Add(productTitle);
             }
             return result;

@@ -18,16 +18,14 @@ namespace MakeupTestingTests
         public void ChangePageLanguage()
         {
             var config = new ConfigurationBuilder().AddJsonFile("appconfig.json").Build();
-
             string titleMainPageru = config["titleMainPageru"];
             string titleMainPageUA = config["titleMainPageUA"];
             
-            InitPage initPage = new InitPage(driver);
-            
-            initPage.SwitchLanguageToru();
+            Header header = new Header(driver);
+            header.SwitchLanguageToru();
             ClassicAssert.AreEqual(driver.Title, titleMainPageru, "The page is displayed in a different language");
             
-            initPage.SwitchLanguageToUA();
+            header.SwitchLanguageToUA();
             ClassicAssert.AreEqual(driver.Title, titleMainPageUA, "The page is displayed in a different language");
         }
 
@@ -35,11 +33,12 @@ namespace MakeupTestingTests
         public void SelectSubCategory()
         {
             var config = new ConfigurationBuilder().AddJsonFile("appconfig.json").Build();
-
             string titleSubCategory = config["titleSubCategory"];
+            
+            Header header = new Header(driver);
             InitPage initPage = new InitPage(driver);
             Actions actions = new Actions(driver);
-            actions.MoveToElement(initPage.GetDecorativeСosmeticsElement(config["category"])).Perform();
+            actions.MoveToElement(header.GetDecorativeСosmeticsElement(config["category"])).Perform();
             initPage.SelectSubCategory(config["subCategory"]);
             string titleText = initPage.GetSubCategoryTitleText(config["subCategoryTitle"]);
             ClassicAssert.AreEqual(titleSubCategory, titleText, "The titles do not match");
@@ -61,10 +60,11 @@ namespace MakeupTestingTests
         public void SelectDeliveryVariantByCity()
         {
             var config = new ConfigurationBuilder().AddJsonFile("appconfig.json").Build();
-
             string deliveryCity = config["deliveryCity"];
+            
             Header header = new Header(driver);
             header.OpenDeliveryPage();
+            
             DeliveryPage deliveryPage = new DeliveryPage(driver);
             deliveryPage.SelectDeliveryCity();
             deliveryPage.InputDeliveryCity(deliveryCity);

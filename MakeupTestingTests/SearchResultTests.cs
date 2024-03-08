@@ -16,12 +16,12 @@ namespace MakeupTestingTests
         public void VerifyInputProductName()
         {
             var config = new ConfigurationBuilder().AddJsonFile("appconfig.json").Build();
-
             string productName = config["productName"];
             string searchTitle = $"Результати пошуку за запитом «{productName}»";
-            InitPage initPage = new InitPage(driver);
-            initPage.SearchClick();
-            initPage.InputProductName(productName);
+
+            Header header = new Header(driver);
+            header.SearchClick();
+            header.InputProductName(productName);
 
             SearchResultPage searchResultPage = new SearchResultPage(driver);
             string searchTitleText = searchResultPage.GetSearchTitleText();
@@ -32,12 +32,12 @@ namespace MakeupTestingTests
         public void VerifyInputSpaceInSearch()
         {
             var config = new ConfigurationBuilder().AddJsonFile("appconfig.json").Build();
-
             string spaceKey = config["spaceKey"];
             string searchTitle = "Знайдено 0 товарів";
-            InitPage initPage = new InitPage(driver);
-            initPage.SearchClick();
-            initPage.InputProductName(spaceKey);
+
+            Header header = new Header(driver);
+            header.SearchClick();
+            header.InputProductName(spaceKey);
 
             SearchResultPage searchResultPage = new SearchResultPage(driver);
             string searchTitleText = searchResultPage.GetSearchTitleText();
@@ -48,12 +48,12 @@ namespace MakeupTestingTests
         public void VerifyInputSpecialCharactersInSearch()
         {
             var config = new ConfigurationBuilder().AddJsonFile("appconfig.json").Build();
-
             string specialCharacters = config["specialCharacters"];
             string searchTitle = $"Результати пошуку за запитом «{specialCharacters}»";
-            InitPage initPage = new InitPage(driver);
-            initPage.SearchClick();
-            initPage.InputProductName(specialCharacters);
+            
+            Header header = new Header(driver);
+            header.SearchClick();
+            header.InputProductName(specialCharacters);
 
             SearchResultPage searchResultPage = new SearchResultPage(driver);
             string searchTitleText = searchResultPage.GetSearchTitleText();
@@ -64,11 +64,11 @@ namespace MakeupTestingTests
         public void VerifySearchResultOnFirstPage()
         {
             var config = new ConfigurationBuilder().AddJsonFile("appconfig.json").Build();
-
             string productName = config["productName"];
-            InitPage initPage = new InitPage(driver);
-            initPage.SearchClick();
-            initPage.InputProductName(productName);
+            
+            Header header = new Header(driver);
+            header.SearchClick();
+            header.InputProductName(productName);
 
             SearchResultPage searchResultPage = new SearchResultPage(driver);
             List<string> productTitles = searchResultPage.GetProductTitleText();
@@ -78,15 +78,15 @@ namespace MakeupTestingTests
             }
         }
 
-        [Test]
+        [Test(Description = " Test FAILED - The product name is missing in the title (Набор - Rilastil Anti-Age Summer Kit (f/cr/40ml + serum/15ml)), Expected: String containing (крем)")]
         public void VerifySearchResultOnLastPage()
         {
             var config = new ConfigurationBuilder().AddJsonFile("appconfig.json").Build();
-
             string productName = config["productName"];
-            InitPage initPage = new InitPage(driver);
-            initPage.SearchClick();
-            initPage.InputProductName(productName);
+
+            Header header = new Header(driver);
+            header.SearchClick();
+            header.InputProductName(productName);
 
             SearchResultPage searchResultPage = new SearchResultPage(driver);
             searchResultPage.LastPageClick();
