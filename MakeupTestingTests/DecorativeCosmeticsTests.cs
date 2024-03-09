@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 using NUnit.Framework.Legacy;
+using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,13 +36,13 @@ namespace MakeupTestingTests
             Header header = new Header(driver);
             header.SelectCategory(config["category"]);
             DecorativeСosmeticsPage decorativeCosmetics = new DecorativeСosmeticsPage(driver);
-            decorativeCosmetics.CheckFilters(config["nameOfBrand"], config["filterProductName"]);
+            decorativeCosmetics.CheckFiltersByNameAndTypeOfProduct(config["nameOfBrand"], config["filterProductName"]);
             Thread.Sleep(3000);
-            List<string> productTitles = decorativeCosmetics.GetProductTitleText();
+            List<(string productName, string productType)> productTitles = decorativeCosmetics.GetProductTitleText();
             foreach (var productTitleText in productTitles)
             {
-                StringAssert.Contains(nameOfBrand.ToLower(), productTitleText.ToLower(), $"The product name is missing in the title {productTitleText}");
-                StringAssert.Contains(filterProductName.ToLower(), productTitleText.ToLower(), $"The product name is missing in the title {productTitleText}");
+                StringAssert.Contains(nameOfBrand.ToLower(), productTitleText.productName.ToLower(), $"The product name is missing in the title {productTitleText}");
+                StringAssert.Contains(filterProductName.ToLower(), productTitleText.productType.ToLower(), $"The product name is missing in the title {productTitleText}");
             }
         }
     }
