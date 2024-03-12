@@ -17,8 +17,8 @@ namespace MakeupTestingTests
         public void VerifySelectCategory()
         {
             var config = new ConfigurationBuilder().AddJsonFile("appconfig.json").Build();
+            
             string categoryTitleText = config["categoryTitleText"];
-
             Header header = new Header(driver);
             header.SelectCategory(config["category"]);
             DecorativeСosmeticsPage dekoratyvnaKosmetyka = new DecorativeСosmeticsPage(driver);

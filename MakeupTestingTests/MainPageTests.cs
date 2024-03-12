@@ -41,6 +41,7 @@ namespace MakeupTestingTests
             actions.MoveToElement(header.GetDecorativeСosmeticsElement(config["category"])).Perform();
             initPage.SelectSubCategory(config["subCategory"]);
             string titleText = initPage.GetSubCategoryTitleText(config["subCategoryTitle"]);
+            
             ClassicAssert.AreEqual(titleSubCategory, titleText, "The titles do not match");
         }
 
@@ -53,6 +54,7 @@ namespace MakeupTestingTests
             double scrollPositionBeforeClick = Convert.ToDouble(js.ExecuteScript("return window.pageYOffset;"));
             initPage.ScrollUp();
             double scrollPositionAfterClick = Convert.ToDouble(js.ExecuteScript("return window.pageYOffset;"));
+            
             ClassicAssert.IsTrue(scrollPositionAfterClick < scrollPositionBeforeClick, "The position on the screen did not change after pressing the scroll up button.");
         }
 
@@ -64,11 +66,11 @@ namespace MakeupTestingTests
             
             Header header = new Header(driver);
             header.OpenDeliveryPage();
-            
             DeliveryPage deliveryPage = new DeliveryPage(driver);
             deliveryPage.SelectDeliveryCity();
             deliveryPage.InputDeliveryCity(deliveryCity);
             deliveryPage.SelectFirstDeliveryCity();
+            
             StringAssert.Contains(deliveryCity.ToLower(), deliveryPage.GetDeliveryCityText().ToLower(), "Delivery title text do not match");
         }
     }

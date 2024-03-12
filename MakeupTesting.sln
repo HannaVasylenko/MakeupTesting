@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34601.278
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MakeupTestingPageObjects", "MakeupTesting\MakeupTestingPageObjects.csproj", "{B084C7D5-DB55-4E88-B714-B3C09BB24E63}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MakeupTestingPageObjects", "MakeupTesting\MakeupTestingPageObjects.csproj", "{B084C7D5-DB55-4E88-B714-B3C09BB24E63}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MakeupTestingTests", "MakeupTestingTests\MakeupTestingTests.csproj", "{8441A468-BAB3-4640-A555-1CE5BB258C27}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MakeupTestingTests", "MakeupTestingTests\MakeupTestingTests.csproj", "{8441A468-BAB3-4640-A555-1CE5BB258C27}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MakeupTestingModels", "MakeupTestingModels\MakeupTestingModels.csproj", "{EBCE3B5B-BD30-4FB4-A973-24A7C8978473}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{8441A468-BAB3-4640-A555-1CE5BB258C27}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8441A468-BAB3-4640-A555-1CE5BB258C27}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8441A468-BAB3-4640-A555-1CE5BB258C27}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EBCE3B5B-BD30-4FB4-A973-24A7C8978473}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBCE3B5B-BD30-4FB4-A973-24A7C8978473}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBCE3B5B-BD30-4FB4-A973-24A7C8978473}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBCE3B5B-BD30-4FB4-A973-24A7C8978473}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

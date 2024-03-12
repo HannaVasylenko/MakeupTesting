@@ -22,9 +22,9 @@ namespace MakeupTestingTests
             Header header = new Header(driver);
             header.SearchClick();
             header.InputProductName(productName);
-
             SearchResultPage searchResultPage = new SearchResultPage(driver);
             string searchTitleText = searchResultPage.GetSearchTitleText();
+            
             StringAssert.Contains(searchTitle, searchTitleText, "Search title text do not match");
         }
 
@@ -38,9 +38,9 @@ namespace MakeupTestingTests
             Header header = new Header(driver);
             header.SearchClick();
             header.InputProductName(spaceKey);
-
             SearchResultPage searchResultPage = new SearchResultPage(driver);
             string searchTitleText = searchResultPage.GetSearchTitleText();
+            
             StringAssert.Contains(searchTitle, searchTitleText, "Search title text do not match");
         }
 
@@ -50,13 +50,13 @@ namespace MakeupTestingTests
             var config = new ConfigurationBuilder().AddJsonFile("appconfig.json").Build();
             string specialCharacters = config["specialCharacters"];
             string searchTitle = $"Результати пошуку за запитом «{specialCharacters}»";
-            
+        
             Header header = new Header(driver);
             header.SearchClick();
             header.InputProductName(specialCharacters);
-
             SearchResultPage searchResultPage = new SearchResultPage(driver);
             string searchTitleText = searchResultPage.GetSearchTitleText();
+            
             StringAssert.Contains(searchTitle, searchTitleText, "Search title text do not match");
         }
 
@@ -69,7 +69,6 @@ namespace MakeupTestingTests
             Header header = new Header(driver);
             header.SearchClick();
             header.InputProductName(productName);
-
             SearchResultPage searchResultPage = new SearchResultPage(driver);
             List<string> productTitles = searchResultPage.GetProductTitleText();
             foreach (var productTitleText in productTitles)
@@ -87,7 +86,6 @@ namespace MakeupTestingTests
             Header header = new Header(driver);
             header.SearchClick();
             header.InputProductName(productName);
-
             SearchResultPage searchResultPage = new SearchResultPage(driver);
             searchResultPage.LastPageClick();
             List<string> productTitles = searchResultPage.GetProductTitleText();
