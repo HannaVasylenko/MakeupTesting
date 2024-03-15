@@ -19,7 +19,6 @@ namespace MakeupTestingPageObjects
         }
 
         private IWebElement btnScrollUp => webDriver.FindElement(By.XPath("//div[@class='button-up']"));
-
         private IWebElement linkSubCategory(string subCategory) => webDriver.FindElement(By.XPath($"//a[text()='{subCategory}']"));
         private IWebElement titleSubCategory(string titlesubCategory) => webDriver.FindElement(By.XPath($"//span[text()='{titlesubCategory}']"));
 

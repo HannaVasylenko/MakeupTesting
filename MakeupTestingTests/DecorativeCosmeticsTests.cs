@@ -45,5 +45,29 @@ namespace MakeupTestingTests
                 StringAssert.Contains(filterProductName.ToLower(), productTitleText.productType.ToLower(), $"The product name is missing in the title {productTitleText}");
             }
         }
+
+        [Test]
+        public void VerifyFilterProductsByPrice()
+        {
+            // complete the test
+            var config = new ConfigurationBuilder().AddJsonFile("appconfig.json").Build();
+            double minPrice = double.Parse(config["minPrice"]);
+            double maxPrice = double.Parse(config["maxPrice"]);
+
+            Header header = new Header(driver);
+            header.SelectCategory(config["category"]);
+            DecorativeСosmeticsPage decorativeCosmetics = new DecorativeСosmeticsPage(driver);
+            decorativeCosmetics.CheckFiltersByNameAndTypeOfProduct(config["nameOfBrand"], config["filterProductName"]);
+            decorativeCosmetics.SetFilterByPrice(minPrice, maxPrice);
+
+            var searchResultDetails = decorativeCosmetics.GetSearchResultDetails();
+            ClassicAssert.IsNotNull(searchResultDetails);
+
+            foreach (var item in searchResultDetails)
+            {
+                ClassicAssert.LessOrEqual(item.Value, maxPrice, $"Product {item.Key} price {item.Value} is not less than maximum price");
+                ClassicAssert.GreaterOrEqual(item.Value, minPrice, $"Product {item.Key} price {item.Value} is not less than maximum price");
+            }
+        }
     }
 }

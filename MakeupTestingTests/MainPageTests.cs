@@ -73,5 +73,33 @@ namespace MakeupTestingTests
             
             StringAssert.Contains(deliveryCity.ToLower(), deliveryPage.GetDeliveryCityText().ToLower(), "Delivery title text do not match");
         }
+
+        [Test]
+        public void NavigateToBeautyClub()
+        {
+            var config = new ConfigurationBuilder().AddJsonFile("appconfig.json").Build();
+            string titleBeautyClub = config["linkBeautyClub"];
+
+            Header header = new Header(driver);
+            header.SelectBeautyClub();
+            ClassicAssert.AreEqual(titleBeautyClub, driver.Title, "Another page is displayed");
+        }
+
+        [Test]
+        public void NavigateToYouTube()
+        {
+            // add driver.Quit(); close all tabs
+            var config = new ConfigurationBuilder().AddJsonFile("appconfig.json").Build();
+            string titleYouTube = config["titleYouTube"];
+
+            Footer footer = new Footer(driver);
+            string mainPageHandle = driver.CurrentWindowHandle;
+            footer.SelectYouTube();
+            var allWindowHandles = driver.WindowHandles.ToList();
+            string secondWindow = allWindowHandles.Where(x => x != mainPageHandle).Select(x => x).FirstOrDefault();
+            driver.SwitchTo().Window(secondWindow);
+            Thread.Sleep(3000); 
+            ClassicAssert.AreEqual(titleYouTube, driver.Title, "Another page is displayed");
+        }
     }
 }

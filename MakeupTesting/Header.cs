@@ -21,6 +21,10 @@ namespace MakeupTestingPageObjects
         private IWebElement txtSearch => webDriver.FindElement(By.XPath("//input[@itemprop='query-input']"));
 
         private IWebElement linkDecorativeCosmetics(string category) => webDriver.FindElement(By.XPath($"//a[text()='{category}']"));
+        private IWebElement linkBeautyClub => webDriver.FindElement(By.XPath("//a[@class='header-top-list__link bc-about-link']"));
+
+        public void SelectBeautyClub() => linkBeautyClub.Click();
+
         public void OpenDeliveryPage() => linkDelivery.Click();
 
         public void SwitchLanguageToru() => btnPageLanguageru.Click();
