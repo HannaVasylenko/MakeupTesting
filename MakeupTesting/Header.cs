@@ -1,5 +1,6 @@
 ﻿using MakeupTesting;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,10 @@ namespace MakeupTestingPageObjects
         private IWebElement linkDecorativeCosmetics(string category) => webDriver.FindElement(By.XPath($"//a[text()='{category}']"));
         private IWebElement linkBeautyClub => webDriver.FindElement(By.XPath("//a[@class='header-top-list__link bc-about-link']"));
 
+        private IWebElement linkhintFeatures => webDriver.FindElement(By.XPath("//span[text()='Безкоштовна доставка по Україні!']"));
+
+        private IWebElement hintFeatures => webDriver.FindElement(By.XPath("//span[text()='Безкоштовна доставка по Україні!']/parent::*")); //  //a[@class='bg1 feature current']/span
+
         public void SelectBeautyClub() => linkBeautyClub.Click();
 
         public void OpenDeliveryPage() => linkDelivery.Click();
@@ -38,5 +43,7 @@ namespace MakeupTestingPageObjects
             txtSearch.SendKeys(text);
             txtSearch.SendKeys(Keys.Enter);
         }
+        public IWebElement GetHintFeatures() => linkhintFeatures;
+        public string GetHintText() => hintFeatures.GetAttribute("data-text");
     }
 }

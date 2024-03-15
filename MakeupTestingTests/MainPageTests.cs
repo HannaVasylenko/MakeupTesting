@@ -101,5 +101,18 @@ namespace MakeupTestingTests
             Thread.Sleep(3000); 
             ClassicAssert.AreEqual(titleYouTube, driver.Title, "Another page is displayed");
         }
+
+        [Test]
+        public void HoveringOverHint()
+        {
+            var config = new ConfigurationBuilder().AddJsonFile("appconfig.json").Build();
+            string hintText = config["hintText"];
+
+            Header header = new Header(driver);
+            Actions actions = new Actions(driver);
+            actions.MoveToElement(header.GetHintFeatures()).Perform();
+
+            ClassicAssert.AreEqual(hintText, header.GetHintText(), "The hint text does not match the sample");
+        }
     }
 }
