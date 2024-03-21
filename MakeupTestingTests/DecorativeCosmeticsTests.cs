@@ -69,5 +69,38 @@ namespace MakeupTestingTests
                 ClassicAssert.GreaterOrEqual(item.Value, minPrice, $"Product {item.Key} price {item.Value} is not less than maximum price");
             }
         }
+
+        [Test]
+        public void VerifySortProductsBy()
+        {
+            // complete the test
+            var config = new ConfigurationBuilder().AddJsonFile("appconfig.json").Build();
+
+            Header header = new Header(driver);
+            header.SelectCategory(config["category"]);
+            DecorativeСosmeticsPage decorativeCosmetic = new DecorativeСosmeticsPage(driver);
+            decorativeCosmetic.SelectDropdownSortBy();
+            decorativeCosmetic.SelectValueSortBy("вартістю");
+            //List<double> pricesList = ;
+            //List<double> orderedPricesList = pricesList.OrderBy(x => x).ToList();
+            //CollectionAssert.AreEqual(pricesList, orderedPricesList);
+        }
+
+        [Test]
+        public void VerifyRemoveFilters()
+        {
+            var config = new ConfigurationBuilder().AddJsonFile("appconfig.json").Build();
+            
+            Header header = new Header(driver);
+            header.SelectCategory(config["category"]);
+            DecorativeСosmeticsPage decorativeCosmetics = new DecorativeСosmeticsPage(driver);
+            decorativeCosmetics.CheckFiltersByNameAndTypeOfProduct(config["nameOfBrand"], config["filterProductName"]);
+            bool isButtonPresentBefore = decorativeCosmetics.IsRemoveFiltersButtonPresent();
+            decorativeCosmetics.RemoveFilters();
+            bool isButtonNotPresentAfter = decorativeCosmetics.IsRemoveFiltersButtonNotPresent();
+
+            ClassicAssert.IsTrue(isButtonPresentBefore, "Remove filters button is not present before clicking.");
+            ClassicAssert.IsTrue(isButtonNotPresentAfter, "Remove filters button is still present after clicking.");
+        }
     }
 }

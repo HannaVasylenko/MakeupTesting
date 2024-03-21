@@ -35,6 +35,10 @@ namespace MakeupTestingPageObjects
         private IWebElement priceWithPromotion => webDriver.FindElement(By.XPath("//div[@class='simple-slider-list__price_container']//span[@class='simple-slider-list__price product-item__price_red']/span[@class='price_item']"));
 
         private IWebElement OldpriceWithPromotion => webDriver.FindElement(By.XPath("//div[@class='simple-slider-list__price_container']//span[@class='simple-slider-list__price_old']/span[@class='price_item']"));
+        private IWebElement ddlSortBy => webDriver.FindElement(By.XPath("//div[@class='catalog-sort-wrapper']"));
+        private IWebElement linkValueSortBy(string valueSortBy) => webDriver.FindElement(By.XPath($"//label[contains(text(), '{valueSortBy}')]"));
+        private IWebElement btnRemoveFilters => webDriver.FindElement(By.XPath("//div[@class='selected-filter-list__item cancel-filter active']"));
+
 
         public void SelectProductCard(string productAddToCart)
         {
@@ -147,6 +151,44 @@ namespace MakeupTestingPageObjects
             catch (NoSuchElementException)
             {
                 return false;
+            }
+        }
+        public void SelectDropdownSortBy()
+        {
+            WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
+            wait.Until(x => ddlSortBy.Displayed);
+            ddlSortBy.Click();
+        }
+        public void SelectValueSortBy(string valueSortBy)
+        {
+            linkValueSortBy(valueSortBy).Click();
+        }
+        public void RemoveFilters() => btnRemoveFilters.Click();
+        public bool IsRemoveFiltersButtonPresent()
+        {
+            try
+            {
+                WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
+                IWebElement button = wait.Until(ExpectedConditions.ElementExists(By.XPath("//div[@class='selected-filter-list__item cancel-filter active']")));
+                return button != null && button.Displayed;
+            }
+            catch (NoSuchElementException)
+            {
+                return false;
+            }
+        }
+
+        public bool IsRemoveFiltersButtonNotPresent()
+        {
+            try
+            {
+                WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
+                IWebElement button = wait.Until(ExpectedConditions.ElementExists(By.XPath("//div[@class='selected-filter-list__item cancel-filter']")));
+                return button != null && !button.Displayed;
+            }
+            catch (NoSuchElementException)
+            {
+                return true;
             }
         }
     }
