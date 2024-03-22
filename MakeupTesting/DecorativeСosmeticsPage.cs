@@ -38,7 +38,9 @@ namespace MakeupTestingPageObjects
         private IWebElement ddlSortBy => webDriver.FindElement(By.XPath("//div[@class='catalog-sort-wrapper']"));
         private IWebElement linkValueSortBy(string valueSortBy) => webDriver.FindElement(By.XPath($"//label[contains(text(), '{valueSortBy}')]"));
         private IWebElement btnRemoveFilters => webDriver.FindElement(By.XPath("//div[@class='selected-filter-list__item cancel-filter active']"));
+        private IWebElement btnMoreProducts => webDriver.FindElement(By.XPath("//div[text()='Більше товарів']"));
 
+        public void AddMoreProducts() => btnMoreProducts.Click();
 
         public void SelectProductCard(string productAddToCart)
         {
@@ -190,6 +192,13 @@ namespace MakeupTestingPageObjects
             {
                 return true;
             }
+        }
+
+        public int CountProductsInList()
+        {
+            WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
+            wait.Until(driver => productList.All(product => product.Displayed && product.Enabled));
+            return productList.Count;
         }
     }
 }

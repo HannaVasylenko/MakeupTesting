@@ -102,5 +102,20 @@ namespace MakeupTestingTests
             ClassicAssert.IsTrue(isButtonPresentBefore, "Remove filters button is not present before clicking.");
             ClassicAssert.IsTrue(isButtonNotPresentAfter, "Remove filters button is still present after clicking.");
         }
+        [Test]
+        public void VerifyProductsCountByClickBtnMoreProducts()
+        {
+            var config = new ConfigurationBuilder().AddJsonFile("appconfig.json").Build();
+
+            Header header = new Header(driver);
+            header.SelectCategory(config["category"]);
+            DecorativeСosmeticsPage dekorativeCosmetic = new DecorativeСosmeticsPage(driver);
+            int initialCount = dekorativeCosmetic.CountProductsInList();
+            dekorativeCosmetic.AddMoreProducts();
+            Thread.Sleep(3000);
+            int updatedCount = dekorativeCosmetic.CountProductsInList();
+            int expectedCount = initialCount + 36;
+            ClassicAssert.AreEqual(expectedCount, updatedCount, "The products count did not increase by 36 after clicking the 'More products' button.");
+        }
     }
 }
