@@ -114,5 +114,13 @@ namespace MakeupTestingTests
 
             ClassicAssert.AreEqual(hintText, header.GetHintText(), "The hint text does not match the sample");
         }
+        [Test]
+        public void VerifySubscriptionErrorDisplay()
+        {
+            Footer footer = new Footer(driver);
+            footer.InputEmail("a");
+            footer.ClickBtnEmailSubscription();
+            ClassicAssert.IsTrue(footer.IsEmailSubscriptionErrorDisplayed(), "The email subscription error is not displayed or is not invalid.");
+        }
     }
 }
