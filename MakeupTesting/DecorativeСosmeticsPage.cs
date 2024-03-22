@@ -39,6 +39,19 @@ namespace MakeupTestingPageObjects
         private IWebElement linkValueSortBy(string valueSortBy) => webDriver.FindElement(By.XPath($"//label[contains(text(), '{valueSortBy}')]"));
         private IWebElement btnRemoveFilters => webDriver.FindElement(By.XPath("//div[@class='selected-filter-list__item cancel-filter active']"));
         private IWebElement btnMoreProducts => webDriver.FindElement(By.XPath("//div[text()='Більше товарів']"));
+        private List<IWebElement> testimonialsList => webDriver.FindElements(By.XPath("//div[contains(text(), 'Відгуки про Декоративна косметика')]/following-sibling::*//div[@class='slider-button left']/label")).ToList();
+        private IWebElement btnArrowSliderRight => webDriver.FindElement(By.XPath("//div[contains(text(), 'Відгуки про Декоративна косметика')]/following-sibling::*//div[@class='slider-button right']"));
+        private IWebElement btnArrowSliderLeft => webDriver.FindElement(By.XPath("//div[contains(text(), 'Відгуки про Декоративна косметика')]/following-sibling::*//div[@class='slider-button left']"));
+        private int numberOfClicksOnArrow = 0;
+        public int GetNumberOfClicksOnArrow()
+        {
+            return numberOfClicksOnArrow;
+        }
+        public void ClickRightArrowInTestimonialsSlider()
+        {
+            btnArrowSliderRight.Click();
+            numberOfClicksOnArrow++;
+        }
 
         public void AddMoreProducts() => btnMoreProducts.Click();
 
@@ -199,6 +212,17 @@ namespace MakeupTestingPageObjects
             WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
             wait.Until(driver => productList.All(product => product.Displayed && product.Enabled));
             return productList.Count;
+        }
+        public int GetIndexOfActiveTestimonialPage()
+        {
+            for (int i = 0; i < testimonialsList.Count; i++)
+            {
+                if (testimonialsList[i].GetAttribute("class").Contains("active"))
+                {
+                    return i;
+                }
+            }
+            return -1;
         }
     }
 }

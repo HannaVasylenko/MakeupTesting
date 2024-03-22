@@ -117,5 +117,19 @@ namespace MakeupTestingTests
             int expectedCount = initialCount + 36;
             ClassicAssert.AreEqual(expectedCount, updatedCount, "The products count did not increase by 36 after clicking the 'More products' button.");
         }
+        [Test]
+        public void VerifyMovementTestimonialsInSlider()
+        {
+            var config = new ConfigurationBuilder().AddJsonFile("appconfig.json").Build();
+
+            Header header = new Header(driver);
+            header.SelectCategory(config["category"]);
+            DecorativeСosmeticsPage dekorativeCosmetic = new DecorativeСosmeticsPage(driver);
+            dekorativeCosmetic.ClickRightArrowInTestimonialsSlider();
+            int expectedIndex = dekorativeCosmetic.GetIndexOfActiveTestimonialPage();
+            int actualIndex = dekorativeCosmetic.GetNumberOfClicksOnArrow() + 1;
+
+            ClassicAssert.AreEqual(expectedIndex, actualIndex, "The active page index does not match the expected index after clicking the right arrow.");
+        }
     }
 }
