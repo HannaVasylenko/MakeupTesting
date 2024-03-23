@@ -94,5 +94,22 @@ namespace MakeupTestingTests
                 StringAssert.Contains(productName.ToLower(), productTitleText.ToLower(), $"The product name is missing in the title {productTitleText}");
             }
         }
+
+        [Test]
+        public void VerifyFollowLinkBreadCrumbs()
+        {
+            var config = new ConfigurationBuilder().AddJsonFile("appconfig.json").Build();
+
+            string linkBreadCrumbs = config["breadCrumbsTitle"];
+            Header header = new Header(driver);
+            header.SelectCategory(config["category"]);
+            DecorativeСosmeticsPage decorativeCosmetic = new DecorativeСosmeticsPage(driver);
+            decorativeCosmetic.SelectProductCard(config["productAddToCart3"]);
+            ProductPage productPage = new ProductPage(driver);
+            productPage.ClickBreadCrumbs(config["breadCrumbsTitle"]);
+            SearchResultPage searchResultPage = new SearchResultPage(driver);
+            
+            ClassicAssert.AreEqual(linkBreadCrumbs, searchResultPage.GetBreadCrumbsTitle(config["breadCrumbsTitle"]), "The title does not match the selected category");
+        }
     }
 }

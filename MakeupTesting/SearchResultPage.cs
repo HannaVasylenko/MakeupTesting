@@ -16,6 +16,7 @@ namespace MakeupTestingPageObjects
         }
 
         private IWebElement titleText => webDriver.FindElement(By.XPath("//div[@class='search-results info-text']"));
+        private IWebElement titleCategory(string breadCrumbsVariant) => webDriver.FindElement(By.XPath($"//h1[contains(text(), '{breadCrumbsVariant}')]")); //Туш для вій
 
         private List<IWebElement> productList => webDriver.FindElements(By.XPath("//div[@class='catalog-products']//ul[@class='simple-slider-list']//div[@class='info-product-wrapper']")).ToList();
 
@@ -35,6 +36,10 @@ namespace MakeupTestingPageObjects
                 result.Add(productTitle);
             }
             return result;
+        }
+        public string GetBreadCrumbsTitle(string breadCrumbsVariant)
+        {
+            return titleCategory(breadCrumbsVariant).Text;
         }
     }
 }

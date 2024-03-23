@@ -28,6 +28,7 @@ namespace MakeupTestingPageObjects
         private IWebElement imgVariant(int imgNumber) => webDriver.FindElement(By.XPath($"//div[@id='product-image']//ul[@class='simple-slider-list']/li/label[contains(@for, 'product-slider_id_{imgNumber}')]"));
 
         public string GetProductVariantText(string productVariant) => titleProductVariant(productVariant).Text;
+        private IWebElement linkProductBreadCrumbs(string linkVariant) => webDriver.FindElement(By.XPath($"//div[@class='bread-crumbs']//span[contains(text(), '{linkVariant}')]")); // Туш для вій
 
 
         public void AddProductToCart()
@@ -53,6 +54,12 @@ namespace MakeupTestingPageObjects
             WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
             wait.Until(x => imgVariant(imgNumber).Displayed);
             imgVariant(imgNumber).Click();
+        }
+        public void ClickBreadCrumbs(string linkVariant)
+        {
+            WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
+            wait.Until(x => linkProductBreadCrumbs(linkVariant).Displayed);
+            linkProductBreadCrumbs(linkVariant).Click();
         }
 
         public void SelectProductVariants(string variantText)

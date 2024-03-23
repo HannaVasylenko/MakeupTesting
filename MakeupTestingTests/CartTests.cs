@@ -1,7 +1,10 @@
-﻿using MakeupTestingPageObjects;
+﻿using MakeupTesting;
+using MakeupTestingPageObjects;
 using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 using NUnit.Framework.Legacy;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
 using System;
 using System.Collections.Generic;
 using System.Linq;

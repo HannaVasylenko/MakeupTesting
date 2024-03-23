@@ -41,7 +41,13 @@ namespace MakeupTestingPageObjects
         private IWebElement btnMoreProducts => webDriver.FindElement(By.XPath("//div[text()='Більше товарів']"));
         private List<IWebElement> testimonialsList => webDriver.FindElements(By.XPath("//div[contains(text(), 'Відгуки про Декоративна косметика')]/following-sibling::*//div[@class='slider-button left']/label")).ToList();
         private IWebElement btnArrowSliderRight => webDriver.FindElement(By.XPath("//div[contains(text(), 'Відгуки про Декоративна косметика')]/following-sibling::*//div[@class='slider-button right']"));
+        
         private IWebElement btnArrowSliderLeft => webDriver.FindElement(By.XPath("//div[contains(text(), 'Відгуки про Декоративна косметика')]/following-sibling::*//div[@class='slider-button left']"));
+        private IWebElement btnBuyPopUp => webDriver.FindElement(By.XPath("//div[@class='button buy']"));
+        public IWebElement GetProductTitle(string productAddToCart) => linkProductTitle(productAddToCart);
+
+        public IWebElement GetbtnBuyPopUp() => btnBuyPopUp;
+
         private int numberOfClicksOnArrow = 0;
 
         public int GetNumberOfClicksOnArrow()
@@ -52,6 +58,10 @@ namespace MakeupTestingPageObjects
         {
             btnArrowSliderRight.Click();
             numberOfClicksOnArrow++;
+        }
+        public void ClickbtnBuyPopUp()
+        {
+            btnBuyPopUp.Click();
         }
 
         public void AddMoreProducts() => btnMoreProducts.Click();
