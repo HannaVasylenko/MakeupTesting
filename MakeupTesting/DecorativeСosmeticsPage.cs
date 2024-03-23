@@ -43,6 +43,7 @@ namespace MakeupTestingPageObjects
         private IWebElement btnArrowSliderRight => webDriver.FindElement(By.XPath("//div[contains(text(), 'Відгуки про Декоративна косметика')]/following-sibling::*//div[@class='slider-button right']"));
         private IWebElement btnArrowSliderLeft => webDriver.FindElement(By.XPath("//div[contains(text(), 'Відгуки про Декоративна косметика')]/following-sibling::*//div[@class='slider-button left']"));
         private int numberOfClicksOnArrow = 0;
+
         public int GetNumberOfClicksOnArrow()
         {
             return numberOfClicksOnArrow;
@@ -100,74 +101,57 @@ namespace MakeupTestingPageObjects
         {
             Dictionary<string, double> productsDetails = new Dictionary<string, double>();
 
-            foreach (var product in productList)
+            List<IWebElement> list =  webDriver.FindElements(By.XPath("//div[@class='catalog-products']//ul[@class='simple-slider-list']//div[@class='info-product-wrapper']")).ToList();
+            foreach (var product in list)
             {
                 string title = product.FindElement(By.XPath("./a")).GetAttribute("data-default-name");
                 string price;
-                if (IsElementPresent(priceWithPromotion))
+                try
                 {
                     price = product.FindElement(By.XPath(".//div[@class='simple-slider-list__price_container']//span[@class='simple-slider-list__price product-item__price_red']/span[@class='price_item']")).Text;
                 }
-                else
+                catch (NoSuchElementException ex)
                 {
-                    if (IsElementPresent(priceWithoutPromotion))
-                    {
-                        price = product.FindElement(By.XPath(".//div[@class='simple-slider-list__price_container']//span[@class='simple-slider-list__price']/span[@class='price_item']")).Text;
-                    }
-                    else
-                    {
-                        price = "Price not available";
-                    }
+                    price = product.FindElement(By.XPath(".//div[@class='simple-slider-list__price_container']//span[@class='simple-slider-list__price']/span[@class='price_item']")).Text;
                 }
+
                 productsDetails.Add(title, double.Parse(price));
             }
             return productsDetails;
         }
 
-        //public Dictionary<string, double> GetSearchResultDetails()
-        //{
-        //    Dictionary<string, double> productsDetails = new Dictionary<string, double>();
-
-        //    foreach (var product in productList)
-        //    {
-        //        string title = product.FindElement(By.XPath("./a")).GetAttribute("data-default-name");
-
-        //        string price;
-        //        if (IsElementPresent(priceWithPromotion))
-        //        {
-        //            string currentPrice = priceWithPromotion.Text;
-        //            string oldPrice = OldpriceWithPromotion.Text;
-        //            price = $"{currentPrice} (old price: {oldPrice})";
-        //        }
-        //        else
-        //        {
-        //            if (IsElementPresent(priceWithoutPromotion))
-        //            {
-        //                price = priceWithoutPromotion.Text;
-        //            }
-        //            else
-        //            {
-        //                price = "Price not available";
-        //            }
-        //        }
-        //        productsDetails.Add(title, double.Parse(price));
-        //    }
-        //    return productsDetails;
-        //}
-
-
-
-        private bool IsElementPresent(IWebElement element)
+        public List<double> GetSearchResultPrices()
         {
-            try
+            List<double> productsDetails = new List<double>();
+
+            List<IWebElement> list = webDriver.FindElements(By.XPath("//div[@class='catalog-products']//ul[@class='simple-slider-list']//div[@class='info-product-wrapper']")).ToList();
+            foreach (var product in list)
             {
-                return element.Displayed;
+                string price;
+                try
+                {
+                    price = product.FindElement(By.XPath(".//div[@class='simple-slider-list__price_container']//span[@class='simple-slider-list__price product-item__price_red']/span[@class='price_item']")).Text;
+                }
+                catch (NoSuchElementException ex)
+                {
+                    try
+                    {
+                        price = product.FindElement(By.XPath(".//div[@class='simple-slider-list__price_container']//span[@class='simple-slider-list__price']/span[@class='price_item']")).Text;
+                    }
+                    catch (NoSuchElementException e)
+                    {
+                        price = "";
+                    }
+                }
+
+                if (price != "")
+                {
+                    productsDetails.Add(double.Parse(price));
+                }
             }
-            catch (NoSuchElementException)
-            {
-                return false;
-            }
+            return productsDetails;
         }
+
         public void SelectDropdownSortBy()
         {
             WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));

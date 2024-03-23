@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 using NUnit.Framework.Legacy;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,7 +50,6 @@ namespace MakeupTestingTests
         [Test]
         public void VerifyFilterProductsByPrice()
         {
-            // complete the test
             var config = new ConfigurationBuilder().AddJsonFile("appconfig.json").Build();
             double minPrice = double.Parse(config["minPrice"]);
             double maxPrice = double.Parse(config["maxPrice"]);
@@ -57,8 +57,12 @@ namespace MakeupTestingTests
             Header header = new Header(driver);
             header.SelectCategory(config["category"]);
             DecorativeСosmeticsPage decorativeCosmetics = new DecorativeСosmeticsPage(driver);
+            Thread.Sleep(2000);
             decorativeCosmetics.CheckFiltersByNameAndTypeOfProduct(config["nameOfBrand"], config["filterProductName"]);
+            Thread.Sleep(2000);
             decorativeCosmetics.SetFilterByPrice(minPrice, maxPrice);
+            decorativeCosmetics.AddMoreProducts();
+            Thread.Sleep(5000);
 
             var searchResultDetails = decorativeCosmetics.GetSearchResultDetails();
             ClassicAssert.IsNotNull(searchResultDetails);
@@ -73,17 +77,21 @@ namespace MakeupTestingTests
         [Test]
         public void VerifySortProductsBy()
         {
-            // complete the test
             var config = new ConfigurationBuilder().AddJsonFile("appconfig.json").Build();
 
             Header header = new Header(driver);
             header.SelectCategory(config["category"]);
-            DecorativeСosmeticsPage decorativeCosmetic = new DecorativeСosmeticsPage(driver);
-            decorativeCosmetic.SelectDropdownSortBy();
-            decorativeCosmetic.SelectValueSortBy("вартістю");
-            //List<double> pricesList = ;
-            //List<double> orderedPricesList = pricesList.OrderBy(x => x).ToList();
-            //CollectionAssert.AreEqual(pricesList, orderedPricesList);
+            DecorativeСosmeticsPage decorativeCosmetics = new DecorativeСosmeticsPage(driver);
+            decorativeCosmetics.CheckFiltersByNameAndTypeOfProduct(config["nameOfBrand"], config["filterProductName"]);
+            Thread.Sleep(2000);
+            List<double> orderedPricesList = decorativeCosmetics.GetSearchResultPrices().OrderBy(x => x).ToList();
+            decorativeCosmetics.SelectDropdownSortBy();
+            Thread.Sleep(2000);
+            decorativeCosmetics.SelectValueSortBy("вартістю");
+            Thread.Sleep(2000);
+            List<double> pricesList = decorativeCosmetics.GetSearchResultPrices();
+
+            CollectionAssert.AreEqual(pricesList, orderedPricesList);
         }
 
         [Test]
