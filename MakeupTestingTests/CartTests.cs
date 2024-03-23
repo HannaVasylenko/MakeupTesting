@@ -20,9 +20,9 @@ namespace MakeupTestingTests
             string productCartTitle = config["productAddToCart1"];
             Header header = new Header(driver);
             header.SelectCategory(config["category"]);
-            DecorativeСosmeticsPage decorativeCosmetics = new DecorativeСosmeticsPage(driver);
-            decorativeCosmetics.CheckFiltersByNameAndTypeOfProduct(config["nameOfBrand"], config["filterProductName"]);
-            decorativeCosmetics.SelectProductCard(config["productAddToCart1"]);
+            DecorativeСosmeticsPage decorativeCosmetic = new DecorativeСosmeticsPage(driver);
+            decorativeCosmetic.CheckFiltersByNameAndTypeOfProduct(config["nameOfBrand"], config["filterProductName"]);
+            decorativeCosmetic.SelectProductCard(config["productAddToCart1"]);
             ProductPage productPage = new ProductPage(driver);
             productPage.AddProductToCart();
             CartPage cartPage = new CartPage(driver);
@@ -37,9 +37,9 @@ namespace MakeupTestingTests
             
             Header header = new Header(driver);
             header.SelectCategory(config["category"]);
-            DecorativeСosmeticsPage decorativeCosmetics = new DecorativeСosmeticsPage(driver);
-            decorativeCosmetics.CheckFiltersByNameAndTypeOfProduct(config["nameOfBrand"], config["filterProductName"]);
-            decorativeCosmetics.SelectProductCard(config["productAddToCart1"]);
+            DecorativeСosmeticsPage decorativeCosmetic = new DecorativeСosmeticsPage(driver);
+            decorativeCosmetic.CheckFiltersByNameAndTypeOfProduct(config["nameOfBrand"], config["filterProductName"]);
+            decorativeCosmetic.SelectProductCard(config["productAddToCart1"]);
             ProductPage productPage = new ProductPage(driver);
             productPage.AddProductToCart();
             CartPage cartPage = new CartPage(driver);
@@ -56,9 +56,9 @@ namespace MakeupTestingTests
             
             Header header = new Header(driver);
             header.SelectCategory(config["category"]);
-            DecorativeСosmeticsPage decorativeCosmetics = new DecorativeСosmeticsPage(driver);
-            decorativeCosmetics.CheckFiltersByNameAndTypeOfProduct(config["nameOfBrand"], config["filterProductName"]);
-            decorativeCosmetics.SelectProductCard(config["productAddToCart2"]);
+            DecorativeСosmeticsPage decorativeCosmetic = new DecorativeСosmeticsPage(driver);
+            decorativeCosmetic.CheckFiltersByNameAndTypeOfProduct(config["nameOfBrand"], config["filterProductName"]);
+            decorativeCosmetic.SelectProductCard(config["productAddToCart2"]);
             ProductPage productPage = new ProductPage(driver);
             productPage.AddProductToCart();
             CartPage cartPage = new CartPage(driver);
@@ -78,9 +78,9 @@ namespace MakeupTestingTests
             
             Header header = new Header(driver);
             header.SelectCategory(config["category"]);
-            DecorativeСosmeticsPage decorativeCosmetics = new DecorativeСosmeticsPage(driver);
-            decorativeCosmetics.CheckFiltersByNameAndTypeOfProduct(config["nameOfBrand"], config["filterProductName"]);
-            decorativeCosmetics.SelectProductCard(config["productAddToCart2"]);
+            DecorativeСosmeticsPage decorativeCosmetic = new DecorativeСosmeticsPage(driver);
+            decorativeCosmetic.CheckFiltersByNameAndTypeOfProduct(config["nameOfBrand"], config["filterProductName"]);
+            decorativeCosmetic.SelectProductCard(config["productAddToCart2"]);
             ProductPage productPage = new ProductPage(driver);
             productPage.AddProductToCart();
             CartPage cartPage = new CartPage(driver);
@@ -101,13 +101,13 @@ namespace MakeupTestingTests
             
             Header header = new Header(driver);
             header.SelectCategory(config["category"]);
-            DecorativeСosmeticsPage decorativeCosmetics = new DecorativeСosmeticsPage(driver);
-            decorativeCosmetics.CheckFiltersByNameAndTypeOfProduct(config["nameOfBrand"], config["filterProductName"]);
-            decorativeCosmetics.SelectProductCard(config["productAddToCart1"]);
+            DecorativeСosmeticsPage decorativeCosmetic = new DecorativeСosmeticsPage(driver);
+            decorativeCosmetic.CheckFiltersByNameAndTypeOfProduct(config["nameOfBrand"], config["filterProductName"]);
+            decorativeCosmetic.SelectProductCard(config["productAddToCart1"]);
             ProductPage productPage = new ProductPage(driver);
             productPage.AddProductToCart();
             driver.Navigate().Back();
-            decorativeCosmetics.SelectProductCard(config["productAddToCart2"]);
+            decorativeCosmetic.SelectProductCard(config["productAddToCart2"]);
             productPage.AddProductToCart();
             CartPage cartPage = new CartPage(driver);
 
@@ -122,9 +122,9 @@ namespace MakeupTestingTests
 
             Header header = new Header(driver);
             header.SelectCategory(config["category"]);
-            DecorativeСosmeticsPage decorativeCosmetics = new DecorativeСosmeticsPage(driver);
-            decorativeCosmetics.CheckFiltersByNameAndTypeOfProduct(config["nameOfBrand"], config["filterProductName"]);
-            decorativeCosmetics.SelectProductCard(config["productAddToCart1"]);
+            DecorativeСosmeticsPage decorativeCosmetic = new DecorativeСosmeticsPage(driver);
+            decorativeCosmetic.CheckFiltersByNameAndTypeOfProduct(config["nameOfBrand"], config["filterProductName"]);
+            decorativeCosmetic.SelectProductCard(config["productAddToCart1"]);
             ProductPage productPage = new ProductPage(driver);
             productPage.AddProductToCart();
             CartPage cartPage = new CartPage(driver);

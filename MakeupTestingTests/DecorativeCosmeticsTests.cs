@@ -22,8 +22,8 @@ namespace MakeupTestingTests
             string categoryTitleText = config["categoryTitleText"];
             Header header = new Header(driver);
             header.SelectCategory(config["category"]);
-            DecorativeСosmeticsPage dekoratyvnaKosmetyka = new DecorativeСosmeticsPage(driver);
-            string titleText = dekoratyvnaKosmetyka.GetCategoryTitleText(config["categoryTitle"]);
+            DecorativeСosmeticsPage decorativeCosmetic = new DecorativeСosmeticsPage(driver);
+            string titleText = decorativeCosmetic.GetCategoryTitleText(config["categoryTitle"]);
             ClassicAssert.AreEqual(categoryTitleText, titleText, "The titles do not match");
         }
 
@@ -36,10 +36,10 @@ namespace MakeupTestingTests
 
             Header header = new Header(driver);
             header.SelectCategory(config["category"]);
-            DecorativeСosmeticsPage decorativeCosmetics = new DecorativeСosmeticsPage(driver);
-            decorativeCosmetics.CheckFiltersByNameAndTypeOfProduct(config["nameOfBrand"], config["filterProductName"]);
+            DecorativeСosmeticsPage decorativeCosmetic = new DecorativeСosmeticsPage(driver);
+            decorativeCosmetic.CheckFiltersByNameAndTypeOfProduct(config["nameOfBrand"], config["filterProductName"]);
             Thread.Sleep(3000);
-            List<(string productName, string productType)> productTitles = decorativeCosmetics.GetProductTitleText();
+            List<(string productName, string productType)> productTitles = decorativeCosmetic.GetProductTitleText();
             foreach (var productTitleText in productTitles)
             {
                 StringAssert.Contains(nameOfBrand.ToLower(), productTitleText.productName.ToLower(), $"The product name is missing in the title {productTitleText}");
@@ -56,15 +56,15 @@ namespace MakeupTestingTests
 
             Header header = new Header(driver);
             header.SelectCategory(config["category"]);
-            DecorativeСosmeticsPage decorativeCosmetics = new DecorativeСosmeticsPage(driver);
+            DecorativeСosmeticsPage decorativeCosmetic = new DecorativeСosmeticsPage(driver);
             Thread.Sleep(2000);
-            decorativeCosmetics.CheckFiltersByNameAndTypeOfProduct(config["nameOfBrand"], config["filterProductName"]);
+            decorativeCosmetic.CheckFiltersByNameAndTypeOfProduct(config["nameOfBrand"], config["filterProductName"]);
             Thread.Sleep(2000);
-            decorativeCosmetics.SetFilterByPrice(minPrice, maxPrice);
-            decorativeCosmetics.AddMoreProducts();
+            decorativeCosmetic.SetFilterByPrice(minPrice, maxPrice);
+            decorativeCosmetic.AddMoreProducts();
             Thread.Sleep(5000);
 
-            var searchResultDetails = decorativeCosmetics.GetSearchResultDetails();
+            var searchResultDetails = decorativeCosmetic.GetSearchResultDetails();
             ClassicAssert.IsNotNull(searchResultDetails);
 
             foreach (var item in searchResultDetails)
@@ -81,15 +81,15 @@ namespace MakeupTestingTests
 
             Header header = new Header(driver);
             header.SelectCategory(config["category"]);
-            DecorativeСosmeticsPage decorativeCosmetics = new DecorativeСosmeticsPage(driver);
-            decorativeCosmetics.CheckFiltersByNameAndTypeOfProduct(config["nameOfBrand"], config["filterProductName"]);
+            DecorativeСosmeticsPage decorativeCosmetic = new DecorativeСosmeticsPage(driver);
+            decorativeCosmetic.CheckFiltersByNameAndTypeOfProduct(config["nameOfBrand"], config["filterProductName"]);
             Thread.Sleep(2000);
-            List<double> orderedPricesList = decorativeCosmetics.GetSearchResultPrices().OrderBy(x => x).ToList();
-            decorativeCosmetics.SelectDropdownSortBy();
+            List<double> orderedPricesList = decorativeCosmetic.GetSearchResultPrices().OrderBy(x => x).ToList();
+            decorativeCosmetic.SelectDropdownSortBy();
             Thread.Sleep(2000);
-            decorativeCosmetics.SelectValueSortBy("вартістю");
+            decorativeCosmetic.SelectValueSortBy(config["variantSortBy"]);
             Thread.Sleep(2000);
-            List<double> pricesList = decorativeCosmetics.GetSearchResultPrices();
+            List<double> pricesList = decorativeCosmetic.GetSearchResultPrices();
 
             CollectionAssert.AreEqual(pricesList, orderedPricesList);
         }
@@ -101,11 +101,11 @@ namespace MakeupTestingTests
             
             Header header = new Header(driver);
             header.SelectCategory(config["category"]);
-            DecorativeСosmeticsPage decorativeCosmetics = new DecorativeСosmeticsPage(driver);
-            decorativeCosmetics.CheckFiltersByNameAndTypeOfProduct(config["nameOfBrand"], config["filterProductName"]);
-            bool isButtonPresentBefore = decorativeCosmetics.IsRemoveFiltersButtonPresent();
-            decorativeCosmetics.RemoveFilters();
-            bool isButtonNotPresentAfter = decorativeCosmetics.IsRemoveFiltersButtonNotPresent();
+            DecorativeСosmeticsPage decorativeCosmetic = new DecorativeСosmeticsPage(driver);
+            decorativeCosmetic.CheckFiltersByNameAndTypeOfProduct(config["nameOfBrand"], config["filterProductName"]);
+            bool isButtonPresentBefore = decorativeCosmetic.IsRemoveFiltersButtonPresent();
+            decorativeCosmetic.RemoveFilters();
+            bool isButtonNotPresentAfter = decorativeCosmetic.IsRemoveFiltersButtonNotPresent();
 
             ClassicAssert.IsTrue(isButtonPresentBefore, "Remove filters button is not present before clicking.");
             ClassicAssert.IsTrue(isButtonNotPresentAfter, "Remove filters button is still present after clicking.");
@@ -138,6 +138,21 @@ namespace MakeupTestingTests
             int actualIndex = dekorativeCosmetic.GetNumberOfClicksOnArrow() + 1;
 
             ClassicAssert.AreEqual(expectedIndex, actualIndex, "The active page index does not match the expected index after clicking the right arrow.");
+        }
+
+
+        [Test]
+        public void VerifySelectProductImage()
+        {
+            var config = new ConfigurationBuilder().AddJsonFile("appconfig.json").Build();
+            int imgNumber = int.Parse(config["imgNumber"]);
+            Header header = new Header(driver);
+            header.SelectCategory(config["category"]);
+            DecorativeСosmeticsPage decorativeCosmetic = new DecorativeСosmeticsPage(driver);
+            decorativeCosmetic.SelectProductCard(config["productAddToCart3"]);
+            ProductPage productPage = new ProductPage(driver);
+            productPage.SelectImage(int.Parse(config["imgNumber"]));
+            ClassicAssert.AreEqual(imgNumber, productPage.GetActiveProductImageIndex(), "The photo does not match the selected one");
         }
     }
 }
