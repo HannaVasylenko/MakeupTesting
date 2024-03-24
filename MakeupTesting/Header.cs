@@ -28,7 +28,7 @@ namespace MakeupTestingPageObjects
 
         private IWebElement linkhintFeatures => webDriver.FindElement(By.XPath("//span[text()='Безкоштовна доставка по Україні!']"));
 
-        private IWebElement hintFeatures => webDriver.FindElement(By.XPath("//span[text()='Безкоштовна доставка по Україні!']/parent::*")); //  //a[@class='bg1 feature current']/span
+        private IWebElement hintFeatures => webDriver.FindElement(By.XPath("//span[text()='Безкоштовна доставка по Україні!']/parent::*"));
         private IWebElement linkBrands => webDriver.FindElement(By.XPath("//a[text()='Бренди']"));
 
         public void SelectBeautyClub()

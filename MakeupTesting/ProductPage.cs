@@ -21,15 +21,12 @@ namespace MakeupTestingPageObjects
         private IWebElement ddProductVariants => webDriver.FindElement(By.XPath("//div[@class='select']"));
 
         private List<IWebElement> productVariantsList => webDriver.FindElements(By.XPath("//div[@class='variants scrolling full-width']/div")).ToList();
-        private IWebElement btnArrowImageSliderRight => webDriver.FindElement(By.XPath("//div[@class='slider-button right']"));
-        private IWebElement btnArrowImageSliderLeft => webDriver.FindElement(By.XPath("//div[@class='slider-button left']"));
         
         private List<IWebElement> productImagesList => webDriver.FindElements(By.XPath("//div[@id='product-image']//ul[@class='simple-slider-list']/li/label")).ToList();
         private IWebElement imgVariant(int imgNumber) => webDriver.FindElement(By.XPath($"//div[@id='product-image']//ul[@class='simple-slider-list']/li/label[contains(@for, 'product-slider_id_{imgNumber}')]"));
 
         public string GetProductVariantText(string productVariant) => titleProductVariant(productVariant).Text;
         private IWebElement linkProductBreadCrumbs(string linkVariant) => webDriver.FindElement(By.XPath($"//div[@class='bread-crumbs']//span[contains(text(), '{linkVariant}')]")); // Туш для вій
-
 
         public void AddProductToCart()
         {
@@ -39,18 +36,7 @@ namespace MakeupTestingPageObjects
             //wait.Until(x => btnBuy.Displayed);
             btnBuy.Click();
         }
-        public void ClickArrowImageSliderRight()
-        {
-            WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
-            wait.Until(x => btnArrowImageSliderRight.Displayed);
-            btnArrowImageSliderRight.Click();
-        }
-        public void ClickArrowImageSliderLeft()
-        {
-            WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
-            wait.Until(x => btnArrowImageSliderLeft.Displayed);
-            btnArrowImageSliderLeft.Click();
-        }
+       
         public void SelectImage(int imgNumber)
         {
             WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));

@@ -21,6 +21,7 @@ namespace MakeupTestingPageObjects
 
         public void SelectYouTube()
         {
+            ScrollDownByPixels(11800);
             WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
             wait.Until(x => linkYouTube.Displayed);
             linkYouTube.Click();

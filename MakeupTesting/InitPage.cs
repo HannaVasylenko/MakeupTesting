@@ -20,7 +20,7 @@ namespace MakeupTestingPageObjects
 
         private IWebElement btnScrollUp => webDriver.FindElement(By.XPath("//div[@class='button-up']"));
         private IWebElement linkSubCategory(string subCategory) => webDriver.FindElement(By.XPath($"//a[text()='{subCategory}']"));
-        private IWebElement titleSubCategory(string titlesubCategory) => webDriver.FindElement(By.XPath($"//span[text()='{titlesubCategory}']"));
+        private IWebElement titleSubCategory(string titleSubCategory) => webDriver.FindElement(By.XPath($"//span[text()='{titleSubCategory}']"));
 
         public void ScrollUp()
         {
@@ -36,11 +36,11 @@ namespace MakeupTestingPageObjects
             linkSubCategory(subCategory).Click();
         }
 
-        public string GetSubCategoryTitleText(string titlesubCategory)
+        public string GetSubCategoryTitleText(string titleSubCategory)
         {
             WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
-            wait.Until(x => titleSubCategory(titlesubCategory).Displayed);
-            return titleSubCategory(titlesubCategory).Text;
+            wait.Until(x => this.titleSubCategory(titleSubCategory).Displayed);
+            return this.titleSubCategory(titleSubCategory).Text;
         }
     }
 }

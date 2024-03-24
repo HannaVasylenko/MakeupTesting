@@ -21,7 +21,7 @@ namespace MakeupTestingPageObjects
         private IWebElement titleCartProduct => webDriver.FindElement(By.XPath("//div[@class='product__header']"));
         private IWebElement btnDelete => webDriver.FindElement(By.XPath("//div[@class='product__button-remove']"));
         private IWebElement cartProductCounter => webDriver.FindElement(By.XPath("//span[contains(@class,'header-counter')]"));
-        private IWebElement txtQuantityProductInCart => webDriver.FindElement(By.XPath("//input[@name='count[]']")); // atrib value
+        private IWebElement txtQuantityProductInCart => webDriver.FindElement(By.XPath("//input[@name='count[]']"));
         private IWebElement txtProductPrice => webDriver.FindElement(By.XPath("//div[@class='product__price']"));
         private IWebElement btnProductIncrease => webDriver.FindElement(By.XPath("//div[@class='product__button-increase']"));
         private IWebElement btnProductDecrease => webDriver.FindElement(By.XPath("//div[@class='product__button-decrease']"));
@@ -30,8 +30,6 @@ namespace MakeupTestingPageObjects
         private IWebElement btnPlaceAnOrder => webDriver.FindElement(By.XPath("//div[text()='Оформити замовлення']"));
         private IWebElement btnContinueShopping => webDriver.FindElement(By.XPath("//span[text()='Продовжити покупки']"));
         private IWebElement btnCart => webDriver.FindElement(By.XPath("//div[@class='header-basket empty']"));
-
-
 
         public string GetCartProductTitleText()
         {

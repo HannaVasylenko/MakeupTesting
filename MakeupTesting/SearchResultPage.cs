@@ -17,11 +17,11 @@ namespace MakeupTestingPageObjects
         }
 
         private IWebElement titleText => webDriver.FindElement(By.XPath("//div[@class='search-results info-text']"));
-        private IWebElement titleCategory(string breadCrumbsVariant) => webDriver.FindElement(By.XPath($"//h1[contains(text(), '{breadCrumbsVariant}')]")); //Туш для вій
+        private IWebElement titleCategory(string breadCrumbsVariant) => webDriver.FindElement(By.XPath($"//h1[contains(text(), '{breadCrumbsVariant}')]"));
 
         private List<IWebElement> productList => webDriver.FindElements(By.XPath("//div[@class='catalog-products']//ul[@class='simple-slider-list']//div[@class='info-product-wrapper']")).ToList();
 
-        private IWebElement btnlastPageInSearch => webDriver.FindElement(By.XPath("(//li[@class='page__item']/label)[last()]"));
+        private IWebElement btnLastPageInSearch => webDriver.FindElement(By.XPath("(//li[@class='page__item']/label)[last()]"));
 
         public string GetSearchTitleText()
         {
@@ -33,7 +33,7 @@ namespace MakeupTestingPageObjects
         public void LastPageClick()
         {
             ScrollDownByPixels(7500);
-            btnlastPageInSearch.Click();
+            btnLastPageInSearch.Click();
         }
 
         public List<string> GetProductTitleText()
