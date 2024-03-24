@@ -58,6 +58,9 @@ namespace MakeupTestingPageObjects
         }
         public void ClickRightArrowInTestimonialsSlider()
         {
+            ScrollDownByPixels(9000);
+            WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
+            wait.Until(x => btnArrowSliderRight.Displayed);
             btnArrowSliderRight.Click();
             numberOfClicksOnArrow++;
         }
@@ -66,7 +69,13 @@ namespace MakeupTestingPageObjects
             btnBuyPopUp.Click();
         }
 
-        public void AddMoreProducts() => btnMoreProducts.Click();
+        public void AddMoreProducts()
+        {
+            WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
+            wait.Until(x => btnMoreProducts.Displayed);
+            wait.Until(ExpectedConditions.ElementToBeClickable(btnMoreProducts));
+            btnMoreProducts.Click();
+        }
 
         public void SelectProductCard(string productAddToCart)
         {
@@ -102,6 +111,7 @@ namespace MakeupTestingPageObjects
 
         public void SetFilterByPrice(double priceMin, double priceMax)
         {
+            ScrollDownByPixels(1500);
             WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
             wait.Until(x => txtPriceMin.Displayed);
 
@@ -170,15 +180,24 @@ namespace MakeupTestingPageObjects
 
         public void SelectDropdownSortBy()
         {
+            ScrollDownByPixels(50);
             WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
             wait.Until(x => ddlSortBy.Displayed);
             ddlSortBy.Click();
         }
         public void SelectValueSortBy(string valueSortBy)
         {
+            WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
+            wait.Until(x => linkValueSortBy(valueSortBy).Displayed);
             linkValueSortBy(valueSortBy).Click();
         }
-        public void RemoveFilters() => btnRemoveFilters.Click();
+        public void RemoveFilters()
+        {
+            WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
+            wait.Until(x => btnRemoveFilters.Displayed);
+            btnRemoveFilters.Click();
+        }
+
         public bool IsRemoveFiltersButtonPresent()
         {
             try
@@ -209,8 +228,7 @@ namespace MakeupTestingPageObjects
 
         public int CountProductsInList()
         {
-            WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
-            wait.Until(driver => productList.All(product => product.Displayed && product.Enabled));
+            ScrollDownByPixels(8600);
             return productList.Count;
         }
         public int GetIndexOfActiveTestimonialPage()
