@@ -38,11 +38,10 @@ namespace MakeupTestingTests
             Header header = new Header(driver);
             InitPage initPage = new InitPage(driver);
             Actions actions = new Actions(driver);
-            actions.MoveToElement(header.GetDecorativeСosmeticsElement(config["category"])).Perform();
+            actions.MoveToElement(header.GetDecorativeСosmeticsElement(config["category"])).Build().Perform();
             initPage.SelectSubCategory(config["subCategory"]);
-            string titleText = initPage.GetSubCategoryTitleText(config["subCategoryTitle"]);
             
-            ClassicAssert.AreEqual(titleSubCategory, titleText, "The titles do not match");
+            ClassicAssert.AreEqual(titleSubCategory, initPage.GetSubCategoryTitleText(config["subCategoryTitle"]), "The titles do not match");
         }
 
         [Test]
@@ -71,7 +70,7 @@ namespace MakeupTestingTests
             deliveryPage.InputDeliveryCity(deliveryCity);
             deliveryPage.SelectFirstDeliveryCity();
             
-            StringAssert.Contains(deliveryCity.ToLower(), deliveryPage.GetDeliveryCityText().ToLower(), "Delivery title text do not match");
+            StringAssert.Contains(deliveryCity.ToLower(), deliveryPage.GetDeliveryCityText().ToLower(), "Another delivery city is selected");
         }
 
         [Test]
@@ -82,13 +81,14 @@ namespace MakeupTestingTests
 
             Header header = new Header(driver);
             header.SelectBeautyClub();
-            ClassicAssert.AreEqual(titleBeautyClub, driver.Title, "Another page is displayed");
+            
+            ClassicAssert.AreEqual(titleBeautyClub, driver.Title, "The BeautyClub page is not displayed");
         }
 
+        // 4 complete remove Thread.Sleep(3000)
         [Test]
         public void NavigateToYouTube()
         {
-            // add driver.Quit(); close all tabs
             var config = new ConfigurationBuilder().AddJsonFile("appconfig.json").Build();
             string titleYouTube = config["titleYouTube"];
 
@@ -99,11 +99,12 @@ namespace MakeupTestingTests
             string secondWindow = allWindowHandles.Where(x => x != mainPageHandle).Select(x => x).FirstOrDefault();
             driver.SwitchTo().Window(secondWindow);
             Thread.Sleep(3000); 
+
             ClassicAssert.AreEqual(titleYouTube, driver.Title, "Another page is displayed");
         }
 
         [Test]
-        public void HoveringOverHint()
+        public void CheckDisplayOfTooltip()
         {
             var config = new ConfigurationBuilder().AddJsonFile("appconfig.json").Build();
             string hintText = config["hintText"];
@@ -112,14 +113,17 @@ namespace MakeupTestingTests
             Actions actions = new Actions(driver);
             actions.MoveToElement(header.GetHintFeatures()).Perform();
 
-            ClassicAssert.AreEqual(hintText, header.GetHintText(), "The hint text does not match the sample");
+            ClassicAssert.AreEqual(hintText, header.GetHintText(), "The tooltip is not displayed");
         }
         [Test]
         public void VerifySubscriptionErrorDisplay()
         {
+            var config = new ConfigurationBuilder().AddJsonFile("appconfig.json").Build();
+
             Footer footer = new Footer(driver);
-            footer.InputEmail("a");
+            footer.InputEmail(config["emailSubscription"]);
             footer.ClickBtnEmailSubscription();
+
             ClassicAssert.IsTrue(footer.IsEmailSubscriptionErrorDisplayed(), "The email subscription error is not displayed or is not invalid.");
         }
     }

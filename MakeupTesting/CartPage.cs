@@ -3,6 +3,7 @@ using MakeupTestingModels;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Remote;
 using OpenQA.Selenium.Support.UI;
+using SeleniumExtras.WaitHelpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,7 @@ namespace MakeupTestingPageObjects
         private List<IWebElement> productListInCart => webDriver.FindElements(By.XPath("//div[@class='cart-content-wrapper scrolling']//ul[@class='product-list scrolling']/li")).ToList();
         private IWebElement btnPlaceAnOrder => webDriver.FindElement(By.XPath("//div[text()='Оформити замовлення']"));
         private IWebElement btnContinueShopping => webDriver.FindElement(By.XPath("//span[text()='Продовжити покупки']"));
+        private IWebElement btnCart => webDriver.FindElement(By.XPath("//div[@class='header-basket empty']"));
 
 
 
@@ -39,12 +41,16 @@ namespace MakeupTestingPageObjects
         }
         public void DeleteProduct()
         {
+            //WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(20));
+            //wait.Until(ExpectedConditions.ElementToBeClickable(btnDelete));
             WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
             wait.Until(x => btnDelete.Displayed);
             btnDelete.Click();
         }
         public string GetProductsInCart()
         {
+            WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
+            wait.Until(x => btnCart.Displayed);
             string cartSize = cartProductCounter.Text;
             if (!string.IsNullOrEmpty(cartSize) && int.TryParse(cartSize, out int size) && size > 0)
             {
@@ -58,6 +64,11 @@ namespace MakeupTestingPageObjects
 
         public string GetQuantityProductsInCart()
         {
+            //wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//input[@name='count[]']")));
+            //wait.Until(ExpectedConditions.ElementToBeClickable(txtQuantityProductInCart));
+            //wait.Until(x => txtQuantityProductInCart.Enabled);
+            WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
+            wait.Until(x => txtQuantityProductInCart.Displayed);
             string quantityProduct = txtQuantityProductInCart.GetAttribute("value");
             return quantityProduct;
         }
@@ -74,6 +85,15 @@ namespace MakeupTestingPageObjects
 
         public void IncreaseQuantityProductInOrder()
         {
+            //WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(20));
+            //wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//div[@class='product__button-increase']")));
+            //wait.Until(ExpectedConditions.ElementToBeClickable(btnProductIncrease));
+            //wait.Until(x => btnProductIncrease.Enabled);
+            //WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(20));
+            //wait.Until(driver => btnProductIncrease.Displayed && btnProductIncrease.Enabled);
+            //WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(20));
+            //wait.Until(ExpectedConditions.ElementToBeClickable(btnProductIncrease));
+            //wait.Until(x => btnProductIncrease.Enabled);
             WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
             wait.Until(x => btnProductIncrease.Displayed);
             btnProductIncrease.Click();

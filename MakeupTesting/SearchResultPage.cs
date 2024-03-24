@@ -49,6 +49,8 @@ namespace MakeupTestingPageObjects
         }
         public string GetBreadCrumbsTitle(string breadCrumbsVariant)
         {
+            WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
+            wait.Until(x => titleCategory(breadCrumbsVariant).Displayed);
             return titleCategory(breadCrumbsVariant).Text;
         }
     }

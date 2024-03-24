@@ -19,7 +19,13 @@ namespace MakeupTestingPageObjects
         private IWebElement txtEmailSubscription => webDriver.FindElement(By.XPath("//input[@placeholder='Електронна пошта']"));
         private IWebElement btnEmailSubscription => webDriver.FindElement(By.XPath("//button[contains(text(), 'підписатися')]"));
 
-        public void SelectYouTube() => linkYouTube.Click();
+        public void SelectYouTube()
+        {
+            WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
+            wait.Until(x => linkYouTube.Displayed);
+            linkYouTube.Click();
+        }
+
         public bool IsEmailSubscriptionErrorDisplayed()
         {
             try
@@ -43,8 +49,17 @@ namespace MakeupTestingPageObjects
         }
         public void InputEmail(string text)
         {
+            WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(20));
+            wait.Until(ExpectedConditions.ElementToBeClickable(txtEmailSubscription));
+            //WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
+            //wait.Until(x => linkYouTube.Displayed);
             txtEmailSubscription.SendKeys(text);
         }
-        public void ClickBtnEmailSubscription() => btnEmailSubscription.Click();
+        public void ClickBtnEmailSubscription()
+        {
+            WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
+            wait.Until(x => btnEmailSubscription.Displayed);
+            btnEmailSubscription.Click();
+        }
     }
 }

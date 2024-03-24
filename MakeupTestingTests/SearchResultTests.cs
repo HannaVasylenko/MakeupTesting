@@ -23,9 +23,8 @@ namespace MakeupTestingTests
             header.SearchClick();
             header.InputProductName(productName);
             SearchResultPage searchResultPage = new SearchResultPage(driver);
-            string actualSearchTitle = searchResultPage.GetSearchTitleText();
             
-            StringAssert.Contains(searchTitle, actualSearchTitle, $"Search is not performed by {productName}");
+            StringAssert.Contains(searchTitle, searchResultPage.GetSearchTitleText(), $"Search is not performed by {productName}");
         }
 
         [Test]
@@ -39,9 +38,8 @@ namespace MakeupTestingTests
             header.SearchClick();
             header.InputProductName(spaceKey);
             SearchResultPage searchResultPage = new SearchResultPage(driver);
-            string actualSearchTitle = searchResultPage.GetSearchTitleText();
             
-            StringAssert.Contains(searchTitle, actualSearchTitle, "Product search titles are not the same");
+            StringAssert.Contains(searchTitle, searchResultPage.GetSearchTitleText(), "Product search titles are not the same");
         }
 
         [Test]
@@ -55,9 +53,8 @@ namespace MakeupTestingTests
             header.SearchClick();
             header.InputProductName(specialCharacters);
             SearchResultPage searchResultPage = new SearchResultPage(driver);
-            string actualSearchTitle = searchResultPage.GetSearchTitleText();
             
-            StringAssert.Contains(searchTitle, actualSearchTitle, $"Search is not performed by {specialCharacters}");
+            StringAssert.Contains(searchTitle, searchResultPage.GetSearchTitleText(), $"Search is not performed by {specialCharacters}");
         }
 
         [Test]

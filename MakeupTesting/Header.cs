@@ -31,7 +31,13 @@ namespace MakeupTestingPageObjects
         private IWebElement hintFeatures => webDriver.FindElement(By.XPath("//span[text()='Безкоштовна доставка по Україні!']/parent::*")); //  //a[@class='bg1 feature current']/span
         private IWebElement linkBrands => webDriver.FindElement(By.XPath("//a[text()='Бренди']"));
 
-        public void SelectBeautyClub() => linkBeautyClub.Click();
+        public void SelectBeautyClub()
+        {
+            WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
+            wait.Until(x => linkBeautyClub.Displayed);
+            linkBeautyClub.Click();
+        }
+
         public void SelectBrandsPage()
         {
             WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
@@ -39,11 +45,27 @@ namespace MakeupTestingPageObjects
             linkBrands.Click();
         }
 
-        public void OpenDeliveryPage() => linkDelivery.Click();
+        public void OpenDeliveryPage()
+        {
+            WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
+            wait.Until(x => linkBrands.Displayed);
+            linkDelivery.Click();
+        }
 
-        public void SwitchLanguageToru() => btnPageLanguageru.Click();
+        public void SwitchLanguageToru()
+        {
+            WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
+            wait.Until(x => btnPageLanguageru.Displayed);
+            btnPageLanguageru.Click();
+        }
 
-        public void SwitchLanguageToUA() => btnPageLanguageUA.Click();
+        public void SwitchLanguageToUA()
+        {
+            WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
+            wait.Until(x => btnPageLanguageUA.Displayed);
+            btnPageLanguageUA.Click();
+        }
+
         public void SelectCategory(string category)
         {
             WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));

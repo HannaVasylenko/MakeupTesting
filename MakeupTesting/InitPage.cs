@@ -22,10 +22,25 @@ namespace MakeupTestingPageObjects
         private IWebElement linkSubCategory(string subCategory) => webDriver.FindElement(By.XPath($"//a[text()='{subCategory}']"));
         private IWebElement titleSubCategory(string titlesubCategory) => webDriver.FindElement(By.XPath($"//span[text()='{titlesubCategory}']"));
 
-        public void ScrollUp() => btnScrollUp.Click();
+        public void ScrollUp()
+        {
+            WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
+            wait.Until(x => btnScrollUp.Displayed);
+            btnScrollUp.Click();
+        }
 
-        public void SelectSubCategory(string subCategory) => linkSubCategory(subCategory).Click();
+        public void SelectSubCategory(string subCategory)
+        {
+            WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
+            wait.Until(x => linkSubCategory(subCategory).Displayed);
+            linkSubCategory(subCategory).Click();
+        }
 
-        public string GetSubCategoryTitleText(string titlesubCategory) => titleSubCategory(titlesubCategory).Text;
+        public string GetSubCategoryTitleText(string titlesubCategory)
+        {
+            WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
+            wait.Until(x => titleSubCategory(titlesubCategory).Displayed);
+            return titleSubCategory(titlesubCategory).Text;
+        }
     }
 }

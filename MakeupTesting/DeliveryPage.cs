@@ -32,9 +32,17 @@ namespace MakeupTestingPageObjects
             return cityTitle;
         }
 
-        public void SelectDeliveryCity() => txtSelectCity.Click();
+        public void SelectDeliveryCity()
+        {
+            WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
+            wait.Until(x => txtSelectCity.Displayed);
+            txtSelectCity.Click();
+        }
+
         public void InputDeliveryCity(string text)
         {
+            WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
+            wait.Until(x => txtSelectCity.Displayed);
             txtSelectCity.SendKeys(text);
         }
     }

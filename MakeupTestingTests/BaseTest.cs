@@ -21,7 +21,7 @@ namespace MakeupTestingTests
         [TearDown]
         public void TearDown()
         {
-            driver.Close();
+            driver.Quit();
         }
 
         public void WriteLog(string message)

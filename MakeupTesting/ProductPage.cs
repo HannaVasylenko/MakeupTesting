@@ -33,8 +33,10 @@ namespace MakeupTestingPageObjects
 
         public void AddProductToCart()
         {
-            WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
-            wait.Until(x => btnBuy.Displayed);
+            WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(20));
+            wait.Until(driver => ((IJavaScriptExecutor)driver).ExecuteScript("return document.readyState").Equals("complete"));
+            //WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
+            //wait.Until(x => btnBuy.Displayed);
             btnBuy.Click();
         }
         public void ClickArrowImageSliderRight()

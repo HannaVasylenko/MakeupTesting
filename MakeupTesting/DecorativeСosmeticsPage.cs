@@ -70,8 +70,9 @@ namespace MakeupTestingPageObjects
 
         public void SelectProductCard(string productAddToCart)
         {
-            WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
-            wait.Until(ExpectedConditions.ElementToBeClickable(productsInSearch));
+            WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(20));
+            wait.Until(driver => ((IJavaScriptExecutor)driver).ExecuteScript("return document.readyState").Equals("complete"));
+           
             //WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
             //wait.Until(x => linkProductTitle(productAddToCart).Displayed);
             linkProductTitle(productAddToCart).Click();
