@@ -13,7 +13,7 @@ namespace MakeupTestingTests
     public class ProductTests : BaseTest
     {
         [Test]
-        public void VerifyPossibilityToSelectProductVariants()
+        public void VerifySelectByProductColor()
         {
             var config = new ConfigurationBuilder().AddJsonFile("appconfig.json").Build();
             string titleproductVariant = config["productVariant"];
@@ -26,7 +26,7 @@ namespace MakeupTestingTests
             ProductPage productPage = new ProductPage(driver);
             productPage.SelectProductVariants(config["productVariant"]);
             
-            ClassicAssert.AreEqual(titleproductVariant, productPage.GetProductVariantText(config["productVariant"]), "The titles do not match");
+            ClassicAssert.AreEqual(titleproductVariant, productPage.GetProductVariantText(config["productVariant"]), "Another color is selected");
         }
     }
     

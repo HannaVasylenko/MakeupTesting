@@ -13,7 +13,7 @@ namespace MakeupTestingTests
     public class SearchResultTests : BaseTest
     {
         [Test]
-        public void VerifyInputProductName()
+        public void VerifyInputProductNameInSearch()
         {
             var config = new ConfigurationBuilder().AddJsonFile("appconfig.json").Build();
             string productName = config["productName"];
@@ -23,9 +23,9 @@ namespace MakeupTestingTests
             header.SearchClick();
             header.InputProductName(productName);
             SearchResultPage searchResultPage = new SearchResultPage(driver);
-            string searchTitleText = searchResultPage.GetSearchTitleText();
+            string actualSearchTitle = searchResultPage.GetSearchTitleText();
             
-            StringAssert.Contains(searchTitle, searchTitleText, "Search title text do not match");
+            StringAssert.Contains(searchTitle, actualSearchTitle, $"Search is not performed by {productName}");
         }
 
         [Test]
@@ -39,9 +39,9 @@ namespace MakeupTestingTests
             header.SearchClick();
             header.InputProductName(spaceKey);
             SearchResultPage searchResultPage = new SearchResultPage(driver);
-            string searchTitleText = searchResultPage.GetSearchTitleText();
+            string actualSearchTitle = searchResultPage.GetSearchTitleText();
             
-            StringAssert.Contains(searchTitle, searchTitleText, "Search title text do not match");
+            StringAssert.Contains(searchTitle, actualSearchTitle, "Product search titles are not the same");
         }
 
         [Test]
@@ -55,9 +55,9 @@ namespace MakeupTestingTests
             header.SearchClick();
             header.InputProductName(specialCharacters);
             SearchResultPage searchResultPage = new SearchResultPage(driver);
-            string searchTitleText = searchResultPage.GetSearchTitleText();
+            string actualSearchTitle = searchResultPage.GetSearchTitleText();
             
-            StringAssert.Contains(searchTitle, searchTitleText, "Search title text do not match");
+            StringAssert.Contains(searchTitle, actualSearchTitle, $"Search is not performed by {specialCharacters}");
         }
 
         [Test]
@@ -99,8 +99,8 @@ namespace MakeupTestingTests
         public void VerifyFollowLinkBreadCrumbs()
         {
             var config = new ConfigurationBuilder().AddJsonFile("appconfig.json").Build();
-
             string linkBreadCrumbs = config["breadCrumbsTitle"];
+
             Header header = new Header(driver);
             header.SelectCategory(config["category"]);
             DecorativeСosmeticsPage decorativeCosmetic = new DecorativeСosmeticsPage(driver);

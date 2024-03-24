@@ -1,6 +1,8 @@
 ﻿using MakeupTesting;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
+using OpenQA.Selenium.Support.UI;
+using SeleniumExtras.WaitHelpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,19 +32,37 @@ namespace MakeupTestingPageObjects
         private IWebElement linkBrands => webDriver.FindElement(By.XPath("//a[text()='Бренди']"));
 
         public void SelectBeautyClub() => linkBeautyClub.Click();
-        public void SelectBrandsPage() => linkBrands.Click();
-
+        public void SelectBrandsPage()
+        {
+            WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
+            wait.Until(x => linkBrands.Displayed);
+            linkBrands.Click();
+        }
 
         public void OpenDeliveryPage() => linkDelivery.Click();
 
         public void SwitchLanguageToru() => btnPageLanguageru.Click();
 
         public void SwitchLanguageToUA() => btnPageLanguageUA.Click();
-        public void SelectCategory(string category) => linkDecorativeCosmetics(category).Click();
-        public void SearchClick() => btnSearch.Click();
+        public void SelectCategory(string category)
+        {
+            WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
+            wait.Until(x => linkDecorativeCosmetics(category).Displayed);
+            linkDecorativeCosmetics(category).Click();
+        }
+
+        public void SearchClick()
+        {
+            WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
+            wait.Until(x => btnSearch.Displayed);
+            btnSearch.Click();
+        }
+
         public IWebElement GetDecorativeСosmeticsElement(string category) => linkDecorativeCosmetics(category);
         public void InputProductName(string text)
         {
+            WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(20));
+            wait.Until(ExpectedConditions.ElementToBeClickable(txtSearch));
             txtSearch.SendKeys(text);
             txtSearch.SendKeys(Keys.Enter);
         }

@@ -1,5 +1,6 @@
 ﻿using MakeupTesting;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,8 +15,14 @@ namespace MakeupTestingPageObjects
         {
         }
         private IWebElement btnBrandVariant(string brandVariant) => webDriver.FindElement(By.XPath($"//li[contains(text(), '{brandVariant}')]"));
-        public void SelectBrandVariant(string brandVariant) => btnBrandVariant(brandVariant).Click();
         private List<IWebElement> brandstList => webDriver.FindElements(By.XPath("//div[@class='brands__column active']/ul[@class='brands__list']/li")).ToList();
+        public void SelectBrandVariant(string brandVariant)
+        {
+            WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
+            wait.Until(x => btnBrandVariant(brandVariant).Displayed);
+            btnBrandVariant(brandVariant).Click();
+        }
+
         public List<string> GetBrandText()
         {
             List<string> result = new List<string>();

@@ -13,7 +13,7 @@ namespace MakeupTestingTests
     public class BrandsTests : BaseTest
     {
         [Test]
-        public void VerifyBrandsVariantsText()
+        public void VerifySelectProductsByBrands()
         {
             var config = new ConfigurationBuilder().AddJsonFile("appconfig.json").Build();
             string brandVariant = config["brandVariant"];

@@ -44,6 +44,8 @@ namespace MakeupTestingPageObjects
         
         private IWebElement btnArrowSliderLeft => webDriver.FindElement(By.XPath("//div[contains(text(), 'Відгуки про Декоративна косметика')]/following-sibling::*//div[@class='slider-button left']"));
         private IWebElement btnBuyPopUp => webDriver.FindElement(By.XPath("//div[@class='button buy']"));
+        private IWebElement productsInSearch => webDriver.FindElement(By.XPath("//div[@class='catalog-products']//ul[@class='simple-slider-list']"));
+
         public IWebElement GetProductTitle(string productAddToCart) => linkProductTitle(productAddToCart);
 
         public IWebElement GetbtnBuyPopUp() => btnBuyPopUp;
@@ -69,7 +71,9 @@ namespace MakeupTestingPageObjects
         public void SelectProductCard(string productAddToCart)
         {
             WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
-            wait.Until(x => linkProductTitle(productAddToCart).Displayed);
+            wait.Until(ExpectedConditions.ElementToBeClickable(productsInSearch));
+            //WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
+            //wait.Until(x => linkProductTitle(productAddToCart).Displayed);
             linkProductTitle(productAddToCart).Click();
         }
 
@@ -78,6 +82,7 @@ namespace MakeupTestingPageObjects
         public void CheckFiltersByNameAndTypeOfProduct(string nameOfBrand, string productName)
         {
             chbFilterByBrand(nameOfBrand).Click();
+            ScrollDownByPixels(800);
             chbFilterByProduct(productName).Click();
         }
 
