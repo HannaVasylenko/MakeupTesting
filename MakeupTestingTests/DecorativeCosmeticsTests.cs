@@ -29,11 +29,7 @@ namespace MakeupTestingTests
         }
 
         // 5 complete remove Thread.Sleep(3000)
-        /* Failed - The product type is missing in the title (Artdeco Hydra Lip Booster, Блеск для губ с эффектом увеличения - Artdeco Hydra Lip Booster)
-        Assert.That(actual, Does.Contain(expected))
-        Expected: String containing "блиск для губ"
-        But was:  "блеск для губ с эффектом увеличения - artdeco hydra lip booster" */
-        [Test]
+        [Test(Description = " Test FAILED - The product type is missing in the title (Artdeco Hydra Lip Booster, Блеск для губ с эффектом увеличения - Artdeco Hydra Lip Booster). Expected: String containing [блиск для губ]  But was: [блеск для губ с эффектом увеличения - artdeco hydra lip booster]")]
         public void VerifyFilterProducts()
         {
             var config = new ConfigurationBuilder().AddJsonFile("appconfig.json").Build();
@@ -110,11 +106,12 @@ namespace MakeupTestingTests
             decorativeCosmetic.CheckFiltersByNameAndTypeOfProduct(config["nameOfBrand"], config["filterProductName"]);
             bool isButtonPresentBefore = decorativeCosmetic.IsRemoveFiltersButtonPresent();
             decorativeCosmetic.RemoveFilters();
-            bool isButtonNotPresentAfter = decorativeCosmetic.IsRemoveFiltersButtonNotPresent();
+            bool isButtonNotPresentAfter = decorativeCosmetic.IsRemoveFiltersButtonPresent();
 
             ClassicAssert.IsTrue(isButtonPresentBefore, "Remove filters button is not present before clicking.");
-            ClassicAssert.IsTrue(isButtonNotPresentAfter, "Remove filters button is still present after clicking.");
+            ClassicAssert.IsFalse(isButtonNotPresentAfter, "Remove filters button is still present after clicking.");
         }
+
         [Test]
         public void VerifyProductsCountByClickBtnMoreProducts()
         {
@@ -130,6 +127,7 @@ namespace MakeupTestingTests
 
             ClassicAssert.AreEqual(expectedCount, updatedCount, "The products count did not increase by 36 after clicking the 'More products' button.");
         }
+
         [Test]
         public void VerifyMovementTestimonialsInSlider()
         {
@@ -144,7 +142,6 @@ namespace MakeupTestingTests
 
             ClassicAssert.AreEqual(expectedIndex, actualIndex, "The active page index does not match the expected index after clicking the right arrow.");
         }
-
 
         [Test]
         public void VerifySelectProductImage()

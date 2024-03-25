@@ -115,6 +115,7 @@ namespace MakeupTestingTests
 
             ClassicAssert.AreEqual(hintText, header.GetHintText(), "The tooltip is not displayed");
         }
+
         [Test]
         public void VerifySubscriptionErrorDisplay()
         {

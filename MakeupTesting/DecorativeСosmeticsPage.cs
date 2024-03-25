@@ -190,23 +190,9 @@ namespace MakeupTestingPageObjects
                 IWebElement button = wait.Until(ExpectedConditions.ElementExists(By.XPath("//div[@class='selected-filter-list__item cancel-filter active']")));
                 return button != null && button.Displayed;
             }
-            catch (NoSuchElementException)
+            catch (WebDriverTimeoutException)
             {
                 return false;
-            }
-        }
-
-        public bool IsRemoveFiltersButtonNotPresent()
-        {
-            try
-            {
-                WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
-                IWebElement button = wait.Until(ExpectedConditions.ElementExists(By.XPath("//div[@class='selected-filter-list__item cancel-filter']")));
-                return button != null && !button.Displayed;
-            }
-            catch (NoSuchElementException)
-            {
-                return true;
             }
         }
 

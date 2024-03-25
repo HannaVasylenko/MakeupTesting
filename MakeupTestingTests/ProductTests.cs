@@ -29,5 +29,4 @@ namespace MakeupTestingTests
             ClassicAssert.AreEqual(titleproductVariant, productPage.GetProductVariantText(config["productVariant"]), "Another color is selected");
         }
     }
-    
 }

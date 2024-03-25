@@ -43,6 +43,7 @@ namespace MakeupTestingPageObjects
             wait.Until(x => imgVariant(imgNumber).Displayed);
             imgVariant(imgNumber).Click();
         }
+
         public void ClickBreadCrumbs(string linkVariant)
         {
             WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));

@@ -26,7 +26,7 @@ namespace MakeupTestingPageObjects
         private IWebElement linkDecorativeCosmetics(string category) => webDriver.FindElement(By.XPath($"//a[text()='{category}']"));
         private IWebElement linkBeautyClub => webDriver.FindElement(By.XPath("//a[@class='header-top-list__link bc-about-link']"));
 
-        private IWebElement linkhintFeatures => webDriver.FindElement(By.XPath("//span[text()='Безкоштовна доставка по Україні!']"));
+        private IWebElement linkHintFeatures => webDriver.FindElement(By.XPath("//span[text()='Безкоштовна доставка по Україні!']"));
 
         private IWebElement hintFeatures => webDriver.FindElement(By.XPath("//span[text()='Безкоштовна доставка по Україні!']/parent::*"));
         private IWebElement linkBrands => webDriver.FindElement(By.XPath("//a[text()='Бренди']"));
@@ -88,7 +88,7 @@ namespace MakeupTestingPageObjects
             txtSearch.SendKeys(text);
             txtSearch.SendKeys(Keys.Enter);
         }
-        public IWebElement GetHintFeatures() => linkhintFeatures;
+        public IWebElement GetHintFeatures() => linkHintFeatures;
         public string GetHintText() => hintFeatures.GetAttribute("data-text");
     }
 }
