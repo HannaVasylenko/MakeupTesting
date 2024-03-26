@@ -37,7 +37,6 @@ namespace MakeupTestingTests
         public void VerifyDeleteProductFromCart()
         {
             var config = new ConfigurationBuilder().AddJsonFile("appconfig.json").Build();
-            string cartSize = config["emptyCart"];
             Header header = new Header(driver);
             header.SelectCategory(config["category"]);
             DecorativeСosmeticsPage decorativeCosmetic = new DecorativeСosmeticsPage(driver);
@@ -48,7 +47,7 @@ namespace MakeupTestingTests
             CartPage cartPage = new CartPage(driver);
             cartPage.DeleteProduct();
 
-            ClassicAssert.AreEqual(cartSize, cartPage.GetProductsInCart(), "Cart is not empty");
+            ClassicAssert.AreEqual(0, cartPage.GetCartSize(), "Cart is not empty");
         }
 
         // 1 complete remove Thread.Sleep(3000)
@@ -68,7 +67,7 @@ namespace MakeupTestingTests
             int currentQuantity = int.Parse(cartPage.GetQuantityProductsInCart());
             int expectedQuantity = currentQuantity + 1;
             cartPage.IncreaseQuantityProductInOrder();
-            Thread.Sleep(3000);
+            //Thread.Sleep(3000);
 
             ClassicAssert.AreEqual(expectedQuantity.ToString(), cartPage.GetQuantityProductsInCart(), "The quantity of the product in the cart did not increase by 1 after clicking the button to increase the quantity");
         }

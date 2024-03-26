@@ -95,7 +95,7 @@ namespace MakeupTestingPageObjects
 
         public void SetFilterByPrice(double priceMin, double priceMax)
         {
-            ScrollDownByPixels(1500);
+            ScrollDownByPixels(1800);
             WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
             wait.Until(x => txtPriceMin.Displayed);
 
@@ -110,6 +110,9 @@ namespace MakeupTestingPageObjects
         public Dictionary<string, double> GetSearchResultDetails()
         {
             Dictionary<string, double> productsDetails = new Dictionary<string, double>();
+
+            WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(20));
+            wait.Until(ExpectedConditions.PresenceOfAllElementsLocatedBy(By.XPath("//div[@class='catalog-products']//ul[@class='simple-slider-list']//div[@class='info-product-wrapper']")));
 
             List<IWebElement> list =  webDriver.FindElements(By.XPath("//div[@class='catalog-products']//ul[@class='simple-slider-list']//div[@class='info-product-wrapper']")).ToList();
             foreach (var product in list)
@@ -177,6 +180,7 @@ namespace MakeupTestingPageObjects
         }
         public void RemoveFilters()
         {
+            ScrollDownByPixels(50);
             WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
             wait.Until(x => btnRemoveFilters.Displayed);
             btnRemoveFilters.Click();

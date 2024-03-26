@@ -61,6 +61,7 @@ namespace MakeupTestingTests
             header.SelectCategory(config["category"]);
             DecorativeСosmeticsPage decorativeCosmetic = new DecorativeСosmeticsPage(driver);
             decorativeCosmetic.CheckFiltersByNameAndTypeOfProduct(config["nameOfBrand"], config["filterProductName"]);
+            Thread.Sleep(2000);
             decorativeCosmetic.SetFilterByPrice(minPrice, maxPrice);
             decorativeCosmetic.AddMoreProducts();
             Thread.Sleep(5000);

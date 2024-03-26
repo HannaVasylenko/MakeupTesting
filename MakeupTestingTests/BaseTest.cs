@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using Framework;
+using NUnit.Framework;
 using NUnit.Framework.Internal;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -13,7 +14,7 @@ namespace MakeupTestingTests
         [SetUp]
         public void SetUp()
         {
-            driver = new ChromeDriver();
+            driver = new BrowsersList().GetBrowserByName(BrowserEnum.Chrome);
             driver.Navigate().GoToUrl("https://makeup.com.ua/ua/");
             driver.Manage().Window.Maximize();
         }

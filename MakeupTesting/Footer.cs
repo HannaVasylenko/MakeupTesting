@@ -25,6 +25,7 @@ namespace MakeupTestingPageObjects
             WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
             wait.Until(x => linkYouTube.Displayed);
             linkYouTube.Click();
+            ScrollDownByPixels(50);
         }
 
         public bool IsEmailSubscriptionErrorDisplayed()

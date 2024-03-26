@@ -85,7 +85,6 @@ namespace MakeupTestingTests
             ClassicAssert.AreEqual(titleBeautyClub, driver.Title, "The BeautyClub page is not displayed");
         }
 
-        // 4 complete remove Thread.Sleep(3000)
         [Test]
         public void NavigateToYouTube()
         {
@@ -98,7 +97,6 @@ namespace MakeupTestingTests
             var allWindowHandles = driver.WindowHandles.ToList();
             string secondWindow = allWindowHandles.Where(x => x != mainPageHandle).Select(x => x).FirstOrDefault();
             driver.SwitchTo().Window(secondWindow);
-            Thread.Sleep(3000); 
 
             ClassicAssert.AreEqual(titleYouTube, driver.Title, "Another page is displayed");
         }
