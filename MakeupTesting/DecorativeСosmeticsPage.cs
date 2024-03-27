@@ -34,7 +34,8 @@ namespace MakeupTestingPageObjects
         private IWebElement btnMoreProducts => webDriver.FindElement(By.XPath("//div[text()='Більше товарів']"));
         private List<IWebElement> testimonialsList => webDriver.FindElements(By.XPath("//div[contains(text(), 'Відгуки про Декоративна косметика')]/following-sibling::*//div[@class='slider-button left']/label")).ToList();
         private IWebElement btnArrowSliderRight => webDriver.FindElement(By.XPath("//div[contains(text(), 'Відгуки про Декоративна косметика')]/following-sibling::*//div[@class='slider-button right']"));
-        
+        private IWebElement catalogSort => webDriver.FindElement(By.XPath("//ul[@class='catalog-sort-list']"));
+
         private int numberOfClicksOnArrow = 0;
 
         public int GetNumberOfClicksOnArrow()
@@ -73,11 +74,13 @@ namespace MakeupTestingPageObjects
         public void CheckFiltersByNameAndTypeOfProduct(string nameOfBrand, string productName)
         {
             WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
-            wait.Until(x => chbFilterByBrand(nameOfBrand).Displayed);
             chbFilterByBrand(nameOfBrand).Click();
+            //wait.Until(ExpectedConditions.ElementToBeSelected(chbFilterByBrand(nameOfBrand)));
+            wait.Until(x => chbFilterByBrand(nameOfBrand).Displayed);
             ScrollDownByPixels(800);
-            wait.Until(x => chbFilterByProduct(productName).Displayed);
             chbFilterByProduct(productName).Click();
+            //wait.Until(ExpectedConditions.ElementToBeSelected(chbFilterByProduct(productName)));
+            wait.Until(x => chbFilterByProduct(productName).Displayed);
         }
 
         public List<(string productName, string productType)> GetProductTitleText()

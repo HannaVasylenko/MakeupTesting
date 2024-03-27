@@ -57,14 +57,11 @@ namespace MakeupTestingPageObjects
 
         public string GetQuantityProductsInCart()
         {
-            //wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//input[@name='count[]']")));
-            //wait.Until(ExpectedConditions.ElementToBeClickable(txtQuantityProductInCart));
-            //wait.Until(x => txtQuantityProductInCart.Enabled);
-            WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
+            WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(20));
+            wait.Until(x => cartWindow.Displayed);
+            
             wait.Until(x => txtQuantityProductInCart.Displayed);
-            //IWebElement txtQuantityProductInCart = wait.Until(ExpectedConditions.ElementExists(By.XPath("//input[@name='count[]']")));
-            string quantityProduct = txtQuantityProductInCart.GetAttribute("value");
-            return quantityProduct;
+            return txtQuantityProductInCart.GetAttribute("value");
         }
 
         public string GetQuantityProductsPriceInCart()
@@ -74,16 +71,20 @@ namespace MakeupTestingPageObjects
 
         public string GetTotalOrderPriceInCart()
         {
-            return txtTotalPriceInOrder.Text.Replace("₴", "").Replace(" ", ""); //.Replace("&nbsp;", "")
+            return txtTotalPriceInOrder.Text.Replace("₴", "").Replace(" ", "");
         }
 
         public void IncreaseQuantityProductInOrder()
         {
             WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(20));
-            wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//div[@class='product__button-increase']")));
-            wait.Until(ExpectedConditions.ElementToBeClickable(btnProductIncrease));
+            wait.Until(x => cartWindow.Displayed);
+
+            string before = GetQuantityProductsInCart();
+            
             wait.Until(x => btnProductIncrease.Displayed);
             btnProductIncrease.Click();
+
+            wait.Until(e => !before.Equals(GetQuantityProductsInCart()));
         }
 
         public void DecreaseQuantityProductInOrder()
@@ -121,11 +122,13 @@ namespace MakeupTestingPageObjects
 
         public void ClickOnPlaceAnOrderBtn()
         {
-            WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
+            WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(20));
+            wait.Until(x => cartWindow.Displayed);
+
             wait.Until(x => btnPlaceAnOrder.Displayed);
             btnPlaceAnOrder.Click();
         }
-        public void ClickOnbtnContinueShopping()
+        public void ClickOnBtnContinueShopping()
         {
             WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
             wait.Until(x => btnContinueShopping.Displayed);

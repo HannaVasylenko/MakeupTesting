@@ -50,7 +50,6 @@ namespace MakeupTestingTests
             ClassicAssert.AreEqual(0, cartPage.GetCartSize(), "Cart is not empty");
         }
 
-        // 1 complete remove Thread.Sleep(3000)
         [Test]
         public void VerifyIncreaseQuantityProductInOrder()
         {
@@ -67,7 +66,6 @@ namespace MakeupTestingTests
             int currentQuantity = int.Parse(cartPage.GetQuantityProductsInCart());
             int expectedQuantity = currentQuantity + 1;
             cartPage.IncreaseQuantityProductInOrder();
-            //Thread.Sleep(3000);
 
             ClassicAssert.AreEqual(expectedQuantity.ToString(), cartPage.GetQuantityProductsInCart(), "The quantity of the product in the cart did not increase by 1 after clicking the button to increase the quantity");
         }
@@ -136,7 +134,7 @@ namespace MakeupTestingTests
             productPage.AddProductToCart();
             CartPage cartPage = new CartPage(driver);
             cartPage.ClickOnPlaceAnOrderBtn();
-            cartPage.ClickOnbtnContinueShopping();
+            cartPage.ClickOnBtnContinueShopping();
 
             ClassicAssert.AreEqual(titleMainPageUA, driver.Title, "The titles do not match");
         }
