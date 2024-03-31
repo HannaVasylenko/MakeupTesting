@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 
 namespace MakeupTesting
 {
@@ -16,6 +17,12 @@ namespace MakeupTesting
             IJavaScriptExecutor js = (IJavaScriptExecutor)webDriver;
             js.ExecuteScript($"window.scrollTo(0, {pixels});");
             Thread.Sleep(1000);
+        }
+
+        public IWebElement WaitUntilWebElementExists(By by, int seconds = 10)
+        {
+            WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(seconds));
+            return wait.Until(e => webDriver.FindElement(by));
         }
     }
 }

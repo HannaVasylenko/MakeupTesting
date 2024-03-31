@@ -45,7 +45,9 @@ namespace MakeupTestingTests
             ProductPage productPage = new ProductPage(driver);
             productPage.AddProductToCart();
             CartPage cartPage = new CartPage(driver);
+            cartPage.WaitCartWindow(CartPage.WebElementState.OPENED);
             cartPage.DeleteProduct();
+            cartPage.WaitCartWindow(CartPage.WebElementState.CLOSED);
 
             ClassicAssert.AreEqual(0, cartPage.GetCartSize(), "Cart is not empty");
         }

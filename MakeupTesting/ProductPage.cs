@@ -28,15 +28,8 @@ namespace MakeupTestingPageObjects
         public string GetProductVariantText(string productVariant) => titleProductVariant(productVariant).Text;
         private IWebElement linkProductBreadCrumbs(string linkVariant) => webDriver.FindElement(By.XPath($"//div[@class='bread-crumbs']//span[contains(text(), '{linkVariant}')]")); // Туш для вій
 
-        public void AddProductToCart()
-        {
-            WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(20));
-            wait.Until(driver => ((IJavaScriptExecutor)driver).ExecuteScript("return document.readyState").Equals("complete"));
-            //WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
-            //wait.Until(x => btnBuy.Displayed);
-            btnBuy.Click();
-        }
-       
+        public void AddProductToCart() => WaitUntilWebElementExists(By.XPath("//div[@class='button buy']")).Click();
+
         public void SelectImage(int imgNumber)
         {
             WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));

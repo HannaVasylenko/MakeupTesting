@@ -14,76 +14,90 @@ namespace MakeupTestingPageObjects
 {
     public class CartPage : BasePage
     {
-        public CartPage(IWebDriver driver) : base(driver)
-        {
-        }
+        public CartPage(IWebDriver driver) : base(driver) { }
 
-        private IWebElement titleCartProduct => webDriver.FindElement(By.XPath("//div[@class='product__header']"));
-        private IWebElement btnDelete => webDriver.FindElement(By.XPath("//div[@class='product__button-remove']"));
-        private IWebElement cartProductCounter => webDriver.FindElement(By.XPath("//span[contains(@class,'header-counter')]"));
-        private IWebElement txtQuantityProductInCart => webDriver.FindElement(By.XPath("//input[@name='count[]']"));
-        private IWebElement txtProductPrice => webDriver.FindElement(By.XPath("//div[@class='product__price']"));
-        private IWebElement btnProductIncrease => webDriver.FindElement(By.XPath("//div[@class='product__button-increase']"));
-        private IWebElement btnProductDecrease => webDriver.FindElement(By.XPath("//div[@class='product__button-decrease']"));
-        private IWebElement txtTotalPriceInOrder => webDriver.FindElement(By.XPath("//div[@class='total']/span"));
         private List<IWebElement> productListInCart => webDriver.FindElements(By.XPath("//div[@class='cart-content-wrapper scrolling']//ul[@class='product-list scrolling']/li")).ToList();
-        private IWebElement btnPlaceAnOrder => webDriver.FindElement(By.XPath("//div[text()='Оформити замовлення']"));
-        private IWebElement btnContinueShopping => webDriver.FindElement(By.XPath("//span[text()='Продовжити покупки']"));
-        private IWebElement btnCart => webDriver.FindElement(By.XPath("//div[@class='header-basket empty']"));
-        private IWebElement cartWindow => webDriver.FindElement(By.XPath("//div[@class='popup__window']"));
-
+     
+        public enum WebElementState
+        {
+            OPENED,
+            CLOSED
+        }
+        public void WaitCartWindow(WebElementState state)
+        {
+            IWebElement cartWindow = webDriver.FindElement(By.XPath("//div[@class='popup__window']"));
+            switch (state)
+            {
+                case WebElementState.OPENED:
+                    WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(20));
+                    wait.Until(x => cartWindow.Displayed);
+                    break;
+                case WebElementState.CLOSED:
+                    WebDriverWait waits = new WebDriverWait(webDriver, TimeSpan.FromSeconds(20));
+                    waits.Until(x => !cartWindow.Displayed);
+                    break;
+            }
+        }
 
         public string GetCartProductTitleText()
         {
+            WaitCartWindow(WebElementState.OPENED);
+
+            IWebElement titleCartProduct = webDriver.FindElement(By.XPath("//div[@class='product__header']"));
+
             WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
             wait.Until(x => titleCartProduct.Displayed);
             return titleCartProduct.Text;
         }
+
         public void DeleteProduct()
         {
+            IWebElement btnDelete = webDriver.FindElement(By.XPath("//div[@class='product__button-remove']"));
             WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(20));
-            wait.Until(x => cartWindow.Displayed);
-
             wait.Until(x => btnDelete.Displayed);
             btnDelete.Click();
 
-            wait.Until(x => !cartWindow.Displayed);
         }
+
         public int GetCartSize()
         {
-            string cartSize = cartProductCounter.Text;
+            string cartSize = webDriver.FindElement(By.XPath("//span[contains(@class,'header-counter')]")).Text;
             return cartSize == "" ? 0 : int.Parse(cartSize);
         }
 
         public string GetQuantityProductsInCart()
         {
+            WaitCartWindow(WebElementState.OPENED);
+            IWebElement txtQuantityProductInCart = webDriver.FindElement(By.XPath("//input[@name='count[]']"));
             WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(20));
-            wait.Until(x => cartWindow.Displayed);
-            
             wait.Until(x => txtQuantityProductInCart.Displayed);
             return txtQuantityProductInCart.GetAttribute("value");
         }
 
         public string GetQuantityProductsPriceInCart()
         {
-            WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(20));
-            wait.Until(x => cartWindow.Displayed);
-            return txtProductPrice.Text.Replace("&nbsp;₴", "");
+            return webDriver.FindElement(By.XPath("//div[@class='product__price']"))
+                .Text
+                .Replace("&nbsp;₴", "");
         }
 
         public string GetTotalOrderPriceInCart()
         {
-            return txtTotalPriceInOrder.Text.Replace("₴", "").Replace(" ", "");
+            return webDriver.FindElement(By.XPath("//div[@class='total']/span"))
+                .Text
+                .Replace("₴", "")
+                .Replace(" ", "");
         }
 
         public void IncreaseQuantityProductInOrder()
         {
+            WaitCartWindow(WebElementState.OPENED);
             WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(20));
-            wait.Until(x => cartWindow.Displayed);
 
             string before = GetQuantityProductsInCart();
-            
+            IWebElement btnProductIncrease = webDriver.FindElement(By.XPath("//div[@class='product__button-increase']"));
             wait.Until(x => btnProductIncrease.Displayed);
+            
             btnProductIncrease.Click();
 
             wait.Until(e => !before.Equals(GetQuantityProductsInCart()));
@@ -92,7 +106,7 @@ namespace MakeupTestingPageObjects
         public void DecreaseQuantityProductInOrder()
         {
             string before = GetQuantityProductsInCart();
-
+            IWebElement btnProductDecrease = webDriver.FindElement(By.XPath("//div[@class='product__button-decrease']"));
             WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
             wait.Until(x => btnProductDecrease.Displayed);
             btnProductDecrease.Click();
@@ -102,14 +116,9 @@ namespace MakeupTestingPageObjects
 
         public double GetProductsPricesSum()
         {
-            double sum = 0;
-            WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
-            foreach (IWebElement actualProduct in productListInCart)
-            {
-                wait.Until(x => actualProduct.FindElement(By.XPath($".//div[@class='product__price']")).Displayed);
-                sum += double.Parse(actualProduct.FindElement(By.XPath($".//div[@class='product__price']")).Text.Replace("&nbsp;₴", "").Replace("₴", ""));
-            }
-            return sum;
+            return webDriver.FindElements(
+                By.XPath("//div[@class='cart-content-wrapper scrolling']//ul[@class='product-list scrolling']/li//div[@class='product__price']"))
+                .Sum(e => double.Parse(e.Text.Replace("&nbsp;₴", "").Replace("₴", "")));
         }
 
         public List<Product> GetCartProductsDetails()
@@ -128,14 +137,16 @@ namespace MakeupTestingPageObjects
 
         public void ClickOnPlaceAnOrderBtn()
         {
+            WaitCartWindow(WebElementState.OPENED);
             WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(20));
-            wait.Until(x => cartWindow.Displayed);
-
+            IWebElement btnPlaceAnOrder = webDriver.FindElement(By.XPath("//div[text()='Оформити замовлення']"));
             wait.Until(x => btnPlaceAnOrder.Displayed);
             btnPlaceAnOrder.Click();
         }
+
         public void ClickOnBtnContinueShopping()
         {
+            IWebElement btnContinueShopping = webDriver.FindElement(By.XPath("//span[text()='Продовжити покупки']"));
             WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
             wait.Until(x => btnContinueShopping.Displayed);
             btnContinueShopping.Click();
