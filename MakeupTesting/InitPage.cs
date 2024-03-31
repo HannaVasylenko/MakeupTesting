@@ -14,33 +14,12 @@ namespace MakeupTestingPageObjects
     /// </summary>
     public class InitPage : BasePage
     {
-        public InitPage(IWebDriver driver) : base(driver)
-        {
-        }
+        public InitPage(IWebDriver driver) : base(driver) {}
 
-        private IWebElement btnScrollUp => webDriver.FindElement(By.XPath("//div[@class='button-up']"));
-        private IWebElement linkSubCategory(string subCategory) => webDriver.FindElement(By.XPath($"//a[text()='{subCategory}']"));
-        private IWebElement subCategoryTitle(string titleSubCategory) => webDriver.FindElement(By.XPath($"//span[text()='{titleSubCategory}']"));
+        public void ScrollUp() => webDriver.FindElement(By.XPath("//div[@class='button-up']")).Click();
 
-        public void ScrollUp()
-        {
-            WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
-            wait.Until(x => btnScrollUp.Displayed);
-            btnScrollUp.Click();
-        }
+        public void SelectSubCategory(string subCategory) => WaitUntilWebElementExists(By.XPath($"//a[text()='{subCategory}']")).Click();
 
-        public void SelectSubCategory(string subCategory)
-        {
-            WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
-            wait.Until(x => linkSubCategory(subCategory).Displayed);
-            linkSubCategory(subCategory).Click();
-        }
-
-        public string GetSubCategoryTitleText(string titleSubCategory)
-        {
-            WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
-            wait.Until(x => subCategoryTitle(titleSubCategory).Displayed);
-            return subCategoryTitle(titleSubCategory).Text;
-        }
+        public string GetSubCategoryTitleText(string titleSubCategory) => WaitUntilWebElementExists(By.XPath($"//span[text()='{titleSubCategory}']")).Text;
     }
 }

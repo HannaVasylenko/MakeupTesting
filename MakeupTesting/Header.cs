@@ -13,82 +13,33 @@ namespace MakeupTestingPageObjects
 {
     public class Header : BasePage
     {
-        public Header(IWebDriver driver) : base(driver)
-        {
-        }
+        public Header(IWebDriver driver) : base(driver) {}
 
-        private IWebElement btnPageLanguageru => webDriver.FindElement(By.XPath("//header//a[text()='Рус']"));
-        private IWebElement btnPageLanguageUA => webDriver.FindElement(By.XPath("//header//a[text()='Укр']"));
-        private IWebElement linkDelivery => webDriver.FindElement(By.XPath("//li[@class='header-top-list__item']/a[text()='Доставка та Оплата']"));
-        private IWebElement btnSearch => webDriver.FindElement(By.XPath("//div[@data-popup-handler='search']"));
-        private IWebElement txtSearch => webDriver.FindElement(By.XPath("//input[@itemprop='query-input']"));
+        public void SelectBeautyClub() => webDriver.FindElement(By.XPath("//a[@class='header-top-list__link bc-about-link']")).Click();
 
-        private IWebElement linkDecorativeCosmetics(string category) => webDriver.FindElement(By.XPath($"//a[text()='{category}']"));
-        private IWebElement linkBeautyClub => webDriver.FindElement(By.XPath("//a[@class='header-top-list__link bc-about-link']"));
+        public void SelectBrandsPage() => webDriver.FindElement(By.XPath("//a[text()='Бренди']")).Click();
 
-        private IWebElement linkHintFeatures => webDriver.FindElement(By.XPath("//span[text()='Безкоштовна доставка по Україні!']"));
+        public void OpenDeliveryPage() => webDriver.FindElement(By.XPath("//li[@class='header-top-list__item']/a[text()='Доставка та Оплата']")).Click();
 
-        private IWebElement hintFeatures => webDriver.FindElement(By.XPath("//span[text()='Безкоштовна доставка по Україні!']/parent::*"));
-        private IWebElement linkBrands => webDriver.FindElement(By.XPath("//a[text()='Бренди']"));
+        public void SwitchLanguageToru() => webDriver.FindElement(By.XPath("//header//a[text()='Рус']")).Click();
 
-        public void SelectBeautyClub()
-        {
-            WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
-            wait.Until(x => linkBeautyClub.Displayed);
-            linkBeautyClub.Click();
-        }
+        public void SwitchLanguageToUA() => webDriver.FindElement(By.XPath("//header//a[text()='Укр']")).Click();
 
-        public void SelectBrandsPage()
-        {
-            WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
-            wait.Until(x => linkBrands.Displayed);
-            linkBrands.Click();
-        }
+        public void SelectCategory(string category) => GetDecorativeСosmeticsElement(category).Click();
 
-        public void OpenDeliveryPage()
-        {
-            WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
-            wait.Until(x => linkBrands.Displayed);
-            linkDelivery.Click();
-        }
+        public void SearchClick() => webDriver.FindElement(By.XPath("//div[@data-popup-handler='search']")).Click();
 
-        public void SwitchLanguageToru()
-        {
-            WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
-            wait.Until(x => btnPageLanguageru.Displayed);
-            btnPageLanguageru.Click();
-        }
-
-        public void SwitchLanguageToUA()
-        {
-            WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
-            wait.Until(x => btnPageLanguageUA.Displayed);
-            btnPageLanguageUA.Click();
-        }
-
-        public void SelectCategory(string category)
-        {
-            WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
-            wait.Until(x => linkDecorativeCosmetics(category).Displayed);
-            linkDecorativeCosmetics(category).Click();
-        }
-
-        public void SearchClick()
-        {
-            WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
-            wait.Until(x => btnSearch.Displayed);
-            btnSearch.Click();
-        }
-
-        public IWebElement GetDecorativeСosmeticsElement(string category) => linkDecorativeCosmetics(category);
+        public IWebElement GetDecorativeСosmeticsElement(string category) => WaitUntilWebElementExists(By.XPath($"//a[text()='{category}']"));
+        
         public void InputProductName(string text)
         {
-            WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(20));
-            wait.Until(ExpectedConditions.ElementToBeClickable(txtSearch));
+            IWebElement txtSearch = webDriver.FindElement(By.XPath("//input[@itemprop='query-input']"));
             txtSearch.SendKeys(text);
             txtSearch.SendKeys(Keys.Enter);
         }
-        public IWebElement GetHintFeatures() => linkHintFeatures;
-        public string GetHintText() => hintFeatures.GetAttribute("data-text");
+        
+        public IWebElement GetHintFeatures() => webDriver.FindElement(By.XPath("//span[text()='Безкоштовна доставка по Україні!']"));
+        
+        public string GetHintText() => webDriver.FindElement(By.XPath("//span[text()='Безкоштовна доставка по Україні!']/parent::*")).GetAttribute("data-text");
     }
 }
