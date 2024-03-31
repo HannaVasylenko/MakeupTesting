@@ -28,8 +28,7 @@ namespace MakeupTestingPageObjects
 
         public string GetDeliveryCityText()
         {
-            string cityTitle = txtSelectedCity.GetAttribute("title");
-            return cityTitle;
+            return txtSelectedCity.GetAttribute("title");
         }
 
         public void SelectDeliveryCity()

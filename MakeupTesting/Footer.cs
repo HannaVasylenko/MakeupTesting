@@ -19,6 +19,8 @@ namespace MakeupTestingPageObjects
         private IWebElement txtEmailSubscription => webDriver.FindElement(By.XPath("//input[@placeholder='Електронна пошта']"));
         private IWebElement btnEmailSubscription => webDriver.FindElement(By.XPath("//button[contains(text(), 'підписатися')]"));
 
+        private IWebElement errorElement => webDriver.FindElement(By.Id("email-field"));
+
         public void SelectYouTube()
         {
             ScrollDownByPixels(11800);
@@ -30,24 +32,7 @@ namespace MakeupTestingPageObjects
 
         public bool IsEmailSubscriptionErrorDisplayed()
         {
-            try
-            {
-                WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
-                IWebElement errorElement = wait.Until(ExpectedConditions.ElementIsVisible(By.Id("email-field")));
-
-                if (errorElement.GetAttribute("class") == "footer-input-group invalid")
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            catch (NoSuchElementException)
-            {
-                return false;
-            }
+             return errorElement.GetAttribute("class") == "footer-input-group invalid";
         }
         public void InputEmail(string text)
         {

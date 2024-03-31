@@ -70,7 +70,6 @@ namespace MakeupTestingTests
             ClassicAssert.AreEqual(expectedQuantity.ToString(), cartPage.GetQuantityProductsInCart(), "The quantity of the product in the cart did not increase by 1 after clicking the button to increase the quantity");
         }
 
-        // 2 complete remove Thread.Sleep(3000)
         [Test]
         public void VerifyDecreaseQuantityProductInOrder()
         {
@@ -85,11 +84,9 @@ namespace MakeupTestingTests
             productPage.AddProductToCart();
             CartPage cartPage = new CartPage(driver);
             cartPage.IncreaseQuantityProductInOrder();
-            Thread.Sleep(3000);
             int currentQuantity = int.Parse(cartPage.GetQuantityProductsInCart());
             int expectedQuantity = currentQuantity - 1;
             cartPage.DecreaseQuantityProductInOrder();
-            Thread.Sleep(3000);
 
             ClassicAssert.AreEqual(expectedQuantity.ToString(), cartPage.GetQuantityProductsInCart(), "The quantity of the product in the cart did not decrease by 1 after clicking the button to decrease the quantity");
         }

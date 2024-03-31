@@ -66,6 +66,8 @@ namespace MakeupTestingPageObjects
 
         public string GetQuantityProductsPriceInCart()
         {
+            WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(20));
+            wait.Until(x => cartWindow.Displayed);
             return txtProductPrice.Text.Replace("&nbsp;₴", "");
         }
 
@@ -89,9 +91,13 @@ namespace MakeupTestingPageObjects
 
         public void DecreaseQuantityProductInOrder()
         {
+            string before = GetQuantityProductsInCart();
+
             WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
             wait.Until(x => btnProductDecrease.Displayed);
             btnProductDecrease.Click();
+
+            wait.Until(e => !before.Equals(GetQuantityProductsInCart()));
         }
 
         public double GetProductsPricesSum()
