@@ -61,7 +61,7 @@ namespace MakeupTestingTests
             header.SelectCategory(config["category"]);
             DecorativeСosmeticsPage decorativeCosmetic = new DecorativeСosmeticsPage(driver);
             decorativeCosmetic.CheckFiltersByNameAndTypeOfProduct(config["nameOfBrand"], config["filterProductName"]);
-            //Thread.Sleep(2000);
+            Thread.Sleep(2000);
             decorativeCosmetic.SetFilterByPrice(minPrice, maxPrice);
             decorativeCosmetic.AddMoreProducts();
             Thread.Sleep(5000);
@@ -87,11 +87,18 @@ namespace MakeupTestingTests
             DecorativeСosmeticsPage decorativeCosmetic = new DecorativeСosmeticsPage(driver);
             decorativeCosmetic.CheckFiltersByNameAndTypeOfProduct(config["nameOfBrand"], config["filterProductName"]);
             Thread.Sleep(2000);
-            List<double> orderedPricesList = decorativeCosmetic.GetSearchResultPrices().OrderBy(x => x).ToList();
+            List<double> orderedPricesList = decorativeCosmetic.GetSearchResultDetails()
+                .ToList()
+                .ConvertAll(x => x.Value);
+            
+            orderedPricesList.Sort(new DecorativeСosmeticsPage.ProductComparator());
+            
             decorativeCosmetic.SelectDropdownSortBy();
             decorativeCosmetic.SelectValueSortBy(config["variantSortBy"]);
             Thread.Sleep(2000);
-            List<double> pricesList = decorativeCosmetic.GetSearchResultPrices();
+            List<double> pricesList = decorativeCosmetic.GetSearchResultDetails()
+                .ToList()
+                .ConvertAll(x => x.Value);
 
             CollectionAssert.AreEqual(pricesList, orderedPricesList);
         }

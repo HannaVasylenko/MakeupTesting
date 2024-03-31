@@ -66,7 +66,6 @@ namespace MakeupTestingTests
             Header header = new Header(driver);
             header.OpenDeliveryPage();
             DeliveryPage deliveryPage = new DeliveryPage(driver);
-            deliveryPage.SelectDeliveryCity();
             deliveryPage.InputDeliveryCity(deliveryCity);
             deliveryPage.SelectFirstDeliveryCity();
             

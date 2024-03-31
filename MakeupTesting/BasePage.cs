@@ -24,5 +24,18 @@ namespace MakeupTesting
             WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(seconds));
             return wait.Until(e => webDriver.FindElement(by));
         }
+
+        public bool IsElementExists(By by)
+        {
+            try
+            {
+                webDriver.FindElement(by);
+                return true;
+            }
+            catch (NoSuchElementException)
+            {
+                return false;
+            }
+        }
     }
 }
