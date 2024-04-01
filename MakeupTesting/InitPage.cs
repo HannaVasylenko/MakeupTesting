@@ -1,11 +1,5 @@
 ﻿using MakeupTesting;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MakeupTestingPageObjects
 {
@@ -16,7 +10,7 @@ namespace MakeupTestingPageObjects
     {
         public InitPage(IWebDriver driver) : base(driver) {}
 
-        public void ScrollUp() => webDriver.FindElement(By.XPath("//div[@class='button-up']")).Click();
+        public void ScrollUp() => WaitUntilWebElementExists(By.XPath("//div[@class='button-up']")).Click();
 
         public void SelectSubCategory(string subCategory) => WaitUntilWebElementExists(By.XPath($"//a[text()='{subCategory}']")).Click();
 

@@ -1,15 +1,7 @@
-﻿using MakeupTesting;
-using MakeupTestingPageObjects;
+﻿using MakeupTestingPageObjects;
 using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 using NUnit.Framework.Legacy;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Interactions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MakeupTestingTests
 {
@@ -45,9 +37,7 @@ namespace MakeupTestingTests
             ProductPage productPage = new ProductPage(driver);
             productPage.AddProductToCart();
             CartPage cartPage = new CartPage(driver);
-            cartPage.WaitCartWindow(CartPage.WebElementState.OPENED);
             cartPage.DeleteProduct();
-            cartPage.WaitCartWindow(CartPage.WebElementState.CLOSED);
 
             ClassicAssert.AreEqual(0, cartPage.GetCartSize(), "Cart is not empty");
         }
@@ -93,7 +83,6 @@ namespace MakeupTestingTests
             ClassicAssert.AreEqual(expectedQuantity.ToString(), cartPage.GetQuantityProductsInCart(), "The quantity of the product in the cart did not decrease by 1 after clicking the button to decrease the quantity");
         }
 
-        // 3 complete remove Thread.Sleep(3000)
         [Test]
         public void CalculateTotalProductPriceInOrder()
         {
@@ -106,13 +95,9 @@ namespace MakeupTestingTests
             decorativeCosmetic.SelectProductCard(config["productAddToCart1"]);
             ProductPage productPage = new ProductPage(driver);
             productPage.AddProductToCart();
-            Thread.Sleep(3000);
             driver.Navigate().Back();
-            Thread.Sleep(3000);
             decorativeCosmetic.SelectProductCard(config["productAddToCart2"]);
-            Thread.Sleep(3000);
             productPage.AddProductToCart();
-            Thread.Sleep(3000);
             CartPage cartPage = new CartPage(driver);
 
             ClassicAssert.AreEqual(cartPage.GetTotalOrderPriceInCart(), cartPage.GetProductsPricesSum().ToString(), "The total cost of the order does not equal the sum of the cost of the products");

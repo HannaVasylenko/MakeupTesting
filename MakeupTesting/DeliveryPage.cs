@@ -1,11 +1,5 @@
 ﻿using MakeupTesting;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MakeupTestingPageObjects
 {
@@ -15,7 +9,7 @@ namespace MakeupTestingPageObjects
 
         public void SelectFirstDeliveryCity() => WaitUntilWebElementExists(By.XPath("//div[@class='animated-input-group']//div[@class='search-value__container']//ul[@class='search-value__list scrolling expanded']//li[1]")).Click();
 
-        public string GetDeliveryCityText() => webDriver.FindElement(By.XPath("//input[@id='city-id-selected']")).GetAttribute("title");
+        public string GetDeliveryCityText() => WaitUntilWebElementExists(By.XPath("//input[@id='city-id-selected']")).GetAttribute("title");
 
         public void InputDeliveryCity(string text)
         {

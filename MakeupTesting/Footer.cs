@@ -1,12 +1,5 @@
 ﻿using MakeupTesting;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
-using SeleniumExtras.WaitHelpers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MakeupTestingPageObjects
 {
@@ -14,12 +7,12 @@ namespace MakeupTestingPageObjects
     {
         public Footer(IWebDriver driver) : base(driver) {}
 
-        public void SelectYouTube() => webDriver.FindElement(By.XPath("//li[@class='social__item social-icon yt']")).Click();
+        public void SelectYouTube() => WaitUntilWebElementExists(By.XPath("//li[@class='social__item social-icon yt']")).Click();
 
-        public bool IsEmailSubscriptionErrorDisplayed() => webDriver.FindElement(By.Id("email-field")).GetAttribute("class") == "footer-input-group invalid";
+        public bool IsEmailSubscriptionErrorDisplayed() => WaitUntilWebElementExists(By.Id("email-field")).GetAttribute("class") == "footer-input-group invalid";
         
-        public void InputEmail(string text) => webDriver.FindElement(By.XPath("//input[@placeholder='Електронна пошта']")).SendKeys(text);
+        public void InputEmail(string text) => WaitUntilWebElementExists(By.XPath("//input[@placeholder='Електронна пошта']")).SendKeys(text);
         
-        public void ClickBtnEmailSubscription() => webDriver.FindElement(By.XPath("//button[contains(text(), 'підписатися')]")).Click();
+        public void ClickBtnEmailSubscription() => WaitUntilWebElementExists(By.XPath("//button[contains(text(), 'підписатися')]")).Click();
     }
 }

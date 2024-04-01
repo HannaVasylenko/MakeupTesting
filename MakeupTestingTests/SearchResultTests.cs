@@ -2,11 +2,6 @@
 using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 using NUnit.Framework.Legacy;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MakeupTestingTests
 {
@@ -74,7 +69,7 @@ namespace MakeupTestingTests
             }
         }
 
-        [Test(Description = " Test FAILED - The product name is missing in the title (Набор - Rilastil Anti-Age Summer Kit (f/cr/40ml + serum/15ml)), Expected: String containing (крем)")]
+        [Test(Description = " Test FAILED - The product name is missing in the title, Expected: String containing (крем) but was [набор]")]
         public void VerifySearchResultOnLastPage()
         {
             var config = new ConfigurationBuilder().AddJsonFile("appconfig.json").Build();

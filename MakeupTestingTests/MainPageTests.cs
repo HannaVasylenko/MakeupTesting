@@ -4,11 +4,7 @@ using NUnit.Framework;
 using NUnit.Framework.Legacy;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using OpenQA.Selenium.Support.UI;
 
 namespace MakeupTestingTests
 {
@@ -96,6 +92,8 @@ namespace MakeupTestingTests
             var allWindowHandles = driver.WindowHandles.ToList();
             string secondWindow = allWindowHandles.Where(x => x != mainPageHandle).Select(x => x).FirstOrDefault();
             driver.SwitchTo().Window(secondWindow);
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+            wait.Until(e => driver.Title != null);
 
             ClassicAssert.AreEqual(titleYouTube, driver.Title, "Another page is displayed");
         }
