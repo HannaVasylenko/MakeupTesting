@@ -6,14 +6,14 @@ namespace MakeupTestingPageObjects
     public class ProductPage : BasePage
     {
         public ProductPage(IWebDriver driver) : base(driver) { }
-
-        public string GetProductVariantText(string productVariant) => WaitUntilWebElementExists(By.XPath($"//label[@class='product-variant-selected']//span[contains(text(),'{productVariant}')]")).Text;
+        
+        public string GetProductColorVariant(string productVariant) => WaitUntilWebElementExists(By.XPath($"//label[@class='product-variant-selected']//span[contains(text(),'{productVariant}')]")).Text;
 
         public void AddProductToCart() => WaitUntilWebElementExists(By.XPath("//div[@class='button buy']")).Click();
 
-        public void SelectImage(int imgNumber) => WaitUntilWebElementExists(By.XPath($"//div[@id='product-image']//ul[@class='simple-slider-list']/li/label[contains(@for, 'product-slider_id_{imgNumber}')]")).Click();
+        public void SelectProductImage(int imgNumber) => WaitUntilWebElementExists(By.XPath($"//div[@id='product-image']//ul[@class='simple-slider-list']/li/label[contains(@for, 'product-slider_id_{imgNumber}')]")).Click();
 
-        public void ClickBreadCrumbs(string linkVariant) => WaitUntilWebElementExists(By.XPath($"//div[@class='bread-crumbs']//span[contains(text(), '{linkVariant}')]")).Click();
+        public void ClickOnBreadCrumbs(string linkVariant) => WaitUntilWebElementExists(By.XPath($"//div[@class='bread-crumbs']//span[contains(text(), '{linkVariant}')]")).Click();
 
         public void SelectProductVariants(string variantText)
         {

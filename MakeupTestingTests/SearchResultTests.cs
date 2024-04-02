@@ -15,11 +15,11 @@ namespace MakeupTestingTests
             string searchTitle = $"Результати пошуку за запитом «{productName}»";
 
             Header header = new Header(driver);
-            header.SearchClick();
+            header.ClickOnSearchField();
             header.InputProductName(productName);
             SearchResultPage searchResultPage = new SearchResultPage(driver);
             
-            StringAssert.Contains(searchTitle, searchResultPage.GetSearchTitleText(), $"Search is not performed by {productName}");
+            StringAssert.Contains(searchTitle, searchResultPage.GetSearchTitle(), $"Search is not performed by {productName}");
         }
 
         [Test]
@@ -30,26 +30,26 @@ namespace MakeupTestingTests
             string searchTitle = "Знайдено 0 товарів";
 
             Header header = new Header(driver);
-            header.SearchClick();
+            header.ClickOnSearchField();
             header.InputProductName(spaceKey);
             SearchResultPage searchResultPage = new SearchResultPage(driver);
             
-            StringAssert.Contains(searchTitle, searchResultPage.GetSearchTitleText(), "Product search titles are not the same");
+            StringAssert.Contains(searchTitle, searchResultPage.GetSearchTitle(), "Product search titles are not the same");
         }
 
         [Test]
-        public void VerifyInputSpecialCharactersInSearch()
+        public void VerifyInputSpecialCharactersInSearchField()
         {
             var config = new ConfigurationBuilder().AddJsonFile("appconfig.json").Build();
             string specialCharacters = config["specialCharacters"];
             string searchTitle = $"Результати пошуку за запитом «{specialCharacters}»";
         
             Header header = new Header(driver);
-            header.SearchClick();
+            header.ClickOnSearchField();
             header.InputProductName(specialCharacters);
             SearchResultPage searchResultPage = new SearchResultPage(driver);
             
-            StringAssert.Contains(searchTitle, searchResultPage.GetSearchTitleText(), $"Search is not performed by {specialCharacters}");
+            StringAssert.Contains(searchTitle, searchResultPage.GetSearchTitle(), $"Search is not performed by {specialCharacters}");
         }
 
         [Test]
@@ -59,28 +59,30 @@ namespace MakeupTestingTests
             string productName = config["productName"];
             
             Header header = new Header(driver);
-            header.SearchClick();
+            header.ClickOnSearchField();
             header.InputProductName(productName);
             SearchResultPage searchResultPage = new SearchResultPage(driver);
-            List<string> productTitles = searchResultPage.GetProductTitleText();
+            
+            List<string> productTitles = searchResultPage.GetProductsTitlesInSearch();
             foreach (var productTitleText in productTitles)
             {
                 StringAssert.Contains(productName.ToLower(), productTitleText.ToLower(), $"The product name is missing in the title {productTitleText}");
             }
         }
 
-        [Test(Description = " Test FAILED - The product name is missing in the title, Expected: String containing (крем) but was [набор]")]
+        [Test(Description = "Test FAILED - The product name is missing in the title")]
         public void VerifySearchResultOnLastPage()
         {
             var config = new ConfigurationBuilder().AddJsonFile("appconfig.json").Build();
             string productName = config["productName"];
 
             Header header = new Header(driver);
-            header.SearchClick();
+            header.ClickOnSearchField();
             header.InputProductName(productName);
             SearchResultPage searchResultPage = new SearchResultPage(driver);
-            searchResultPage.LastPageClick();
-            List<string> productTitles = searchResultPage.GetProductTitleText();
+            searchResultPage.ClickOnLastPage();
+            
+            List<string> productTitles = searchResultPage.GetProductsTitlesInSearch();
             foreach (var productTitleText in productTitles)
             {
                 StringAssert.Contains(productName.ToLower(), productTitleText.ToLower(), $"The product name is missing in the title {productTitleText}");
@@ -96,9 +98,9 @@ namespace MakeupTestingTests
             Header header = new Header(driver);
             header.SelectCategory(config["category"]);
             DecorativeСosmeticsPage decorativeCosmetic = new DecorativeСosmeticsPage(driver);
-            decorativeCosmetic.SelectProductCard(config["productAddToCart3"]);
+            decorativeCosmetic.SelectProduct(config["productAddToCart3"]);
             ProductPage productPage = new ProductPage(driver);
-            productPage.ClickBreadCrumbs(config["breadCrumbsTitle"]);
+            productPage.ClickOnBreadCrumbs(config["breadCrumbsTitle"]);
             SearchResultPage searchResultPage = new SearchResultPage(driver);
             
             ClassicAssert.AreEqual(linkBreadCrumbs, searchResultPage.GetBreadCrumbsTitle(config["breadCrumbsTitle"]), "The title does not match the selected category");

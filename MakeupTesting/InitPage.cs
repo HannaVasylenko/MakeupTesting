@@ -10,10 +10,10 @@ namespace MakeupTestingPageObjects
     {
         public InitPage(IWebDriver driver) : base(driver) {}
 
-        public void ScrollUp() => WaitUntilWebElementExists(By.XPath("//div[@class='button-up']")).Click();
+        public void ClickOnScrollUpArrow() => WaitUntilWebElementExists(By.XPath("//div[@class='button-up']")).Click();
 
         public void SelectSubCategory(string subCategory) => WaitUntilWebElementExists(By.XPath($"//a[text()='{subCategory}']")).Click();
 
-        public string GetSubCategoryTitleText(string titleSubCategory) => WaitUntilWebElementExists(By.XPath($"//span[text()='{titleSubCategory}']")).Text;
+        public string GetSubCategoryTitle(string titleSubCategory) => WaitUntilWebElementExists(By.XPath($"//span[text()='{titleSubCategory}']")).Text;
     }
 }

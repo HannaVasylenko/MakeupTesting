@@ -7,11 +7,20 @@ namespace MakeupTestingPageObjects
     {
         public SearchResultPage(IWebDriver driver) : base(driver) { }
 
-        public string GetSearchTitleText() => WaitUntilWebElementExists(By.XPath($"//div[@class='search-results info-text']")).Text;
+        public string GetSearchTitle() => WaitUntilWebElementExists(By.XPath($"//div[@class='search-results info-text']")).Text;
 
-        public void LastPageClick() => WaitUntilWebElementExists(By.XPath($"(//li[@class='page__item']/label)[last()]")).Click();
+        public void ClickOnLastPage()
+        {
+            IWebElement lastPage = WaitUntilWebElementExists(By.XPath($"(//li[@class='page__item']/label)[last()]"));
+            if (Convert.ToInt32(lastPage.Text) > 1)
+            {
+                List<string> before = GetProductsTitlesInSearch();
+                lastPage.Click();
+                WaitUntil(e => !before.SequenceEqual(GetProductsTitlesInSearch()));
+            }
+        }
 
-        public List<string> GetProductTitleText()
+        public List<string> GetProductsTitlesInSearch()
         {
             List<string> result = new List<string>();
             WaitUntil(e =>

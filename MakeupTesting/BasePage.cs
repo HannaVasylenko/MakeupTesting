@@ -36,5 +36,15 @@ namespace MakeupTesting
             WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(seconds));
             wait.Until(func);
         }
+
+        public void SwitchToWindow(string window)
+        {
+            webDriver.SwitchTo().Window(window);
+            WaitUntil(e => webDriver.Title != null);
+        }
+
+        public List<string> GetAllWindows() => webDriver.WindowHandles.ToList();
+
+        public string GetCurrentWindow() => webDriver.CurrentWindowHandle;
     }
 }

@@ -8,20 +8,20 @@ namespace MakeupTestingTests
     public class ProductTests : BaseTest
     {
         [Test]
-        public void VerifySelectByProductColor()
+        public void VerifySelectProductByColor()
         {
             var config = new ConfigurationBuilder().AddJsonFile("appconfig.json").Build();
-            string titleproductVariant = config["productVariant"];
+            string productVariant = config["productVariant"];
 
             Header header = new Header(driver);
             header.SelectCategory(config["category"]);
             DecorativeСosmeticsPage decorativeCosmetics = new DecorativeСosmeticsPage(driver);
             decorativeCosmetics.CheckFiltersByNameAndTypeOfProduct(config["nameOfBrand"], config["filterProductName"]);
-            decorativeCosmetics.SelectProductCard(config["productAddToCart2"]);
+            decorativeCosmetics.SelectProduct(config["productAddToCart2"]);
             ProductPage productPage = new ProductPage(driver);
             productPage.SelectProductVariants(config["productVariant"]);
             
-            ClassicAssert.AreEqual(titleproductVariant, productPage.GetProductVariantText(config["productVariant"]), "Another color is selected");
+            ClassicAssert.AreEqual(productVariant, productPage.GetProductColorVariant(config["productVariant"]), "Another color is selected");
         }
     }
 }

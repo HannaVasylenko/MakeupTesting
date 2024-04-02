@@ -27,13 +27,13 @@ namespace MakeupTestingPageObjects
             }
         }
 
-        public string GetCartProductTitleText()
+        public string GetProductTitleInCart()
         {
             WaitCartWindow(WebElementState.OPENED);
             return WaitUntilWebElementExists(By.XPath("//div[@class='product__header']")).Text;
         }
 
-        public void DeleteProduct()
+        public void DeleteProductFromCart()
         {
             WaitCartWindow(WebElementState.OPENED);
             WaitUntilWebElementExists(By.XPath("//div[@class='product__button-remove']")).Click();
@@ -51,10 +51,6 @@ namespace MakeupTestingPageObjects
             WaitCartWindow(WebElementState.OPENED); 
             return WaitUntilWebElementExists(By.XPath("//input[@name='count[]']")).GetAttribute("value");
         }
-
-        public string GetQuantityProductsPriceInCart() => webDriver.FindElement(By.XPath("//div[@class='product__price']"))
-                .Text
-                .Replace("&nbsp;₴", "");
 
         public string GetTotalOrderPriceInCart() => WaitUntilWebElementExists(By.XPath("//div[@class='total']/span"))
                 .Text
@@ -76,7 +72,7 @@ namespace MakeupTestingPageObjects
             WaitUntil(e => !before.Equals(GetQuantityProductsInCart()));
         }
 
-        public double GetProductsPricesSum() => webDriver.FindElements(By.XPath("//div[@class='cart-content-wrapper scrolling']//ul[@class='product-list scrolling']/li//div[@class='product__price']"))
+        public double GetProductsPricesSumInCart() => webDriver.FindElements(By.XPath("//div[@class='cart-content-wrapper scrolling']//ul[@class='product-list scrolling']/li//div[@class='product__price']"))
                 .Sum(e => double.Parse(e.Text.Replace("&nbsp;₴", "").Replace("₴", "")));
 
         public List<Product> GetCartProductsDetails()

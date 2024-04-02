@@ -37,7 +37,7 @@ namespace MakeupTestingTests
             actions.MoveToElement(header.GetDecorativeСosmeticsElement(config["category"])).Build().Perform();
             initPage.SelectSubCategory(config["subCategory"]);
             
-            ClassicAssert.AreEqual(titleSubCategory, initPage.GetSubCategoryTitleText(config["subCategoryTitle"]), "The titles do not match");
+            ClassicAssert.AreEqual(titleSubCategory, initPage.GetSubCategoryTitle(config["subCategoryTitle"]), "The titles do not match");
         }
 
         [Test]
@@ -47,7 +47,7 @@ namespace MakeupTestingTests
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             js.ExecuteScript("window.scrollTo(0, document.body.scrollHeight);");
             double scrollPositionBeforeClick = Convert.ToDouble(js.ExecuteScript("return window.pageYOffset;"));
-            initPage.ScrollUp();
+            initPage.ClickOnScrollUpArrow();
             double scrollPositionAfterClick = Convert.ToDouble(js.ExecuteScript("return window.pageYOffset;"));
             
             ClassicAssert.IsTrue(scrollPositionAfterClick < scrollPositionBeforeClick, "The position on the screen did not change after pressing the scroll up button.");
@@ -63,9 +63,9 @@ namespace MakeupTestingTests
             header.OpenDeliveryPage();
             DeliveryPage deliveryPage = new DeliveryPage(driver);
             deliveryPage.InputDeliveryCity(deliveryCity);
-            deliveryPage.SelectFirstDeliveryCity();
+            deliveryPage.SelectDeliveryCity();
             
-            StringAssert.Contains(deliveryCity.ToLower(), deliveryPage.GetDeliveryCityText().ToLower(), "Another delivery city is selected");
+            StringAssert.Contains(deliveryCity.ToLower(), deliveryPage.GetDeliveryCity().ToLower(), "Another delivery city is selected");
         }
 
         [Test]
@@ -87,13 +87,9 @@ namespace MakeupTestingTests
             string titleYouTube = config["titleYouTube"];
 
             Footer footer = new Footer(driver);
-            string mainPageHandle = driver.CurrentWindowHandle;
             footer.SelectYouTube();
-            var allWindowHandles = driver.WindowHandles.ToList();
-            string secondWindow = allWindowHandles.Where(x => x != mainPageHandle).Select(x => x).FirstOrDefault();
-            driver.SwitchTo().Window(secondWindow);
-            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
-            wait.Until(e => driver.Title != null);
+            string secondWindow = footer.GetAllWindows().FirstOrDefault(x => x != footer.GetCurrentWindow(), "");
+            footer.SwitchToWindow(secondWindow);
 
             ClassicAssert.AreEqual(titleYouTube, driver.Title, "Another page is displayed");
         }

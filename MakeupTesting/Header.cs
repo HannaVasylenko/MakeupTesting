@@ -19,7 +19,7 @@ namespace MakeupTestingPageObjects
 
         public void SelectCategory(string category) => GetDecorativeСosmeticsElement(category).Click();
 
-        public void SearchClick() => WaitUntilWebElementExists(By.XPath("//div[@data-popup-handler='search']")).Click();
+        public void ClickOnSearchField() => WaitUntilWebElementExists(By.XPath("//div[@data-popup-handler='search']")).Click();
 
         public IWebElement GetDecorativeСosmeticsElement(string category) => WaitUntilWebElementExists(By.XPath($"//a[text()='{category}']"));
         

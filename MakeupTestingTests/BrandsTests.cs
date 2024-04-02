@@ -17,10 +17,11 @@ namespace MakeupTestingTests
             header.SelectBrandsPage();
             BrandsPage brandsPage = new BrandsPage(driver);
             brandsPage.SelectBrandVariant(config["brandVariant"]);
-            List<string> brandsVariantsText = brandsPage.GetBrandText();
-            foreach (var brandVariantText in brandsVariantsText)
+            
+            List<string> brandsVariantsNames = brandsPage.GetBrandNames();
+            foreach (var brandVariantName in brandsVariantsNames)
             {
-                StringAssert.StartsWith(brandVariant, brandVariantText, "The brand name starts with a different character");
+                StringAssert.StartsWith(brandVariant, brandVariantName, "The brand name starts with a different character");
             }
         }
     }

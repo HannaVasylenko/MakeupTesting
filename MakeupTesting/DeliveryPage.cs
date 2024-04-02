@@ -7,9 +7,9 @@ namespace MakeupTestingPageObjects
     {
         public DeliveryPage(IWebDriver driver) : base(driver) {}
 
-        public void SelectFirstDeliveryCity() => WaitUntilWebElementExists(By.XPath("//div[@class='animated-input-group']//div[@class='search-value__container']//ul[@class='search-value__list scrolling expanded']//li[1]")).Click();
+        public void SelectDeliveryCity() => WaitUntilWebElementExists(By.XPath("//div[@class='animated-input-group']//div[@class='search-value__container']//ul[@class='search-value__list scrolling expanded']//li[1]")).Click();
 
-        public string GetDeliveryCityText() => WaitUntilWebElementExists(By.XPath("//input[@id='city-id-selected']")).GetAttribute("title");
+        public string GetDeliveryCity() => WaitUntilWebElementExists(By.XPath("//input[@id='city-id-selected']")).GetAttribute("title");
 
         public void InputDeliveryCity(string text)
         {

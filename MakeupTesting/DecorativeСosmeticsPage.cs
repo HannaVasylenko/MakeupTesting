@@ -12,7 +12,7 @@ namespace MakeupTestingPageObjects
 
         public DecorativeСosmeticsPage(IWebDriver driver) : base(driver) { }
 
-        private double convertToPriceOrDefault(string price, double defaultValue)
+        private double ConvertToPriceOrDefault(string price, double defaultValue)
         {
             try
             {
@@ -33,7 +33,7 @@ namespace MakeupTestingPageObjects
             }
         }
 
-        public int GetNumberOfClicksOnArrow()
+        public int GetNumberOfClicksOnArrowInSlider()
         {
             return numberOfClicksOnArrow;
         }
@@ -44,12 +44,12 @@ namespace MakeupTestingPageObjects
             btnArrowSliderRight.Click();
             numberOfClicksOnArrow++;
         }
+        
+        public void ClickOnBtnAddMoreProducts() => WaitUntilWebElementExists(By.XPath("//div[text()='Більше товарів']")).Click();
 
-        public void AddMoreProducts() => WaitUntilWebElementExists(By.XPath("//div[text()='Більше товарів']")).Click();
+        public void SelectProduct(string productAddToCart) => WaitUntilWebElementExists(By.XPath($"//a[text()='{productAddToCart}']")).Click();
 
-        public void SelectProductCard(string productAddToCart) => WaitUntilWebElementExists(By.XPath($"//a[text()='{productAddToCart}']")).Click();
-
-        public string GetCategoryTitleText(string categoryTitle) => WaitUntilWebElementExists(By.XPath($"//span[text()='{categoryTitle}']")).Text;
+        public string GetCategoryTitle(string categoryTitle) => WaitUntilWebElementExists(By.XPath($"//span[text()='{categoryTitle}']")).Text;
 
         public void CheckFiltersByNameAndTypeOfProduct(string nameOfBrand, string productName)
         {
@@ -64,7 +64,7 @@ namespace MakeupTestingPageObjects
             chbFilterByProduct.Click();
         }
 
-        public List<(string productName, string productType)> GetProductTitleText() => webDriver.FindElements(By.XPath("//div[@class='catalog-products']//ul[@class='simple-slider-list']//div[@class='info-product-wrapper']/a"))
+        public List<(string productName, string productType)> GetProductTitle() => webDriver.FindElements(By.XPath("//div[@class='catalog-products']//ul[@class='simple-slider-list']//div[@class='info-product-wrapper']/a"))
                 .ToList()
                 .ConvertAll(e => (e.Text, e.GetAttribute("data-default-name")));
 
@@ -85,7 +85,7 @@ namespace MakeupTestingPageObjects
             txtPriceMax.Click();
         }
 
-        public Dictionary<string, double> GetSearchResultDetails()
+        public Dictionary<string, double> GetProductsTitlesAndPrices()
         {
             Dictionary<string, double> productsDetails = new Dictionary<string, double>();
 
@@ -115,7 +115,7 @@ namespace MakeupTestingPageObjects
                             }
                         }
 
-                        productsDetails.Add(title, convertToPriceOrDefault(price, 0.0));
+                        productsDetails.Add(title, ConvertToPriceOrDefault(price, 0.0));
                     }
                     return true;
                 }
@@ -131,12 +131,12 @@ namespace MakeupTestingPageObjects
 
         public void SelectDropdownSortBy() => WaitUntilWebElementExists(By.XPath("//div[@class='catalog-sort-wrapper']")).Click();
 
-        public void SelectValueSortByPrice(string valueSortBy)
+        public void SelectSortingByPrice()
         {
             WaitUntilWebElementExists(By.XPath($"//label[contains(text(), 'вартістю')]")).Click();
             WaitUntil(e =>
             {
-                List<double> values = GetSearchResultDetails().Values.ToList();
+                List<double> values = GetProductsTitlesAndPrices().Values.ToList();
                 for (int i = 0; i < values.Count - 1; i++)
                 {
                     if (values[i] != 0 && values[i + 1] != 0 && values[i] > values[i + 1])
@@ -153,7 +153,7 @@ namespace MakeupTestingPageObjects
 
         public bool IsRemoveFiltersButtonPresent() => IsElementExists(By.XPath("//div[@class='selected-filter-list__item cancel-filter active']"));
 
-        public int CountProductsInList() => GetSearchResultDetails().Count;
+        public int CountProductsInList() => GetProductsTitlesAndPrices().Count;
 
         public int GetIndexOfActiveTestimonialPage() => webDriver
                 .FindElements(By.XPath("//div[contains(text(), 'Відгуки про Декоративна косметика')]/following-sibling::*//div[@class='slider-button left']/label"))
