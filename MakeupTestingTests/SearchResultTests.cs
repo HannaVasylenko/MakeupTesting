@@ -70,7 +70,7 @@ namespace MakeupTestingTests
             }
         }
 
-        [Test(Description = "Test FAILED - The product name is missing in the title")]
+        [Test(Description = "Test FAILED")]
         public void VerifySearchResultOnLastPage()
         {
             var config = new ConfigurationBuilder().AddJsonFile("appconfig.json").Build();

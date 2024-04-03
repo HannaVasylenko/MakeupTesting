@@ -1,4 +1,5 @@
 ﻿using MakeupTesting;
+using MakeupTestingModels;
 using OpenQA.Selenium;
 
 namespace MakeupTestingPageObjects
@@ -226,5 +227,57 @@ namespace MakeupTestingPageObjects
                 .FindElements(By.XPath("//div[contains(text(), 'Відгуки про Декоративна косметика')]/following-sibling::*//div[@class='slider-button left']/label"))
                 .ToList()
                 .FindIndex(e => e.GetAttribute("class").Contains("active"));
+
+        /// <summary>
+        /// Retrieves the details of products for serialization purposes.
+        /// </summary>
+        /// <returns>A list of Product objects containing product details.</returns>
+        public List<Product> GetProductsDetailsForSerialization()
+        {
+            List<Product> products = new List<Product>();
+
+            WaitUntil(e =>
+            {
+                try
+                {
+                    List<IWebElement> productList = webDriver.FindElements(By.XPath("//div[@class='catalog-products']//ul[@class='simple-slider-list']//div[@class='info-product-wrapper']")).ToList();
+
+                    foreach (var productElement in productList)
+                    {
+                        string title = productElement.FindElement(By.XPath("./a")).GetAttribute("data-default-name");
+                        string priceText;
+
+                        try
+                        {
+                            priceText = productElement.FindElement(By.XPath(".//div[@class='simple-slider-list__price_container']//span[@class='simple-slider-list__price product-item__price_red']/span[@class='price_item']")).Text;
+                        }
+                        catch (NoSuchElementException)
+                        {
+                            try
+                            {
+                                priceText = productElement.FindElement(By.XPath(".//div[@class='simple-slider-list__price_container']//span[@class='simple-slider-list__price']/span[@class='price_item']")).Text;
+                            }
+                            catch (NoSuchElementException)
+                            {
+                                priceText = "0";
+                            }
+                        }
+
+                        double price = ConvertToPriceOrDefault(priceText, 0.0);
+
+                        products.Add(new Product { Name = title, Price = price });
+                    }
+
+                    return true;
+                }
+                catch (StaleElementReferenceException)
+                {
+                    products.Clear();
+                    return false;
+                }
+            });
+
+            return products;
+        }
     }
 }

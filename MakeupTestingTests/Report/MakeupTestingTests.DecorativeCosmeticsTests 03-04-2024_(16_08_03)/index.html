@@ -52,7 +52,7 @@
           </li>
             <li class="m-r-10">
                 <a href="#">
-                    <span class="badge badge-primary">04/02/2024 10:40:06 PM</span>
+                    <span class="badge badge-primary">04/03/2024 4:08:03 PM</span>
                 </a>
             </li>
         </ul>
@@ -115,6 +115,51 @@
                             </div>
                             <div class="test-list-wrapper scrollable">
                                 <ul class="test-list-item">
+										<li class="test-item" status="pass" author="" device="" tag=""> 
+											<div class="status-avatar pass-bg">
+												<i class="fa fa-check text-white"></i>
+											</div>
+											<div class="open-test">
+												<div class="test-detail"> 
+													<p class="name">SerializeTest</p> 
+													<p class="duration text-sm">0h:0m:10s+598ms</p> 
+													<span class="datetime">16:08:03 PM</span>
+												</div>
+											</div>
+											<div class="test-contents d-none">
+												<div class="detail-head">
+													<div class="p-v-10 d-inline-block">	
+														<div class="info">
+															<h5 class="test-status text-pass">SerializeTest</h5>
+															<span class='badge badge-success'>04/03/2024 4:08:03 PM</span>
+															<span class='badge badge-danger'>04/03/2024 4:08:14 PM</span>
+															<span class='badge badge-default'>0h:0m:10s+598ms</span>
+														</div>
+																											</div>
+												</div>
+<div class="detail-body mt-4">												
+	
+<table class="table table-sm">
+	<thead><tr>
+		<th class="status-col">Status</th>
+		<th class="timestamp-col">Timestamp</th>
+		<th class="details-col">Details</th>
+	</tr></thead>
+	<tbody>
+			<tr class="event-row">
+				<td><i class="fa fa-check text-pass"></i></td>
+				<td>16:08:14</td>
+				<td>
+Test ended with Pass, 
+<br>
+<br>									</td>
+			</tr>
+	</tbody>
+</table>
+
+</div>    
+											</div>
+										</li>
 										<li class="test-item" status="fail" author="" device="" tag=""> 
 											<div class="status-avatar fail-bg">
 												<i class="fa fa-times text-white"></i>
@@ -122,8 +167,8 @@
 											<div class="open-test">
 												<div class="test-detail"> 
 													<p class="name">VerifyFilterProducts</p> 
-													<p class="duration text-sm">0h:0m:11s+915ms</p> 
-													<span class="datetime">22:40:06 PM</span>
+													<p class="duration text-sm">0h:0m:9s+511ms</p> 
+													<span class="datetime">16:08:14 PM</span>
 												</div>
 											</div>
 											<div class="test-contents d-none">
@@ -131,9 +176,9 @@
 													<div class="p-v-10 d-inline-block">	
 														<div class="info">
 															<h5 class="test-status text-fail">VerifyFilterProducts</h5>
-															<span class='badge badge-success'>04/02/2024 10:40:06 PM</span>
-															<span class='badge badge-danger'>04/02/2024 10:40:18 PM</span>
-															<span class='badge badge-default'>0h:0m:11s+915ms</span>
+															<span class='badge badge-success'>04/03/2024 4:08:14 PM</span>
+															<span class='badge badge-danger'>04/03/2024 4:08:23 PM</span>
+															<span class='badge badge-default'>0h:0m:9s+511ms</span>
 														</div>
 																											</div>
 												</div>
@@ -148,18 +193,21 @@
 	<tbody>
 			<tr class="event-row">
 				<td><i class="fa fa-times text-fail"></i></td>
-				<td>22:40:18</td>
+				<td>16:08:23</td>
 				<td>
 Test ended with Fail, 
-<br>   at NUnit.Framework.Legacy.StringAssert.Contains(String expected, String actual, String message, Object[] args)
-   at MakeupTestingTests.DecorativeCosmeticsTests.VerifyFilterProducts() in E:\VisualStudio\RepVisualStudio\MakeupTesting\MakeupTestingTests\DecorativeCosmeticsTests.cs:line 39
-
+<br>   at OpenQA.Selenium.WebDriver.UnpackAndThrowOnError(Response errorResponse, String commandToExecute)
+   at OpenQA.Selenium.WebDriver.Execute(String driverCommandToExecute, Dictionary`2 parameters)
+   at OpenQA.Selenium.WebElement.GetAttribute(String attributeName)
+   at MakeupTestingPageObjects.DecorativeСosmeticsPage.<>c.<GetProductTitle>b__10_0(IWebElement e) in E:\VisualStudio\RepVisualStudio\MakeupTesting\MakeupTesting\DecorativeСosmeticsPage.cs:line 107
+   at System.Collections.Generic.List`1.ConvertAll[TOutput](Converter`2 converter)
+   at MakeupTestingPageObjects.DecorativeСosmeticsPage.GetProductTitle() in E:\VisualStudio\RepVisualStudio\MakeupTesting\MakeupTesting\DecorativeСosmeticsPage.cs:line 105
+   at MakeupTestingTests.DecorativeCosmeticsTests.VerifyFilterProducts() in E:\VisualStudio\RepVisualStudio\MakeupTesting\MakeupTestingTests\DecorativeCosmeticsTests.cs:line 38
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
 <br>
-<br>  The product name is missing in the title (Maybelline New York Lash/Cils Sensational, Тушь для ресниц - Maybelline New York Lash/Cils Sensational)
-Assert.That(actual, Does.Contain(expected))
-  Expected: String containing "artdeco"
-  But was:  "maybelline new york lash/cils sensational"
-
+<br>OpenQA.Selenium.StaleElementReferenceException : stale element reference: stale element not found in the current frame
+  (Session info: chrome=123.0.6312.106); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#stale-element-reference-exception
 <br>									</td>
 			</tr>
 	</tbody>
@@ -175,8 +223,8 @@ Assert.That(actual, Does.Contain(expected))
 											<div class="open-test">
 												<div class="test-detail"> 
 													<p class="name">VerifyFilterProductsByPrice</p> 
-													<p class="duration text-sm">0h:0m:14s+235ms</p> 
-													<span class="datetime">22:40:18 PM</span>
+													<p class="duration text-sm">0h:0m:11s+067ms</p> 
+													<span class="datetime">16:08:24 PM</span>
 												</div>
 											</div>
 											<div class="test-contents d-none">
@@ -184,9 +232,9 @@ Assert.That(actual, Does.Contain(expected))
 													<div class="p-v-10 d-inline-block">	
 														<div class="info">
 															<h5 class="test-status text-pass">VerifyFilterProductsByPrice</h5>
-															<span class='badge badge-success'>04/02/2024 10:40:18 PM</span>
-															<span class='badge badge-danger'>04/02/2024 10:40:33 PM</span>
-															<span class='badge badge-default'>0h:0m:14s+235ms</span>
+															<span class='badge badge-success'>04/03/2024 4:08:24 PM</span>
+															<span class='badge badge-danger'>04/03/2024 4:08:35 PM</span>
+															<span class='badge badge-default'>0h:0m:11s+067ms</span>
 														</div>
 																											</div>
 												</div>
@@ -201,7 +249,7 @@ Assert.That(actual, Does.Contain(expected))
 	<tbody>
 			<tr class="event-row">
 				<td><i class="fa fa-check text-pass"></i></td>
-				<td>22:40:33</td>
+				<td>16:08:35</td>
 				<td>
 Test ended with Pass, 
 <br>
@@ -220,8 +268,8 @@ Test ended with Pass,
 											<div class="open-test">
 												<div class="test-detail"> 
 													<p class="name">VerifyMovementTestimonialsInSlider</p> 
-													<p class="duration text-sm">0h:0m:10s+861ms</p> 
-													<span class="datetime">22:40:33 PM</span>
+													<p class="duration text-sm">0h:0m:9s+488ms</p> 
+													<span class="datetime">16:08:35 PM</span>
 												</div>
 											</div>
 											<div class="test-contents d-none">
@@ -229,9 +277,9 @@ Test ended with Pass,
 													<div class="p-v-10 d-inline-block">	
 														<div class="info">
 															<h5 class="test-status text-pass">VerifyMovementTestimonialsInSlider</h5>
-															<span class='badge badge-success'>04/02/2024 10:40:33 PM</span>
-															<span class='badge badge-danger'>04/02/2024 10:40:44 PM</span>
-															<span class='badge badge-default'>0h:0m:10s+861ms</span>
+															<span class='badge badge-success'>04/03/2024 4:08:35 PM</span>
+															<span class='badge badge-danger'>04/03/2024 4:08:44 PM</span>
+															<span class='badge badge-default'>0h:0m:9s+488ms</span>
 														</div>
 																											</div>
 												</div>
@@ -246,7 +294,7 @@ Test ended with Pass,
 	<tbody>
 			<tr class="event-row">
 				<td><i class="fa fa-check text-pass"></i></td>
-				<td>22:40:44</td>
+				<td>16:08:44</td>
 				<td>
 Test ended with Pass, 
 <br>
@@ -265,8 +313,8 @@ Test ended with Pass,
 											<div class="open-test">
 												<div class="test-detail"> 
 													<p class="name">VerifyProductsCountByClickOnBtnMoreProducts</p> 
-													<p class="duration text-sm">0h:0m:17s+631ms</p> 
-													<span class="datetime">22:40:44 PM</span>
+													<p class="duration text-sm">0h:0m:16s+346ms</p> 
+													<span class="datetime">16:08:45 PM</span>
 												</div>
 											</div>
 											<div class="test-contents d-none">
@@ -274,9 +322,9 @@ Test ended with Pass,
 													<div class="p-v-10 d-inline-block">	
 														<div class="info">
 															<h5 class="test-status text-pass">VerifyProductsCountByClickOnBtnMoreProducts</h5>
-															<span class='badge badge-success'>04/02/2024 10:40:44 PM</span>
-															<span class='badge badge-danger'>04/02/2024 10:41:02 PM</span>
-															<span class='badge badge-default'>0h:0m:17s+631ms</span>
+															<span class='badge badge-success'>04/03/2024 4:08:45 PM</span>
+															<span class='badge badge-danger'>04/03/2024 4:09:01 PM</span>
+															<span class='badge badge-default'>0h:0m:16s+346ms</span>
 														</div>
 																											</div>
 												</div>
@@ -291,7 +339,7 @@ Test ended with Pass,
 	<tbody>
 			<tr class="event-row">
 				<td><i class="fa fa-check text-pass"></i></td>
-				<td>22:41:02</td>
+				<td>16:09:01</td>
 				<td>
 Test ended with Pass, 
 <br>
@@ -310,8 +358,8 @@ Test ended with Pass,
 											<div class="open-test">
 												<div class="test-detail"> 
 													<p class="name">VerifyRemoveFilters</p> 
-													<p class="duration text-sm">0h:0m:11s+131ms</p> 
-													<span class="datetime">22:41:02 PM</span>
+													<p class="duration text-sm">0h:0m:9s+266ms</p> 
+													<span class="datetime">16:09:01 PM</span>
 												</div>
 											</div>
 											<div class="test-contents d-none">
@@ -319,9 +367,9 @@ Test ended with Pass,
 													<div class="p-v-10 d-inline-block">	
 														<div class="info">
 															<h5 class="test-status text-pass">VerifyRemoveFilters</h5>
-															<span class='badge badge-success'>04/02/2024 10:41:02 PM</span>
-															<span class='badge badge-danger'>04/02/2024 10:41:13 PM</span>
-															<span class='badge badge-default'>0h:0m:11s+131ms</span>
+															<span class='badge badge-success'>04/03/2024 4:09:01 PM</span>
+															<span class='badge badge-danger'>04/03/2024 4:09:10 PM</span>
+															<span class='badge badge-default'>0h:0m:9s+266ms</span>
 														</div>
 																											</div>
 												</div>
@@ -336,7 +384,7 @@ Test ended with Pass,
 	<tbody>
 			<tr class="event-row">
 				<td><i class="fa fa-check text-pass"></i></td>
-				<td>22:41:13</td>
+				<td>16:09:10</td>
 				<td>
 Test ended with Pass, 
 <br>
@@ -355,8 +403,8 @@ Test ended with Pass,
 											<div class="open-test">
 												<div class="test-detail"> 
 													<p class="name">VerifySelectCategory</p> 
-													<p class="duration text-sm">0h:0m:9s+843ms</p> 
-													<span class="datetime">22:41:13 PM</span>
+													<p class="duration text-sm">0h:0m:8s+883ms</p> 
+													<span class="datetime">16:09:11 PM</span>
 												</div>
 											</div>
 											<div class="test-contents d-none">
@@ -364,9 +412,9 @@ Test ended with Pass,
 													<div class="p-v-10 d-inline-block">	
 														<div class="info">
 															<h5 class="test-status text-pass">VerifySelectCategory</h5>
-															<span class='badge badge-success'>04/02/2024 10:41:13 PM</span>
-															<span class='badge badge-danger'>04/02/2024 10:41:23 PM</span>
-															<span class='badge badge-default'>0h:0m:9s+843ms</span>
+															<span class='badge badge-success'>04/03/2024 4:09:11 PM</span>
+															<span class='badge badge-danger'>04/03/2024 4:09:19 PM</span>
+															<span class='badge badge-default'>0h:0m:8s+883ms</span>
 														</div>
 																											</div>
 												</div>
@@ -381,7 +429,7 @@ Test ended with Pass,
 	<tbody>
 			<tr class="event-row">
 				<td><i class="fa fa-check text-pass"></i></td>
-				<td>22:41:23</td>
+				<td>16:09:19</td>
 				<td>
 Test ended with Pass, 
 <br>
@@ -400,8 +448,8 @@ Test ended with Pass,
 											<div class="open-test">
 												<div class="test-detail"> 
 													<p class="name">VerifySelectProductImage</p> 
-													<p class="duration text-sm">0h:0m:13s+652ms</p> 
-													<span class="datetime">22:41:23 PM</span>
+													<p class="duration text-sm">0h:0m:12s+921ms</p> 
+													<span class="datetime">16:09:20 PM</span>
 												</div>
 											</div>
 											<div class="test-contents d-none">
@@ -409,9 +457,9 @@ Test ended with Pass,
 													<div class="p-v-10 d-inline-block">	
 														<div class="info">
 															<h5 class="test-status text-pass">VerifySelectProductImage</h5>
-															<span class='badge badge-success'>04/02/2024 10:41:23 PM</span>
-															<span class='badge badge-danger'>04/02/2024 10:41:37 PM</span>
-															<span class='badge badge-default'>0h:0m:13s+652ms</span>
+															<span class='badge badge-success'>04/03/2024 4:09:20 PM</span>
+															<span class='badge badge-danger'>04/03/2024 4:09:32 PM</span>
+															<span class='badge badge-default'>0h:0m:12s+921ms</span>
 														</div>
 																											</div>
 												</div>
@@ -426,7 +474,7 @@ Test ended with Pass,
 	<tbody>
 			<tr class="event-row">
 				<td><i class="fa fa-check text-pass"></i></td>
-				<td>22:41:37</td>
+				<td>16:09:32</td>
 				<td>
 Test ended with Pass, 
 <br>
@@ -438,25 +486,25 @@ Test ended with Pass,
 </div>    
 											</div>
 										</li>
-										<li class="test-item" status="pass" author="" device="" tag=""> 
-											<div class="status-avatar pass-bg">
-												<i class="fa fa-check text-white"></i>
+										<li class="test-item" status="fail" author="" device="" tag=""> 
+											<div class="status-avatar fail-bg">
+												<i class="fa fa-times text-white"></i>
 											</div>
 											<div class="open-test">
 												<div class="test-detail"> 
 													<p class="name">VerifySortProductsByPrice</p> 
-													<p class="duration text-sm">0h:0m:20s+793ms</p> 
-													<span class="datetime">22:41:37 PM</span>
+													<p class="duration text-sm">0h:0m:21s+839ms</p> 
+													<span class="datetime">16:09:33 PM</span>
 												</div>
 											</div>
 											<div class="test-contents d-none">
 												<div class="detail-head">
 													<div class="p-v-10 d-inline-block">	
 														<div class="info">
-															<h5 class="test-status text-pass">VerifySortProductsByPrice</h5>
-															<span class='badge badge-success'>04/02/2024 10:41:37 PM</span>
-															<span class='badge badge-danger'>04/02/2024 10:41:58 PM</span>
-															<span class='badge badge-default'>0h:0m:20s+793ms</span>
+															<h5 class="test-status text-fail">VerifySortProductsByPrice</h5>
+															<span class='badge badge-success'>04/03/2024 4:09:33 PM</span>
+															<span class='badge badge-danger'>04/03/2024 4:09:55 PM</span>
+															<span class='badge badge-default'>0h:0m:21s+839ms</span>
 														</div>
 																											</div>
 												</div>
@@ -470,11 +518,20 @@ Test ended with Pass,
 	</tr></thead>
 	<tbody>
 			<tr class="event-row">
-				<td><i class="fa fa-check text-pass"></i></td>
-				<td>22:41:58</td>
+				<td><i class="fa fa-times text-fail"></i></td>
+				<td>16:09:55</td>
 				<td>
-Test ended with Pass, 
+Test ended with Fail, 
+<br>   at OpenQA.Selenium.Support.UI.DefaultWait`1.ThrowTimeoutException(String exceptionMessage, Exception lastException)
+   at OpenQA.Selenium.Support.UI.DefaultWait`1.Until[TResult](Func`2 condition, CancellationToken token)
+   at OpenQA.Selenium.Support.UI.DefaultWait`1.Until[TResult](Func`2 condition)
+   at MakeupTesting.BasePage.WaitUntil(Func`2 func, Int32 seconds) in E:\VisualStudio\RepVisualStudio\MakeupTesting\MakeupTesting\BasePage.cs:line 53
+   at MakeupTestingPageObjects.DecorativeСosmeticsPage.SelectSortingByPrice() in E:\VisualStudio\RepVisualStudio\MakeupTesting\MakeupTesting\DecorativeСosmeticsPage.cs:line 190
+   at MakeupTestingTests.DecorativeCosmeticsTests.VerifySortProductsByPrice() in E:\VisualStudio\RepVisualStudio\MakeupTesting\MakeupTestingTests\DecorativeCosmeticsTests.cs:line 86
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
 <br>
+<br>OpenQA.Selenium.WebDriverTimeoutException : Timed out after 10 seconds
 <br>									</td>
 			</tr>
 	</tbody>

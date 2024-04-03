@@ -1,7 +1,9 @@
-﻿using MakeupTestingPageObjects;
+﻿using MakeupTestingModels;
+using MakeupTestingPageObjects;
 using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 using NUnit.Framework.Legacy;
+using System.Text.Json;
 
 namespace MakeupTestingTests
 {
@@ -21,7 +23,7 @@ namespace MakeupTestingTests
             ClassicAssert.AreEqual(categoryTitle, titleText, "Another page is displayed");
         }
 
-        [Test(Description = " Test FAILED - The product type is missing in the title")]
+        [Test(Description = " Test FAILED")]
         public void VerifyFilterProducts()
         {
             var config = new ConfigurationBuilder().AddJsonFile("appconfig.json").Build();
@@ -64,7 +66,7 @@ namespace MakeupTestingTests
             }
         }
 
-        [Test]
+        [Test(Description = "Test FAILED")]
         public void VerifySortProductsByPrice()
         {
             var config = new ConfigurationBuilder().AddJsonFile("appconfig.json").Build();
@@ -153,6 +155,19 @@ namespace MakeupTestingTests
             int index = productPage.GetActiveProductImageIndex();
 
             ClassicAssert.AreEqual(imgNumber, index, "The photo does not match the selected one");
+        }
+
+        [Test]
+        public void SerializeTest()
+        {
+            var config = new ConfigurationBuilder().AddJsonFile("appconfig.json").Build();
+
+            Header header = new Header(driver);
+            header.SelectCategory(config["category"]);
+            DecorativeСosmeticsPage decorativeCosmetic = new DecorativeСosmeticsPage(driver);
+            List<Product> products = decorativeCosmetic.GetProductsDetailsForSerialization();
+            string json = JsonSerializer.Serialize(products);
+            File.WriteAllText("Serialize.json", json);
         }
     }
 }

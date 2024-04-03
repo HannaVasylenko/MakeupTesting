@@ -112,25 +112,6 @@ namespace MakeupTestingPageObjects
                 .Sum(e => double.Parse(e.Text.Replace("&nbsp;₴", "").Replace("₴", "")));
 
         /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public List<Product> GetCartProductsDetails()
-        {
-            List<IWebElement> productListInCart = webDriver.FindElements(By.XPath("//div[@class='cart-content-wrapper scrolling']//ul[@class='product-list scrolling']/li")).ToList();
-            List<Product> products = new List<Product>();
-
-            foreach (IWebElement actualProduct in productListInCart)
-            {
-                Product product = new Product();
-                product.Name = actualProduct.FindElement(By.XPath(".//div[@class='product__header']")).Text;
-                product.Price = double.Parse(actualProduct.FindElement(By.XPath($".//div[@class='product__price']")).Text.Replace("&nbsp;₴", ""));
-                products.Add(product);
-            }
-            return products;
-        }
-
-        /// <summary>
         /// Clicks on the "Place an order" button within the Cart window.
         /// </summary>
         public void ClickOnPlaceAnOrderBtn()
