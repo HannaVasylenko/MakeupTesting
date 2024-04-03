@@ -64,7 +64,7 @@ namespace MakeupTestingTests
             }
         }
 
-        [Test(Description = " Test FAILED - The products are not sorted by prices on website")]
+        [Test]
         public void VerifySortProductsByPrice()
         {
             var config = new ConfigurationBuilder().AddJsonFile("appconfig.json").Build();
