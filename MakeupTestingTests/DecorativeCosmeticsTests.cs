@@ -23,7 +23,7 @@ namespace MakeupTestingTests
             ClassicAssert.AreEqual(categoryTitle, titleText, "Another page is displayed");
         }
 
-        [Test(Description = " Test FAILED")]
+        [Test(Description = "Test FAILED")]
         public void VerifyFilterProducts()
         {
             var config = new ConfigurationBuilder().AddJsonFile("appconfig.json").Build();

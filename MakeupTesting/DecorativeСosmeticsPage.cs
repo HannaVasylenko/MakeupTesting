@@ -17,7 +17,7 @@ namespace MakeupTestingPageObjects
         /// Converts the given string representation of a price to a double value, or returns the default value if conversion fails.
         /// </summary>
         /// <param name="price">The string representation of the price to convert.</param>
-        /// <param name="defaultValue">The default value 0.0 to return if conversion fails.</param>
+        /// <param name="defaultValue">The default value to return if conversion fails.</param>
         /// <returns>The converted price as a double value, or the default value if conversion fails.</returns>
         private double ConvertToPriceOrDefault(string price, double defaultValue)
         {
