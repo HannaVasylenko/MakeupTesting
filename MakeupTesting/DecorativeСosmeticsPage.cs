@@ -47,10 +47,7 @@ namespace MakeupTestingPageObjects
         /// Retrieves the number of clicks on the right arrow in the testimonials slider.
         /// </summary>
         /// <returns>The number of clicks on the right arrow in the testimonials slider.</returns>
-        public int GetNumberOfClicksOnArrowInSlider()
-        {
-            return numberOfClicksOnArrow;
-        }
+        public int GetNumberOfClicksOnArrowInSlider() => numberOfClicksOnArrow;
 
         /// <summary>
         /// Clicks on the right arrow in the testimonials slider and increments the count of clicks.
@@ -65,7 +62,12 @@ namespace MakeupTestingPageObjects
         /// <summary>
         /// Clicks on the button to add more products.
         /// </summary>
-        public void ClickOnBtnAddMoreProducts() => WaitUntilWebElementExists(By.XPath("//div[text()='Більше товарів']")).Click();
+        public void ClickOnBtnAddMoreProducts()
+        {
+            int countProductsBeforeClickOnBtn = CountProductsInList();
+            WaitUntilWebElementExists(By.XPath("//div[text()='Більше товарів']")).Click();
+            WaitUntil(e => !countProductsBeforeClickOnBtn.Equals(CountProductsInList()));
+        }
 
         /// <summary>
         /// Selects the specified product by clicking on its link in the web page.
@@ -87,7 +89,7 @@ namespace MakeupTestingPageObjects
         /// <param name="productName">The name of the product type to filter by.</param>
         public void CheckFiltersByNameAndTypeOfProduct(string nameOfBrand, string productName)
         {
-            WaitUntilWebElementExists(By.XPath("//aside[@class='catalog-filter']"));
+            WaitUntilWebElementExists(By.XPath("//aside[contains(@class,'catalog-filter')]"));
 
             IWebElement chbFilterByBrand = webDriver.FindElement(By.XPath($"//div[@class='catalog-filter-list-wrap']//a[text()='{nameOfBrand}']"));
             WaitUntil(x => chbFilterByBrand.Displayed);
@@ -102,9 +104,26 @@ namespace MakeupTestingPageObjects
         /// Retrieves a list of tuples containing product names and types from the catalog page.
         /// </summary>
         /// <returns>A list of tuples containing product names and types.</returns>
-        public List<(string productName, string productType)> GetProductTitle() => webDriver.FindElements(By.XPath("//div[@class='catalog-products']//ul[@class='simple-slider-list']//div[@class='info-product-wrapper']/a"))
-                .ToList()
-                .ConvertAll(e => (e.Text, e.GetAttribute("data-default-name")));
+        public List<(string productName, string productType)> GetProductTitle()
+        {
+            List<(string productName, string productType)> result = new List<(string productName, string productType)>();
+
+            WaitUntil(e => {
+                try
+                {
+                    result = webDriver.FindElements(By.XPath("//div[@class='catalog-products']//ul[@class='simple-slider-list']/li[@data-click-event='product_select']//div[@class='simple-slider-list__link']/div[@class='info-product-wrapper']/a"))
+                    .ToList()
+                    .ConvertAll(e => (e.Text, e.GetAttribute("data-default-name")));
+                }
+                catch (StaleElementReferenceException)
+                {
+                    result.Clear();
+                    return false;
+                }
+                return true;
+            });
+            return result;
+        }
 
         /// <summary>
         /// Sets the filter by price range on the catalog page.
@@ -113,7 +132,7 @@ namespace MakeupTestingPageObjects
         /// <param name="priceMax">The maximum price value for the filter.</param>
         public void SetFilterByPrice(double priceMin, double priceMax)
         {
-            WaitUntilWebElementExists(By.XPath("//aside[@class='catalog-filter']"));
+            WaitUntilWebElementExists(By.XPath("//aside[contains(@class,'catalog-filter')]"));
 
             IWebElement txtPriceMin = WaitUntilWebElementExists(By.XPath("//input[@id='price-from']"));
             txtPriceMin.Clear();
@@ -140,7 +159,7 @@ namespace MakeupTestingPageObjects
             {
                 try
                 {
-                    List<IWebElement> productList = webDriver.FindElements(By.XPath("//div[@class='catalog-products']//ul[@class='simple-slider-list']//div[@class='info-product-wrapper']")).ToList();
+                    List<IWebElement> productList = webDriver.FindElements(By.XPath("//div[@class='catalog-products']//ul[@class='simple-slider-list']/li[@data-click-event='product_select']//div[@class='simple-slider-list__link']/div[@class='info-product-wrapper']")).ToList(); // //div[@class='catalog-products']//ul[@class='simple-slider-list']//div[@class='info-product-wrapper']
                     foreach (var product in productList)
                     {
                         string title = product.FindElement(By.XPath("./a")).GetAttribute("data-default-name");
@@ -172,7 +191,6 @@ namespace MakeupTestingPageObjects
                     return false;
                 }
             });
-
             return productsDetails;
         }
 
@@ -197,7 +215,6 @@ namespace MakeupTestingPageObjects
                         return false;
                     }
                 }
-
                 return true;
             });
         }
@@ -276,7 +293,6 @@ namespace MakeupTestingPageObjects
                     return false;
                 }
             });
-
             return products;
         }
     }

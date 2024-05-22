@@ -108,8 +108,12 @@ namespace MakeupTestingPageObjects
         /// Calculates and retrieves the sum of prices of all products in the Cart.
         /// </summary>
         /// <returns>The total sum of product prices in the Cart.</returns>
-        public double GetProductsPricesSumInCart() => webDriver.FindElements(By.XPath("//div[@class='cart-content-wrapper scrolling']//ul[@class='product-list scrolling']/li//div[@class='product__price']"))
+        public double GetProductsPricesSumInCart()
+        {
+            WaitCartWindow(WebElementState.OPENED);
+            return webDriver.FindElements(By.XPath("//div[@class='cart-content-wrapper scrolling']//ul[@class='product-list scrolling']/li//div[@class='product__price']"))
                 .Sum(e => double.Parse(e.Text.Replace("&nbsp;₴", "").Replace("₴", "")));
+        }
 
         /// <summary>
         /// Clicks on the "Place an order" button within the Cart window.

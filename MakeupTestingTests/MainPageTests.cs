@@ -4,7 +4,6 @@ using NUnit.Framework;
 using NUnit.Framework.Legacy;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
-using OpenQA.Selenium.Support.UI;
 
 namespace MakeupTestingTests
 {
@@ -19,10 +18,10 @@ namespace MakeupTestingTests
             
             Header header = new Header(driver);
             header.SwitchLanguageToru();
-            ClassicAssert.AreEqual(driver.Title, titleMainPageru, "The page is displayed in a different language");
+            Assert.That(driver.Title, Is.EqualTo(titleMainPageru), "The page is displayed in a different language");
             
             header.SwitchLanguageToUA();
-            ClassicAssert.AreEqual(driver.Title, titleMainPageUA, "The page is displayed in a different language");
+            Assert.That(driver.Title, Is.EqualTo(titleMainPageUA), "The page is displayed in a different language");
         }
 
         [Test]
@@ -36,8 +35,8 @@ namespace MakeupTestingTests
             Actions actions = new Actions(driver);
             actions.MoveToElement(header.GetDecorativeСosmeticsElement(config["category"])).Build().Perform();
             initPage.SelectSubCategory(config["subCategory"]);
-            
-            ClassicAssert.AreEqual(titleSubCategory, initPage.GetSubCategoryTitle(config["subCategoryTitle"]), "The titles do not match");
+
+            Assert.That(initPage.GetSubCategoryTitle(config["subCategoryTitle"]), Is.EqualTo(titleSubCategory), "The titles do not match");
         }
 
         [Test]
@@ -49,8 +48,8 @@ namespace MakeupTestingTests
             double scrollPositionBeforeClick = Convert.ToDouble(js.ExecuteScript("return window.pageYOffset;"));
             initPage.ClickOnScrollUpArrow();
             double scrollPositionAfterClick = Convert.ToDouble(js.ExecuteScript("return window.pageYOffset;"));
-            
-            ClassicAssert.IsTrue(scrollPositionAfterClick < scrollPositionBeforeClick, "The position on the screen did not change after pressing the scroll up button.");
+
+            Assert.That(scrollPositionAfterClick < scrollPositionBeforeClick, Is.True, "The position on the screen did not change after pressing the scroll up button");
         }
 
         [Test]
@@ -76,8 +75,8 @@ namespace MakeupTestingTests
 
             Header header = new Header(driver);
             header.SelectBeautyClub();
-            
-            ClassicAssert.AreEqual(titleBeautyClub, driver.Title, "The BeautyClub page is not displayed");
+
+            Assert.That(driver.Title, Is.EqualTo(titleBeautyClub), "The BeautyClub page is not displayed");
         }
 
         [Test]
@@ -91,7 +90,7 @@ namespace MakeupTestingTests
             string secondWindow = footer.GetAllWindows().FirstOrDefault(x => x != footer.GetCurrentWindow(), "");
             footer.SwitchToWindow(secondWindow);
 
-            ClassicAssert.AreEqual(titleYouTube, driver.Title, "Another page is displayed");
+            Assert.That(driver.Title, Is.EqualTo(titleYouTube), "Another page is displayed");
         }
 
         [Test]
@@ -104,7 +103,7 @@ namespace MakeupTestingTests
             Actions actions = new Actions(driver);
             actions.MoveToElement(header.GetHintFeatures()).Perform();
 
-            ClassicAssert.AreEqual(hintText, header.GetHintText(), "The tooltip is not displayed");
+            Assert.That(header.GetHintText(), Is.EqualTo(hintText), "The tooltip is not displayed");
         }
 
         [Test]
@@ -116,7 +115,7 @@ namespace MakeupTestingTests
             footer.InputEmail(config["emailSubscription"]);
             footer.ClickBtnEmailSubscription();
 
-            ClassicAssert.IsTrue(footer.IsEmailSubscriptionErrorDisplayed(), "The email subscription error is not displayed or is not invalid.");
+            Assert.That(footer.IsEmailSubscriptionErrorDisplayed(), Is.True, "The email subscription error is not displayed or is not invalid.");
         }
     }
 }

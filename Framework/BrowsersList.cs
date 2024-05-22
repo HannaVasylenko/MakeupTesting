@@ -21,9 +21,6 @@ namespace Framework
                     FirefoxDriverService service = FirefoxDriverService.CreateDefaultService(geckodriverPath);
                     driver = new FirefoxDriver();
                     break;
-                case BrowserEnum.Edge:
-                    driver = new EdgeDriver();
-                    break;
                 default:
                     throw new Exception("You selected wrong browser");
             }

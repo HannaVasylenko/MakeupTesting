@@ -70,7 +70,7 @@ namespace MakeupTestingTests
             }
         }
 
-        [Test(Description = "Test FAILED")]
+        [Test(Description = "Test FAILED, Periodically displayed product cards that do not have the name of the product being searched for")]
         public void VerifySearchResultOnLastPage()
         {
             var config = new ConfigurationBuilder().AddJsonFile("appconfig.json").Build();
@@ -102,8 +102,8 @@ namespace MakeupTestingTests
             ProductPage productPage = new ProductPage(driver);
             productPage.ClickOnBreadCrumbs(config["breadCrumbsTitle"]);
             SearchResultPage searchResultPage = new SearchResultPage(driver);
-            
-            ClassicAssert.AreEqual(linkBreadCrumbs, searchResultPage.GetBreadCrumbsTitle(config["breadCrumbsTitle"]), "The title does not match the selected category");
+
+            Assert.That(searchResultPage.GetBreadCrumbsTitle(config["breadCrumbsTitle"]), Is.EqualTo(linkBreadCrumbs), "The title does not match the selected category");
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using MakeupTestingPageObjects;
 using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
-using NUnit.Framework.Legacy;
 
 namespace MakeupTestingTests
 {
@@ -22,7 +21,7 @@ namespace MakeupTestingTests
             productPage.AddProductToCart();
             CartPage cartPage = new CartPage(driver);
 
-            ClassicAssert.AreEqual(productTitle, cartPage.GetProductTitleInCart(), "Product name does not match the selected one");
+            Assert.That(cartPage.GetProductTitleInCart(), Is.EqualTo(productTitle), "Product name does not match the selected one");
         }
 
         [Test]
@@ -40,7 +39,7 @@ namespace MakeupTestingTests
             CartPage cartPage = new CartPage(driver);
             cartPage.DeleteProductFromCart();
 
-            ClassicAssert.AreEqual(0, cartPage.GetCartSize(), "Cart is not empty");
+            Assert.That(cartPage.GetCartSize(), Is.EqualTo(0), "Cart is not empty");
         }
 
         [Test]
@@ -60,7 +59,7 @@ namespace MakeupTestingTests
             int expectedQuantity = currentQuantity + 1;
             cartPage.IncreaseQuantityProductInOrder();
 
-            ClassicAssert.AreEqual(expectedQuantity.ToString(), cartPage.GetQuantityProductsInCart(), "The quantity of the product in the cart did not increase by 1 after clicking the button to increase the quantity");
+            Assert.That(cartPage.GetQuantityProductsInCart(), Is.EqualTo(expectedQuantity.ToString()), "The quantity of the product in the cart did not increase by 1 after clicking the button to increase the quantity");
         }
 
         [Test]
@@ -81,7 +80,7 @@ namespace MakeupTestingTests
             int expectedQuantity = currentQuantity - 1;
             cartPage.DecreaseQuantityProductInOrder();
 
-            ClassicAssert.AreEqual(expectedQuantity.ToString(), cartPage.GetQuantityProductsInCart(), "The quantity of the product in the cart did not decrease by 1 after clicking the button to decrease the quantity");
+            Assert.That(cartPage.GetQuantityProductsInCart(), Is.EqualTo(expectedQuantity.ToString()), "The quantity of the product in the cart did not decrease by 1 after clicking the button to decrease the quantity");
         }
 
         [Test]
@@ -101,7 +100,7 @@ namespace MakeupTestingTests
             productPage.AddProductToCart();
             CartPage cartPage = new CartPage(driver);
 
-            ClassicAssert.AreEqual(cartPage.GetTotalOrderPriceInCart(), cartPage.GetProductsPricesSumInCart().ToString(), "The total cost of the order does not equal the sum of the cost of the products");
+            Assert.That(cartPage.GetProductsPricesSumInCart().ToString(), Is.EqualTo(cartPage.GetTotalOrderPriceInCart()), "The total cost of the order does not equal the sum of the cost of the products");
         }
 
         [Test]
@@ -121,7 +120,7 @@ namespace MakeupTestingTests
             cartPage.ClickOnPlaceAnOrderBtn();
             cartPage.ClickOnBtnContinueShopping();
 
-            ClassicAssert.AreEqual(titleMainPageUA, driver.Title, "Another page is displayed");
+            Assert.That(driver.Title, Is.EqualTo(titleMainPageUA), "Another page is displayed");
         }
     }
 }

@@ -20,10 +20,10 @@ namespace MakeupTestingTests
             DecorativeСosmeticsPage decorativeCosmetic = new DecorativeСosmeticsPage(driver);
             string titleText = decorativeCosmetic.GetCategoryTitle(config["categoryTitle"]);
             
-            ClassicAssert.AreEqual(categoryTitle, titleText, "Another page is displayed");
+            Assert.That(titleText, Is.EqualTo(categoryTitle), "Another page is displayed");
         }
 
-        [Test(Description = "Test FAILED")]
+        [Test(Description = "Test FAILED, Product name in russian with the Ukrainian language of the site")]
         public void VerifyFilterProducts()
         {
             var config = new ConfigurationBuilder().AddJsonFile("appconfig.json").Build();
@@ -58,15 +58,15 @@ namespace MakeupTestingTests
 
             var searchResultDetails = decorativeCosmetic.GetProductsTitlesAndPrices();
             ClassicAssert.IsNotNull(searchResultDetails);
-
+            
             foreach (var item in searchResultDetails)
             {
-                ClassicAssert.LessOrEqual(item.Value, maxPrice, $"Product {item.Key} price {item.Value} is not less than maximum price");
-                ClassicAssert.GreaterOrEqual(item.Value, minPrice, $"Product {item.Key} price {item.Value} is not less than maximum price");
+                Assert.That(item.Value, Is.LessThanOrEqualTo(maxPrice), $"Product {item.Key} price {item.Value} is not less than maximum price");
+                Assert.That(item.Value, Is.GreaterThanOrEqualTo(minPrice), $"Product {item.Key} price {item.Value} is not less than maximum price");
             }
         }
 
-        [Test(Description = "Test FAILED")]
+        [Test(Description = "Test FAILED, Error sorting products by cost on website")]
         public void VerifySortProductsByPrice()
         {
             var config = new ConfigurationBuilder().AddJsonFile("appconfig.json").Build();
@@ -105,8 +105,8 @@ namespace MakeupTestingTests
             decorativeCosmetic.RemoveFilters();
             bool isButtonNotPresentAfter = decorativeCosmetic.IsRemoveFiltersButtonPresent();
 
-            ClassicAssert.IsTrue(isButtonPresentBefore, "Remove filters button is not present before clicking.");
-            ClassicAssert.IsFalse(isButtonNotPresentAfter, "Remove filters button is still present after clicking.");
+            Assert.That(isButtonPresentBefore, Is.True, "Remove filters button is not present before clicking");
+            Assert.That(isButtonNotPresentAfter, Is.False, "Remove filters button is still present after clicking");
         }
 
         [Test]
@@ -122,7 +122,7 @@ namespace MakeupTestingTests
             int updatedCount = dekorativeCosmetic.CountProductsInList();
             int expectedCount = initialCount + 36;
 
-            ClassicAssert.AreEqual(expectedCount, updatedCount, "The products count did not increase by 36 after clicking the 'More products' button.");
+            Assert.That(updatedCount, Is.EqualTo(expectedCount), "The products count did not increase by 36 after clicking the 'More products' button.");
         }
 
         [Test]
@@ -136,8 +136,8 @@ namespace MakeupTestingTests
             dekorativeCosmetic.ClickRightArrowInTestimonialsSlider();
             int expectedIndex = dekorativeCosmetic.GetIndexOfActiveTestimonialPage();
             int actualIndex = dekorativeCosmetic.GetNumberOfClicksOnArrowInSlider() + 1;
-
-            ClassicAssert.AreEqual(expectedIndex, actualIndex, "The active page index does not match the expected index after clicking the right arrow.");
+            
+            Assert.That(actualIndex, Is.EqualTo(expectedIndex), "The active page index does not match the expected index after clicking the right arrow");
         }
 
         [Test]
@@ -154,7 +154,7 @@ namespace MakeupTestingTests
             productPage.SelectProductImage(int.Parse(config["imgNumber"]));
             int index = productPage.GetActiveProductImageIndex();
 
-            ClassicAssert.AreEqual(imgNumber, index, "The photo does not match the selected one");
+            Assert.That(index, Is.EqualTo(imgNumber), "The photo does not match the selected one");
         }
 
         [Test]

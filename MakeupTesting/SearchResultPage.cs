@@ -41,7 +41,7 @@ namespace MakeupTestingPageObjects
             {
                 try
                 {
-                    var list = webDriver.FindElements(By.XPath("//div[@class='catalog-products']//ul[@class='simple-slider-list']//div[@class='info-product-wrapper']/a"))
+                    var list = webDriver.FindElements(By.XPath("//div[@class='catalog-products']//ul[@class='simple-slider-list']/li[@data-click-event='product_select']//div[@class='simple-slider-list__link']/div[@class='info-product-wrapper']/a"))
                         .ToList()
                         .ConvertAll(e => e.GetAttribute("data-default-name"));
 
@@ -53,7 +53,6 @@ namespace MakeupTestingPageObjects
                     return false;
                 }
             });
-
             return result;
         }
 

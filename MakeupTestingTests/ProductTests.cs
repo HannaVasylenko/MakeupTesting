@@ -1,6 +1,5 @@
 ﻿using MakeupTestingPageObjects;
 using Microsoft.Extensions.Configuration;
-using NUnit.Framework.Legacy;
 using NUnit.Framework;
 
 namespace MakeupTestingTests
@@ -20,8 +19,8 @@ namespace MakeupTestingTests
             decorativeCosmetics.SelectProduct(config["productAddToCart2"]);
             ProductPage productPage = new ProductPage(driver);
             productPage.SelectProductVariants(config["productVariant"]);
-            
-            ClassicAssert.AreEqual(productVariant, productPage.GetProductColorVariant(config["productVariant"]), "Another color is selected");
+
+            Assert.That(productPage.GetProductColorVariant(config["productVariant"]), Is.EqualTo(productVariant), "Another color is selected");
         }
     }
 }
